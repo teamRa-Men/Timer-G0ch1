@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/shadow" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:drawable/btn_default"
+        android:foreground="@drawable/add"
+        android:onClick="onEditCategories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/clear" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:onClick="onCategory1"
+        android:text="category1"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:onClick="onCatogory"
+        android:text="category"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="413dp"
+        android:layout_height="686dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/taskbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/done"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@drawable/tick"
+                    android:onClick="onDone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/edit"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@drawable/pencil"
+                    android:onClick="onEditTask"
+                    app:layout_constraintBottom_toBottomOf="@+id/task"
+                    app:layout_constraintEnd_toStartOf="@+id/time"
+                    app:layout_constraintTop_toTopOf="@+id/task"
+                    app:srcCompat="@color/clear" />
+
+                <ImageButton
+                    android:id="@+id/time"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@color/clear"
+                    android:onClick="onDo"
+                    android:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edit"
+                    app:srcCompat="@android:drawable/ic_media_play" />
+
+                <TextView
+                    android:id="@+id/task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="Task"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/done"
+                    app:layout_constraintStart_toEndOf="@+id/done"
+                    app:layout_constraintTop_toTopOf="@+id/done"
+                    app:layout_constraintVertical_bias="0.7" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/taskbar2"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/done1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@drawable/tick"
+                    android:onClick="onDone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/edit1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@drawable/pencil"
+                    android:onClick="onEditTask"
+                    app:layout_constraintBottom_toBottomOf="@+id/task1"
+                    app:layout_constraintEnd_toStartOf="@+id/time1"
+                    app:layout_constraintTop_toTopOf="@+id/task1"
+                    app:srcCompat="@color/clear" />
+
+                <ImageButton
+                    android:id="@+id/time1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@color/clear"
+                    android:onClick="onDo"
+                    android:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edit1"
+                    app:srcCompat="@android:drawable/ic_media_play" />
+
+                <TextView
+                    android:id="@+id/task1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:text="Task1"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/done1"
+                    app:layout_constraintStart_toEndOf="@+id/done1"
+                    app:layout_constraintTop_toTopOf="@+id/done1"
+                    app:layout_constraintVertical_bias="0.4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/addnewtask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginLeft="52dp"
+                    android:text="Add New Task"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@android:drawable/btn_default"
+                    android:foreground="@drawable/add"
+                    android:onClick="onAddTask"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@color/clear" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

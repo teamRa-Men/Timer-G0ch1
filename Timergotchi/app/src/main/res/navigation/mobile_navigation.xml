@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/todo">
+
+    <fragment
+        android:id="@+id/todo"
+        android:name="com.example.timergotchi.ui.todo.TodoFragment"
+        android:label="To Do"
+        tools:layout="@layout/fragment_todo" />
+
+    <fragment
+        android:id="@+id/timer"
+        android:name="com.example.timergotchi.ui.timer.TimerFragment"
+        android:label="Timer"
+        tools:layout="@layout/fragment_rewards" />
+
+    <fragment
+        android:id="@+id/rewards"
+        android:name="com.example.timergotchi.ui.shop.RewardsFragment"
+        android:label="Rewards"
+        tools:layout="@layout/fragment_timer" />
+    <fragment
+        android:id="@+id/pet"
+        android:name="com.example.timergotchi.ui.pet.Pet"
+        android:label="Pet"
+        tools:layout="@layout/fragment_pet" />
+</navigation>
