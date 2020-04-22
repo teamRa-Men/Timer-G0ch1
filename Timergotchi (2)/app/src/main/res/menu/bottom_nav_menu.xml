@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_tasks"
+        android:icon="@drawable/checkbox"
+        android:title="tasks" />
+
+    <item
+        android:id="@+id/navigation_timer"
+        android:icon="@drawable/timer"
+        android:title="timer" />
+
+    <item
+        android:id="@+id/navigation_shop"
+        android:icon="@drawable/rewards"
+        android:title="shop" />
+    <item
+        android:id="@+id/navigation_pet"
+        android:icon="@drawable/pet"
+        android:title="pet" />
+
+</menu>
