@@ -1,0 +1,182 @@
+08/04/2020 - 09/04/2020
+
+[08/04 13:36] manhkwong (Guest)
+Hello team Ramen
+​[08/04 13:37] kimdam92 (Guest)
+yo
+​[08/04 13:37] manhkwong (Guest)
+RRAAAAAAAAAAMEEEEEEEN
+​[08/04 13:38] kimdam92 (Guest)
+funny i actually thought of making Auckland Ramen app for your motivation
+​[08/04 13:40] manhkwong (Guest)
+Im doing the UX assignment on the Digital Pet Task Manager App so ill be able to elaborate on it sometime later
+​[08/04 13:41] kimdam92 (Guest)
+i mean Juilian's
+​[08/04 13:41] manhkwong (Guest)
+its a gamified todo list
+​[08/04 13:41] kimdam92 (Guest)
+A task manager app with cute mascot?
+​[08/04 13:41] manhkwong (Guest)
+that you can interact with and buy stuff for
+​[08/04 13:42] manhkwong (Guest)
+a similar app would be "study bunny" or "focus plant"
+[08/04 13:47] Julian Grabowsky
+... i am making a ramen app for the daytrip app... huh
+​[08/04 13:47] Julian Grabowsky
+or more like a review app
+​[08/04 13:48] kimdam92 (Guest)
+we don't need to decide the topic today though
+​[08/04 13:48] kimdam92 (Guest)
+gather all the topic ideas and we can tell Manju next Tuesday
+​[08/04 13:49] kimdam92 (Guest)
+even we confirm our decision now, if Manju says no then we can't make that
+​[Yesterday 09:58] Julian Grabowsky
+so.... do we allready have an idea?
+​[Yesterday 09:58] Julian Grabowsky
+since we din'dt do anything over the weekend
+​[Yesterday 10:22] manhkwong (Guest)
+Ive done UX for gamified time management app
+​[Yesterday 10:24] manhkwong (Guest)
+wanna audio call during break?
+​[Yesterday 10:24] kimdam92 (Guest)
+cool
+[Yesterday 10:25] Julian Grabowsky
+yep, tought about the same
+​[Yesterday 10:34] Julian Grabowsky
+can't do: animation's. scoll-behaviors
+​[Yesterday 10:34] Julian Grabowsky
+nothing with alot a data, no storage
+​[Yesterday 10:35] Julian Grabowsky
+no complicated crafics or designs
+​[Yesterday 10:35] Julian Grabowsky
+a more hi-end calculator?
+​[Yesterday 10:38] Julian Grabowsky
+game for next semester
+​[Yesterday 10:44] Julian Grabowsky
+time managing app + tamagochi
+​[Yesterday 10:44] Julian Grabowsky
+animated energy-loading screen saver
+​[Yesterday 10:45] Julian Grabowsky
+(in 100 frams)
+​[Yesterday 10:48] Julian Grabowsky
+bookmark app
+Call ended 28 min 26 sec Yesterday 10:54
+[Yesterday 10:59] manhkwong (Guest)
+oops sorry
+​[Yesterday 10:59] manhkwong (Guest)
+I send now?
+​[Yesterday 11:00] manhkwong (Guest)
+ignore project details
+​[Yesterday 11:00] manhkwong (Guest)
+whose email we use for primary email?
+​[Yesterday 15:35] Julian Grabowsky
+i think its not really the mic's it more Teams itself
+​[Yesterday 15:36] kimdam92 (Guest)
+mic
+​[Yesterday 15:36] kimdam92 (Guest)
+I can't hear well
+[Yesterday 15:36] Julian Grabowsky
+microsoft team suc... it's not as good as other apps
+​[Yesterday 15:37] Julian Grabowsky
+i get feling at least
+​[Yesterday 15:37] Julian Grabowsky
+---
+​[Yesterday 15:37] Julian Grabowsky
+so are we missing anything else now?
+​[Yesterday 15:37] kimdam92 (Guest)
+nope i thk
+​[Yesterday 15:37] manhkwong (Guest)
+pretty sorted
+​[Yesterday 15:37] Julian Grabowsky
+ok, so we will present our ide tomorrow to manju?
+​[Yesterday 15:37] manhkwong (Guest)
+3 activities, todo list, timer, pet monster
+​[Yesterday 15:38] Julian Grabowsky
+also i think somne was supposed to get a timeslot?
+[Yesterday 15:38] Julian Grabowsky
+someone*
+​[Yesterday 15:38] manhkwong (Guest)
+I think thats for the regular progress check
+​[Yesterday 15:38] kimdam92 (Guest)
+u mean trello?
+​[Yesterday 15:38] Julian Grabowsky
+ah kay, well then, i'm off, hear ya guys tomorrow
+​[Yesterday 15:38] manhkwong (Guest)
+the time slot
+​[Yesterday 15:39] manhkwong (Guest)
+see you
+​[Yesterday 15:39] manhkwong (Guest)
+*hear you
+Call ended 23 min 54 sec Yesterday 15:39
+
+15/04/2020
+
+[11:44] manhkwong (Guest)
+add a store for customizing pet, interactions (eg toys) for pets, different food
+​[11:45] manhkwong (Guest)
+tracking task success for meeting deadlines
+​[11:45] kimdam92 (Guest)
+idk we are able to do but can we expand tamagochi more
+​[11:46] kimdam92 (Guest)
+timer and to do list are hard to improve unless adding new content
+​[11:46] manhkwong (Guest)
+to do list can sort into catorgories
+​[11:46] manhkwong (Guest)
+timer alarm is pet's cry
+​[11:46] kimdam92 (Guest)
+like quest logs in MMORPG
+​[11:47] manhkwong (Guest)
+yes?
+​[11:47] kimdam92 (Guest)
+im thinking of making app interface like actual game
+​[11:47] manhkwong (Guest)
+buy different ring tones/pet cry
+[11:48] manhkwong (Guest)
+blocks interaction with pet if failing to meet targets or if you have a lot of tasks to do
+​[11:50] manhkwong (Guest)
+pet mood, affection and health tied to performance
+
+@teamRa-Men
+ 
+Owner
+Author
+teamRa-Men commented 4 days ago
+20/04/2020
+
+[10:29] manhkwong (Guest)
+Our own software company website?
+Edited​[11:23] manhkwong (Guest)
+development blog, download software/store, donations, suggestions
+​[11:24] kimdam92 (Guest)
+forum
+​[11:29] manhkwong (Guest)
+hiya
+​[11:29] manhkwong (Guest)
+?
+​[11:29] manhkwong (Guest)
+no we are doing ux for website
+​[11:30] manhkwong (Guest)
+!!!!!!!!!!!!!!!!!!!!!!!!!!
+​[12:00]
+manhkwong (Guest) added Manju Parthinathan to the chat.
+[12:01]
+manhkwong (Guest) added Pinal Shah to the chat.
+
+​[12:03] manhkwong (Guest)
+website for a software development company
+Edited​[12:04] manhkwong (Guest)
+development blog, store, funding,
+​[12:04] manhkwong (Guest)
+careers
+​[12:14] kimdam92 (Guest)
+about us page
+​[12:14] Pinal Shah
+yes good...
+​[12:15] Pinal Shah
+The best idea is....visit three or four IT company website...Because in company website the content is more important...
+​[12:15] Pinal Shah
+Company Profile...No of projects the company has...Team members of that project...Any funding received from Government for any project
+​[12:16] Pinal Shah
+so these are the general ideas you can look for while working on your website...
+​[12:17] Pinal Shah
+Important thing: CEO Message on home page, events, seminar, workshops...there are so many things...you just come up with your own creative content and discuss with me and Manju...
