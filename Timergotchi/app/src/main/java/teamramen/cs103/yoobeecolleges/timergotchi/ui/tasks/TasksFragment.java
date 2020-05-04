@@ -25,4 +25,5 @@ public class TasksFragment extends Fragment {
 
         return root;
     }
+
 }

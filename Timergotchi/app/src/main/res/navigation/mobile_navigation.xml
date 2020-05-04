@@ -27,4 +27,9 @@
         android:name="teamramen.cs103.yoobeecolleges.timergotchi.ui.shop.ShopFragment"
         android:label="shop"
         tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/navigation_record"
+        android:name="teamramen.cs103.yoobeecolleges.timergotchi.ui.record.RecordFragment"
+        android:label="RECORD"
+        tools:layout="@layout/fragment_record" />
 </navigation>

@@ -1,20 +1,407 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/todolist"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="false"
+    android:fadeScrollbars="true"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TASKS"
-        android:textAlignment="center"
-        android:textSize="20sp"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="411dp"
+        android:layout_height="47dp"
+        android:onClick="onAddNewTask"
+        android:text="Add New Task"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="50dp"
+        tools:layout_conversion_absoluteWidth="411dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/task0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="44dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+        <EditText
+            android:id="@+id/taskname0"
+
+            android:layout_width="265dp"
+            android:layout_height="43dp"
+            android:background="@color/design_default_color_background"
+            android:ems="10"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48000002"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="274dp" />
+
+        <Button
+            android:id="@+id/donebutton0"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:onClick="onTaskDone"
+            app:layout_constraintEnd_toStartOf="@id/taskname0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/editbutton0"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@id/taskname0"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/dobutton0"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@+id/editbutton0"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/task1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="44dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+        <EditText
+            android:id="@+id/taskname1"
+
+            android:layout_width="265dp"
+            android:layout_height="43dp"
+            android:background="@color/design_default_color_background"
+            android:ems="10"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48000002"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="274dp" />
+
+        <Button
+            android:id="@+id/donebutton1"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:onClick="onTaskDone"
+            app:layout_constraintEnd_toStartOf="@id/taskname1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/editbutton1"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@id/taskname1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/dobutton1"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@+id/editbutton1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/task2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="44dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+        <EditText
+            android:id="@+id/taskname2"
+
+            android:layout_width="265dp"
+            android:layout_height="43dp"
+            android:background="@color/design_default_color_background"
+            android:ems="10"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48000002"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="274dp" />
+
+        <Button
+            android:id="@+id/donebutton2"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:onClick="onTaskDone"
+            app:layout_constraintEnd_toStartOf="@id/taskname2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/editbutton2"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@id/taskname2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/dobutton2"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@+id/editbutton2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/task3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="44dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+        <EditText
+            android:id="@+id/taskname3"
+
+            android:layout_width="265dp"
+            android:layout_height="43dp"
+            android:background="@color/design_default_color_background"
+            android:ems="10"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48000002"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="274dp" />
+
+        <Button
+            android:id="@+id/donebutton3"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:onClick="onTaskDone"
+            app:layout_constraintEnd_toStartOf="@id/taskname3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/editbutton3"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@id/taskname3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/dobutton3"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@+id/editbutton3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/task4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="44dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+        <EditText
+            android:id="@+id/taskname4"
+
+            android:layout_width="265dp"
+            android:layout_height="43dp"
+            android:background="@color/design_default_color_background"
+            android:ems="10"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48000002"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="274dp" />
+
+        <Button
+            android:id="@+id/donebutton4"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:onClick="onTaskDone"
+            app:layout_constraintEnd_toStartOf="@id/taskname4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/editbutton4"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@id/taskname4"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/dobutton4"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@+id/editbutton4"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/task5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="44dp"
+        tools:layout_conversion_absoluteWidth="411dp">
+
+        <EditText
+            android:id="@+id/taskname5"
+
+            android:layout_width="265dp"
+            android:layout_height="43dp"
+            android:background="@color/design_default_color_background"
+            android:ems="10"
+            android:focusable="auto"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:selectAllOnFocus="false"
+            android:shadowColor="@color/colorAccent"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.48000002"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="274dp" />
+
+        <Button
+            android:id="@+id/donebutton"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:onClick="onTaskDone"
+            app:layout_constraintEnd_toStartOf="@id/taskname5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/editbutton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@id/taskname5"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+
+        <Button
+            android:id="@+id/dobutton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toEndOf="@+id/editbutton"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="44dp"
+            tools:layout_conversion_absoluteWidth="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
