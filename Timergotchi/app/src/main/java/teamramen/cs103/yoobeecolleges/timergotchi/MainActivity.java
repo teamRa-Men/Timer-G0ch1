@@ -3,6 +3,8 @@ package teamramen.cs103.yoobeecolleges.timergotchi;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     float taskMove = 0;
     int taskCount = 0;
     ArrayList<Integer> taskID = new ArrayList<>();
+    ArrayList<Integer> taskNameID = new ArrayList<>();
+    int newTaskNameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,51 +40,58 @@ public class MainActivity extends AppCompatActivity {
         //decorView.setSystemUiVisibility(uiOptions);
         NavigationUI.setupWithNavController(navView, navController);
 
+
+        initTasks();
+
+    }
+
+    public void initTasks(){
+
         taskID.add(R.id.task0);
+        taskNameID.add(R.id.taskname0);
         taskID.add(R.id.task1);
+        taskNameID.add(R.id.taskname1);
         taskID.add(R.id.task2);
+        taskNameID.add(R.id.taskname2);
         taskID.add(R.id.task3);
+        taskNameID.add(R.id.taskname3);
         taskID.add(R.id.task4);
+        taskNameID.add(R.id.taskname4);
         taskID.add(R.id.task5);
+        taskNameID.add(R.id.taskname5);
+
+        newTaskNameID = R.id.taskname;
 
     }
 
 
-
-
     public void onAddNewTask(View view) {
-/*
 
-
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View v = vi.inflate(R.layout.taskprefab,null);
-        v.setId(ViewCompat.generateViewId());
-
-
-        todoList =  findViewById(R.id.todolist);
-        todoList.addView(v,0,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        tasks.add(v);
-        /*taskMove += 100;
-        ObjectAnimator animation = ObjectAnimator.ofFloat(v,"translationY",taskMove);
-        animation.setDuration(500);
-        animation.start();*/
         if (taskCount < taskID.size()) {
-            View v = findViewById(taskID.get(taskCount));
-            System.out.println(v);
+            if(!((EditText)findViewById(newTaskNameID)).getText().toString().isEmpty()) {
+                View v = findViewById(taskID.get(taskCount));
+                TextView t = findViewById(taskNameID.get(taskCount));
 
-            try {
-                v.setVisibility(View.VISIBLE);
-            } catch (Exception e) {
-                System.out.println(e);
+                try {
+                    v.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+
+                taskMove += v.getHeight();
+
+                t.setText(((EditText) findViewById(newTaskNameID)).getText().toString());
+                ObjectAnimator animation = ObjectAnimator.ofFloat(v, "translationY", taskMove);
+                animation.setDuration(200);
+                animation.start();
+                taskCount++;
+                ((EditText) findViewById(newTaskNameID)).setText("");
+                findViewById(R.id.todolist).requestFocus();
             }
-
-
-            taskMove += v.getHeight();
-            ObjectAnimator animation = ObjectAnimator.ofFloat(v, "translationY", taskMove);
-            animation.setDuration(200);
-            animation.start();
-            taskCount++;
+            else{
+                ((EditText)findViewById(newTaskNameID)).requestFocus();
+            }
         }
     }
 
