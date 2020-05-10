@@ -19,7 +19,6 @@
             android:id="@+id/navbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="1dp"
             android:background="@color/navBar"
             android:orientation="horizontal">
@@ -27,7 +26,8 @@
             <ImageView
                 android:id="@+id/tolist"
                 android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_height="20sp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toList"
                 android:tint="@color/colorPrimaryMedium"
@@ -37,13 +37,15 @@
                 android:id="@+id/totimer"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/timer" />
 
             <ImageView
                 android:id="@+id/topet"
                 android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_height="20sp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toPet"
                 android:tint="@color/colorPrimaryMedium"
@@ -52,7 +54,8 @@
             <ImageView
                 android:id="@+id/toshop"
                 android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_height="20sp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toShop"
                 android:tint="@color/colorPrimaryMedium"
@@ -61,7 +64,8 @@
             <ImageView
                 android:id="@+id/torecord"
                 android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_height="20sp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toRecord"
                 android:tint="@color/colorPrimaryMedium"
