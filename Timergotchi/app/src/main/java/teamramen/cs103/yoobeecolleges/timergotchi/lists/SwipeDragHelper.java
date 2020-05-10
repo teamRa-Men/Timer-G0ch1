@@ -1,4 +1,4 @@
-package teamramen.cs103.yoobeecolleges.timergotchi.tasks;
+package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;

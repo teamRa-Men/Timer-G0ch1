@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import teamramen.cs103.yoobeecolleges.timergotchi.tasks.Task;
+import teamramen.cs103.yoobeecolleges.timergotchi.lists.Task;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {

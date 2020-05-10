@@ -10,7 +10,7 @@ import teamramen.cs103.yoobeecolleges.timergotchi.R;
 import teamramen.cs103.yoobeecolleges.timergotchi.pet.PetActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.record.RecordActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.shop.ShopActivity;
-import teamramen.cs103.yoobeecolleges.timergotchi.tasks.TaskActivity;
+import teamramen.cs103.yoobeecolleges.timergotchi.lists.ListsActivity;
 
 public class TimerActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     public void toList(View view) {
-        Intent i = new Intent(this, TaskActivity.class);
+        Intent i = new Intent(this, ListsActivity.class);
         startActivity(i);
     }
 /*

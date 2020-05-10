@@ -1,4 +1,4 @@
-package teamramen.cs103.yoobeecolleges.timergotchi.tasks;
+package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -21,7 +21,7 @@ import teamramen.cs103.yoobeecolleges.timergotchi.record.RecordActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.shop.ShopActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
-public class TaskActivity extends AppCompatActivity {
+public class ListsActivity extends AppCompatActivity {
 
     ListPagerAdapter listAdapter;
     ViewPager pager;
@@ -29,7 +29,7 @@ public class TaskActivity extends AppCompatActivity {
     public int currentList = 0;
     public ArrayList<TasksFragment> lists = new ArrayList<TasksFragment>();
     FinishedFragment finishedList;
-    public static TaskActivity instance;
+    public static ListsActivity instance;
     ArrayList<MediaPlayer> doneSounds = new ArrayList<MediaPlayer>();
 
     public TextView pointsView;
@@ -117,13 +117,13 @@ public class TaskActivity extends AppCompatActivity {
         MediaPlayer itemize = MediaPlayer.create(this, R.raw.itemize);
         MediaPlayer okay =MediaPlayer.create(this, R.raw.okay);
         MediaPlayer tada =MediaPlayer.create(this, R.raw.tada);
-        //MediaPlayer yeah =MediaPlayer.create(this, R.raw.yeah);
+        MediaPlayer yeah =MediaPlayer.create(this, R.raw.yeah);
         MediaPlayer bell =MediaPlayer.create(this, R.raw.bell);
         doneSounds.add(completed);
         doneSounds.add(itemize);
         doneSounds.add(okay);
         doneSounds.add(tada);
-        //doneSounds.add(yeah);
+        doneSounds.add(yeah);
         doneSounds.add(bell);
 
         points = 0;
@@ -147,9 +147,11 @@ public class TaskActivity extends AppCompatActivity {
     public void onTaskDone(View view) {
         int pick =  (int)(Math.random()*doneSounds.size());
         try {
+            doneSounds.get(pick).setVolume(0.2f,0.2f);
             doneSounds.get(pick).start();
+            //System.out.println(doneSounds.get(pick)+" " + pick);
         }catch (Exception e){
-            //////system.out.println("null sound " + pick);
+            System.out.println("null sound " + pick);
         }
         lists.get(pager.getCurrentItem()).onTaskDone(view);
         awardPoints();
@@ -202,7 +204,7 @@ public class TaskActivity extends AppCompatActivity {
 
 /*
     public void toList(View view) {
-        Intent i = new Intent(this, TaskActivity.class);
+        Intent i = new Intent(this, ListsActivity.class);
         startActivity(i);
     }*/
 

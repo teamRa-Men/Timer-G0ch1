@@ -13,7 +13,7 @@
         <activity android:name=".pet.PetActivity" />
         <activity android:name=".record.RecordActivity" />
         <activity android:name=".shop.ShopActivity" />
-        <activity android:name=".tasks.TaskActivity" />
+        <activity android:name=".lists.ListsActivity" />
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name">

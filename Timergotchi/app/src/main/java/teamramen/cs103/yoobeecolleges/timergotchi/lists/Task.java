@@ -1,4 +1,4 @@
-package teamramen.cs103.yoobeecolleges.timergotchi.tasks;
+package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.view.View;
 import android.widget.TextView;
