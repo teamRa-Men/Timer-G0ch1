@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6A41B4</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#E7E7E7</color>
+    <color name="colorAccent">#87662C</color>
+    <color name="colorPrimaryLight">#ECFAD5</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryMedium">#92E2C5</color>
+    <color name="colorPrimaryDark">#22CB8D</color>
+    <color name="colorPrimarysdfsdf">#55C89E</color>
+    <color name="navBar">#24CB8E</color>
+    <color name="colorPastelYellow">#FFFCCE</color>
+    <color name="colorPastelPinkOrange">#FFB8B3</color>
+    <color name="colorPastelRed">#FF9BA3</color>
+    <color name="colorPastelOrange">#F8D7CB</color>
+    <color name="colorPastelYellowOrange">#F8D9B6</color>
+    <color name="colorPastelBlue">#D0F8F8</color>
+    <color name="colorPastelPurple">#C7CEEA</color>
+
+
+    <array name = "myColors">
+        <item>@color/colorAccent</item>
+        <item>@color/colorPrimaryLight</item>
+        <item>@color/colorPrimary</item>
+        <item>@color/colorPrimaryMedium</item>
+        <item>@color/colorPrimaryDark</item>
+    </array>
 </resources>

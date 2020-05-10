@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPastelBlue"
+    tools:context=".timer.TimerActivity">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/navBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/navbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/navBar"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/tolist"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:onClick="toList"
+                android:tint="@color/colorPrimaryMedium"
+                app:srcCompat="@drawable/lists" />
+
+            <ImageView
+                android:id="@+id/totimer"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/timer" />
+
+            <ImageView
+                android:id="@+id/topet"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:onClick="toPet"
+                android:tint="@color/colorPrimaryMedium"
+                app:srcCompat="@drawable/pet" />
+
+            <ImageView
+                android:id="@+id/toshop"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:onClick="toShop"
+                android:tint="@color/colorPrimaryMedium"
+                app:srcCompat="@drawable/rewards" />
+
+            <ImageView
+                android:id="@+id/torecord"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:onClick="toRecord"
+                android:tint="@color/colorPrimaryMedium"
+                app:srcCompat="@drawable/record" />
+        </LinearLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

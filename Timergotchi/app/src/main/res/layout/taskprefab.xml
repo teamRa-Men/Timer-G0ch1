@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/task"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryLight"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/taskname"
+
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/task"
+        android:ems="10"
+        android:focusable="auto"
+        android:focusableInTouchMode="false"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
+        android:selectAllOnFocus="false"
+        android:shadowColor="@color/colorAccent"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textColorHighlight="@color/colorAccent"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/donebutton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/done"
+        android:onClick="onTaskDone"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/taskname" />
+
+    <Button
+        android:id="@+id/dobutton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/do_button"
+        android:onClick="onDo"
+        app:layout_constraintStart_toEndOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/taskname" />
+
+    <ImageView
+        android:id="@+id/doneshadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/finishedtask"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintEnd_toEndOf="@+id/taskname"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/taskname" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/donedone"
+        app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintStart_toStartOf="@+id/donebutton"
+        app:layout_constraintTop_toTopOf="@+id/donebutton" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/task_bar_end_right"
+        app:layout_constraintBottom_toBottomOf="@+id/dobutton"
+        app:layout_constraintEnd_toEndOf="@+id/dobutton"
+        app:layout_constraintStart_toEndOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/dobutton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

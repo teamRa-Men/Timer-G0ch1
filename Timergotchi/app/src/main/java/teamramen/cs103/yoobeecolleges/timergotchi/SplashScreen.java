@@ -1,11 +1,13 @@
 package teamramen.cs103.yoobeecolleges.timergotchi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
+
+import teamramen.cs103.yoobeecolleges.timergotchi.tasks.TaskActivity;
 
 public class SplashScreen extends AppCompatActivity {
     private static int SPLASH_TIME = 3000;
@@ -13,11 +15,12 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        ConstraintLayout back = findViewById(R.id.splash_screen_background);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent toApp = new Intent(SplashScreen.this, MainActivity.class);
+                Intent toApp = new Intent(SplashScreen.this, TaskActivity.class);
                 startActivity(toApp);
                 finish();
             }
