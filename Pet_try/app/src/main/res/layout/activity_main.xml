@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="100sp"
+        android:layout_marginLeft="100sp"
+        android:textSize="28px"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="100sp"
+        android:layout_marginLeft="50sp"
+        android:textSize="28px"
+        android:text="Affection" />
+
+    <TextView
+        android:id="@+id/healthbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="120sp"
+        android:layout_marginLeft="100sp"
+        android:textSize="28px"
+        android:text="100" />
+
+    <TextView
+        android:id="@+id/Text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="120sp"
+        android:layout_marginLeft="50sp"
+        android:textSize="28px"
+        android:text="Healthbar" />
+
+    <ImageView
+        android:id="@+id/Pet_default"
+        android:layout_width="310sp"
+        android:layout_height="350sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50sp"
+        android:layout_marginTop="200sp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:onClick="Petting"
+        app:srcCompat="@drawable/pet_default" />
+
+    <LinearLayout
+        android:id="@+id/Foodinventory"
+        android:layout_width="300sp"
+        android:layout_height="100sp"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="540sp"
+        android:layout_marginLeft="10sp"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/Mushroom"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/food_mushroom" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/Backpack"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="500dp"
+        android:onClick="Openinv"
+        app:srcCompat="@drawable/backpack_closed" />
+
+
+</RelativeLayout>
