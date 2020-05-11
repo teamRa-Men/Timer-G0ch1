@@ -130,7 +130,7 @@ public class ListsActivity extends AppCompatActivity {
         pointsView = findViewById(R.id.pointsview);
         ////system.out.println(pointsView+" points" + pointsView.getText().toString());
         points = db.getPoints();
-        pointsView.setText(points+" gil");
+        pointsView.setText(points+" g");
 
         instance = this;
     }
@@ -161,7 +161,7 @@ public class ListsActivity extends AppCompatActivity {
     //TODO streaks, time used, deadline met
     public void awardPoints(){
         points += 100 + (int)(Math.random()*50);
-        pointsView.setText(points+" gil");
+        pointsView.setText(points+" g");
         db.setPoints(points);
     }
 

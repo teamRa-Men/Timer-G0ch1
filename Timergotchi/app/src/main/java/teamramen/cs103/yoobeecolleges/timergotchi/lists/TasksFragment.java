@@ -79,7 +79,7 @@ public class TasksFragment extends Fragment {
                     newTaskName.setHint("");
                 }
                 else{
-                    newTaskName.setHint(getTextNameHint());
+                    newTaskName.setHint("Add New Task");
                 }
             }
 
@@ -111,16 +111,7 @@ public class TasksFragment extends Fragment {
         return root;
     }
 
-    String getTextNameHint(){
-        switch (listNum){
-            case 0:return "Add New Task";
-            case 1:return "Add Morning Task";
-            case 2:return "Add Day Task";
-            case 3:return "Add Evening Task";
 
-        }
-        return "";
-    }
 
     public void onAddTask() {
 
@@ -156,7 +147,7 @@ public class TasksFragment extends Fragment {
                 tasks.get(i).moveTo(i, db);
             }
 
-            ListsActivity.instance.finishedList.onAddTask(t);
+
 
     }
 
