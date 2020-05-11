@@ -8,7 +8,84 @@
     android:background="@color/colorPastelYellow"
     tools:context=".pet.PetActivity">
 
+    <TextView
+        android:id="@+id/Text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Healthbar"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="28px"
+        app:layout_constraintEnd_toEndOf="@+id/Pet_default"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Pet_default" />
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="28px"
+        app:layout_constraintStart_toEndOf="@+id/Text"
+        app:layout_constraintTop_toBottomOf="@+id/healthbar" />
+
+    <ImageView
+        android:id="@+id/Backpack"
+        android:layout_width="114dp"
+        android:layout_height="123dp"
+        android:onClick="Openinv"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Pet_default"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/backpack_closed" />
+
+    <LinearLayout
+        android:id="@+id/Foodinventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/Backpack"
+        app:layout_constraintEnd_toStartOf="@+id/Backpack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Backpack">
+
+        <ImageView
+            android:id="@+id/Mushroom"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/food_mushroom" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Affection"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="28px"
+        app:layout_constraintStart_toStartOf="@+id/Text1"
+        app:layout_constraintTop_toBottomOf="@+id/Text1" />
+
+    <TextView
+        android:id="@+id/healthbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="28px"
+        app:layout_constraintStart_toEndOf="@+id/Text1"
+        app:layout_constraintTop_toTopOf="@+id/Text1" />
+
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@color/navBar"
@@ -73,4 +150,22 @@
                 app:srcCompat="@drawable/record" />
         </LinearLayout>
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/Pet_default"
+        android:layout_width="259dp"
+        android:layout_height="288dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:onClick="Petting"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pet_default" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
