@@ -32,7 +32,7 @@
         android:layout_marginTop="40dp"
         android:text="Healthbar"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/Pet_default"
         app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/Text"
         app:layout_constraintTop_toBottomOf="@+id/healthbar" />
 
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:text="Affection"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/Text1"
         app:layout_constraintTop_toBottomOf="@+id/Text1" />
 
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:text="100"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/Text1"
         app:layout_constraintTop_toTopOf="@+id/Text1" />
 

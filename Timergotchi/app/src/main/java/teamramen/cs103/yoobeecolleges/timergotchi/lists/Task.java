@@ -75,12 +75,9 @@ public class Task{
     public void done(DatabaseHelper db){
         showFinished();
         status=COMPLETED;
-        if(list == 0) {
-            db.updateData(id,name,index,COMPLETED,0);
-        }
-        else {
+
             db.updateData(id, name, index, COMPLETED, 4);
-        }
+
     }
 
     void showFinished(){

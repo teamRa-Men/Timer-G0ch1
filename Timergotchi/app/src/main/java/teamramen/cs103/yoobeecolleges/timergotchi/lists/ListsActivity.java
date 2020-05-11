@@ -55,7 +55,7 @@ public class ListsActivity extends AppCompatActivity {
 
 
 
-        listAdapter.addList(lists.get(0), "Daily",0);
+        listAdapter.addList(lists.get(0), "Tasks",0);
         listAdapter.addList(lists.get(1), "Morning",1);
         listAdapter.addList(lists.get(2), "Afternoon",2);
         listAdapter.addList(lists.get(3), "Evening",3);
@@ -138,7 +138,7 @@ public class ListsActivity extends AppCompatActivity {
 
 
     //add task to list
-    public void onAddTask(View view) { lists.get(pager.getCurrentItem()).onAddTask(view); }
+    public void onAddTask(View view) { lists.get(pager.getCurrentItem()).onAddTask(); }
 
     //pass to timer
     public void onDo(View view) { }
