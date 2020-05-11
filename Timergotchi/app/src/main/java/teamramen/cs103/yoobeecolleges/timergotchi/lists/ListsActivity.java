@@ -50,16 +50,16 @@ public class ListsActivity extends AppCompatActivity {
         lists.add(new TasksFragment(0,db));
         lists.add(new TasksFragment(1,db));
         lists.add(new TasksFragment(2,db));
-        lists.add(new TasksFragment(3,db));
-        finishedList = new FinishedFragment(4,db);
 
 
 
-        listAdapter.addList(lists.get(0), "Tasks",0);
-        listAdapter.addList(lists.get(1), "Morning",1);
-        listAdapter.addList(lists.get(2), "Afternoon",2);
-        listAdapter.addList(lists.get(3), "Evening",3);
-        listAdapter.addList(finishedList, "Finished",4);
+
+
+
+        listAdapter.addList(lists.get(0), "Morning",0);
+        listAdapter.addList(lists.get(1), "Afternoon",1);
+        listAdapter.addList(lists.get(2), "Evening",2);
+
 
         listTabs = findViewById(R.id.listtabs);
 
@@ -69,11 +69,11 @@ public class ListsActivity extends AppCompatActivity {
         listTabs.setupWithViewPager(pager);
 
 
-        listTabs.getTabAt(0).setIcon(R.drawable.daily);
-        listTabs.getTabAt(1).setIcon(R.drawable.unmorning);
-        listTabs.getTabAt(2).setIcon(R.drawable.unafternoon);
-        listTabs.getTabAt(3).setIcon(R.drawable.unevening);
-        listTabs.getTabAt(4).setIcon(R.drawable.unfinished);
+
+        listTabs.getTabAt(0).setIcon(R.drawable.morning);
+        listTabs.getTabAt(1).setIcon(R.drawable.unafternoon);
+        listTabs.getTabAt(2).setIcon(R.drawable.unevening);
+
 
 
 
@@ -84,11 +84,11 @@ public class ListsActivity extends AppCompatActivity {
                 public void onTabSelected(@NonNull TabLayout.Tab tab) {
                     super.onTabSelected(tab);
                     switch (tab.getPosition()){
-                        case 0: tab.setIcon(R.drawable.daily);break;
-                        case 1: tab.setIcon(R.drawable.morning);break;
-                        case 2: tab.setIcon(R.drawable.afternoon);break;
-                        case 3: tab.setIcon(R.drawable.evening);break;
-                        case 4: tab.setIcon(R.drawable.finished);break;
+
+                        case 0: tab.setIcon(R.drawable.morning);break;
+                        case 1: tab.setIcon(R.drawable.afternoon);break;
+                        case 2: tab.setIcon(R.drawable.evening);break;
+
                     }
                 }
 
@@ -96,11 +96,11 @@ public class ListsActivity extends AppCompatActivity {
                 public void onTabUnselected(TabLayout.Tab tab) {
                     super.onTabUnselected(tab);
                     switch (tab.getPosition()){
-                        case 0: tab.setIcon(R.drawable.undaily);break;
-                        case 1: tab.setIcon(R.drawable.unmorning);break;
-                        case 2: tab.setIcon(R.drawable.unafternoon);break;
-                        case 3: tab.setIcon(R.drawable.unevening);break;
-                        case 4: tab.setIcon(R.drawable.unfinished);break;
+
+                        case 0: tab.setIcon(R.drawable.unmorning);break;
+                        case 1: tab.setIcon(R.drawable.unafternoon);break;
+                        case 2: tab.setIcon(R.drawable.unevening);break;
+
                     }
                 }
 

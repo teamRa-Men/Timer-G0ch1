@@ -5,7 +5,7 @@
     android:id="@+id/tasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPastelYellow"
+    android:background="@color/colorPrimaryLight"
     tools:context=".pet.PetActivity">
 
     <ImageView
