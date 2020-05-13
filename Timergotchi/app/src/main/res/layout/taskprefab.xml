@@ -22,35 +22,15 @@
         android:focusableInTouchMode="false"
         android:imeOptions="actionDone"
         android:inputType="text"
-        android:paddingLeft="10sp"
-        android:paddingTop="10sp"
+        android:paddingTop="12sp"
         android:selectAllOnFocus="false"
         android:shadowColor="@color/colorAccent"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/textColor"
         android:textColorHighlight="@color/colorAccent"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/donebutton"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/done"
-        android:onClick="onTaskDone"
-        app:layout_constraintEnd_toStartOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/taskname" />
-
-    <Button
-        android:id="@+id/dobutton"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/do_button"
-        android:onClick="onDo"
-        app:layout_constraintStart_toEndOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/taskname" />
 
     <ImageView
         android:id="@+id/doneshadow"
@@ -68,20 +48,64 @@
         android:id="@+id/imageView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/donedone"
+        android:background="@drawable/task_bar_end_left"
         app:layout_constraintBottom_toBottomOf="@+id/donebutton"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
         app:layout_constraintStart_toStartOf="@+id/donebutton"
         app:layout_constraintTop_toTopOf="@+id/donebutton" />
 
     <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:tint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintStart_toStartOf="@+id/donebutton"
+        app:layout_constraintTop_toTopOf="@+id/donebutton"
+        app:srcCompat="@drawable/donedone" />
+
+    <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/task_bar_end_right"
-        app:layout_constraintBottom_toBottomOf="@+id/dobutton"
-        app:layout_constraintEnd_toEndOf="@+id/dobutton"
+        app:layout_constraintBottom_toBottomOf="@+id/editbutton"
+        app:layout_constraintEnd_toEndOf="@+id/editbutton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/dobutton" />
+        app:layout_constraintTop_toTopOf="@+id/editbutton"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/donebutton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:onClick="onTaskDone"
+        android:tint="@color/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/taskname"
+        app:srcCompat="@drawable/done" />
+
+    <ImageView
+        android:id="@+id/editbutton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/edit_button"
+        android:onClick="onEdit"
+        android:tint="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/taskname"
+        app:srcCompat="@drawable/edit_button" />
+
+    <ImageView
+        android:id="@+id/dobutton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:onClick="onDo"
+        android:tint="@color/colorAccent"
+        app:layout_constraintEnd_toStartOf="@+id/editbutton"
+        app:layout_constraintTop_toTopOf="@+id/taskname"
+        app:srcCompat="@drawable/do_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,11 +35,14 @@ public class TasksFragment extends Fragment {
     public int listNum;
     protected TasksAdapter adapter;
 
+    public EditText listName;
 
     public TasksFragment(int listNum, DatabaseHelper db){
         this.db = db;
         this.listNum = listNum;
     }
+
+
 
 
     //View editTaskView;
@@ -50,8 +53,11 @@ public class TasksFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_tasks, container, false);
 
+
+        root = inflater.inflate(R.layout.fragment_tasks, container, false);
+        listName = root.findViewById(R.id.listname);
+        listName.setText("List " + (listNum+1));
 
 
         RecyclerView list = root.findViewById(R.id.list);
@@ -65,6 +71,7 @@ public class TasksFragment extends Fragment {
 
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
 
 
         if(!fetched) {
@@ -125,7 +132,7 @@ public class TasksFragment extends Fragment {
             tasks.add(newTask);
             adapter.notifyItemInserted(tasks.size() - 1);
             newTaskName.setText("");
-            newTaskName.clearFocus();
+
             //newTaskName.setHint(getTextNameHint());
 
         }

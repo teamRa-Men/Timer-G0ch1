@@ -115,7 +115,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             super(itemView);
             nameView = itemView.findViewById(R.id.taskname);
             container = itemView.findViewById(R.id.task);
-            dobutton=itemView.findViewById(R.id.dobutton);
+            dobutton=itemView.findViewById(R.id.editbutton);
             donebutton=itemView.findViewById(R.id.donebutton);
             doneshadow=itemView.findViewById(R.id.doneshadow);
 

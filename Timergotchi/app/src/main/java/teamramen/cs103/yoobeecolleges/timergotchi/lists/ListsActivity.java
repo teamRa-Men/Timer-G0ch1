@@ -46,69 +46,54 @@ public class ListsActivity extends AppCompatActivity {
 
 
         listAdapter = new ListPagerAdapter(this.getSupportFragmentManager());
-
-        lists.add(new TasksFragment(0,db));
-        lists.add(new TasksFragment(1,db));
-        lists.add(new TasksFragment(2,db));
-
-
-
-
-
-
-        listAdapter.addList(lists.get(0), "Morning",0);
-        listAdapter.addList(lists.get(1), "Afternoon",1);
-        listAdapter.addList(lists.get(2), "Evening",2);
-
-
         listTabs = findViewById(R.id.listtabs);
+
+
+
+        for(int i = 0; i < 10;i++) {
+            lists.add(new TasksFragment(i, db));
+            listAdapter.addList(lists.get(i), "Morning",i);
+        }
 
         pager = findViewById(R.id.listpager);
         pager.setAdapter(listAdapter);
-
         listTabs.setupWithViewPager(pager);
 
-
-
-        listTabs.getTabAt(0).setIcon(R.drawable.morning);
-        listTabs.getTabAt(1).setIcon(R.drawable.unafternoon);
-        listTabs.getTabAt(2).setIcon(R.drawable.unevening);
-
+        listTabs.getTabAt(0).setIcon(R.drawable.listicon);
+        for(int i = 1; i < 10;i++) {
+            listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
+        }
 
 
 
 
         listTabs.addOnTabSelectedListener(
-            new TabLayout.ViewPagerOnTabSelectedListener(pager){
-                @Override
-                public void onTabSelected(@NonNull TabLayout.Tab tab) {
-                    super.onTabSelected(tab);
-                    switch (tab.getPosition()){
+                new TabLayout.ViewPagerOnTabSelectedListener(pager){
+                    @Override
+                    public void onTabSelected(@NonNull TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
 
-                        case 0: tab.setIcon(R.drawable.morning);break;
-                        case 1: tab.setIcon(R.drawable.afternoon);break;
-                        case 2: tab.setIcon(R.drawable.evening);break;
+                        for(int i = 0; i < lists.size();i++){
+                            if(tab.getPosition() == i){
+                                listTabs.getTabAt(i).setIcon(R.drawable.listicon);
+                            }
+                            else{
+                                listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
+                            }
+                        }
+                    }
 
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
                     }
                 }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-                    super.onTabUnselected(tab);
-                    switch (tab.getPosition()){
-
-                        case 0: tab.setIcon(R.drawable.unmorning);break;
-                        case 1: tab.setIcon(R.drawable.unafternoon);break;
-                        case 2: tab.setIcon(R.drawable.unevening);break;
-
-                    }
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                    super.onTabReselected(tab);
-                }
-            }
         );
 
 
@@ -142,6 +127,9 @@ public class ListsActivity extends AppCompatActivity {
 
     //pass to timer
     public void onDo(View view) { }
+
+    //open edit task menu
+    public void onEdit(View view) { }
 
     //on finished task
     public void onTaskDone(View view) {
