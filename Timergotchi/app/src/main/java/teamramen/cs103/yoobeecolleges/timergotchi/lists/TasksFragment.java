@@ -142,7 +142,7 @@ public class TasksFragment extends Fragment {
 
     public void onTaskDone(View view){
         Task t = findByView(view);
-        t.done(db);
+        t.done();
 
 
             int index = tasks.indexOf(t);
@@ -151,15 +151,12 @@ public class TasksFragment extends Fragment {
 
             adapter.notifyItemRemoved(index);
             for (int i = t.index; i < tasks.size(); i++) {
-                tasks.get(i).moveTo(i, db);
+                tasks.get(i).moveTo(i);
             }
-
-
-
     }
 
 
-    Task findByView(View view){
+    public Task findByView(View view){
         View taskView = (View)view.getParent();
 
 

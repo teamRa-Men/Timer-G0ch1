@@ -21,12 +21,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         //todo deadline, labels*?,repeat* 7
-        String query = "create table Tasks(id integer primary key, taskName text, taskIndex integer, taskStatus integer, list integer)";
+        String query = "create table Tasks(id integer primary key, taskName text, taskIndex integer, taskStatus integer, list integer, dueDate float, sun int, mon int, tue int, wed int, thu int, fri int, sat int)";
         String query1 = "create table Points(id integer primary key, points integer)";
+        String query2 = "create table Lists(id integer primary key, listName text, listNum int)";
 
 
         db.execSQL(query);
         db.execSQL(query1);
+        db.execSQL(query2);
 
 
     }
@@ -69,6 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("taskIndex", taskIndex);
         value.put("taskStatus", 0);
         value.put("list", list);
+        value.put("dueDate", 0);
+        value.put("sun", 0);
+        value.put("mon", 0);
+        value.put("tue", 0);
+        value.put("wed", 0);
+        value.put("thu", 0);
+        value.put("fri", 0);
+        value.put("sat", 0);
 
         //opening the db into writable mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -83,14 +93,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public boolean updateData(long id, String newTaskName, int newIndex, int newStatus,int newList)
+    public boolean updateData(long id, String newTaskName, int newIndex, int newStatus,int newList, float newDueDate, int[] repeat)
     {
         ContentValues value = new ContentValues();
 
         value.put("taskName", newTaskName);
         value.put("taskIndex", newIndex);
         value.put("taskStatus", newStatus);
-        value.put("List",newList);
+        value.put("list",newList);
+        value.put("dueDate",newDueDate);
+        value.put("sun", repeat[0]);
+        value.put("mon", repeat[1]);
+        value.put("tue", repeat[2]);
+        value.put("wed", repeat[3]);
+        value.put("thu", repeat[4]);
+        value.put("fri", repeat[5]);
+        value.put("sat", repeat[6]);
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         long l = 0;
@@ -171,7 +190,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String name = c.getString(1);
                 int index = c.getInt(2);
                 int status = c.getInt(3);
-                tasks.add(new Task(id,name,index,status,list));
+                float dueDate = c.getFloat(4);
+                int[] repeat = new int[]{c.getInt(5),c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11)};
+
+                tasks.add(new Task(id,name,index,status,list,repeat, this));
 
 
                 i++;

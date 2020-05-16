@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".timer.TimerActivity"></activity>
+        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".EditTaskActivity" />
+        <activity android:name=".lists.EditTaskActivity" />
+        <activity android:name=".timer.TimerActivity" />
         <activity android:name=".pet.PetActivity" />
         <activity android:name=".record.RecordActivity" />
         <activity android:name=".shop.ShopActivity" />

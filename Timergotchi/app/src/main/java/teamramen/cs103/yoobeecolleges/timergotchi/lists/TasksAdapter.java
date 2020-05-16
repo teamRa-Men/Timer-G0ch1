@@ -91,7 +91,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         try {
             Task task = tasks.get(oldPos);
             tasks.remove(oldPos);
-            task.moveTo(newPos, db);
+            task.moveTo(newPos);
             tasks.add(newPos,task);
             notifyItemMoved(oldPos, newPos);
         }
@@ -99,7 +99,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     }
 
     public void onViewSwiped(int pos){
-        tasks.get(pos).delete(db);
+        tasks.get(pos).delete();
         tasks.remove(pos);
 
         notifyItemRemoved(pos);

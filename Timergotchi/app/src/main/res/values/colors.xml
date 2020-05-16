@@ -15,6 +15,7 @@
     <color name="colorPastelBlue">#DAFFFF</color>
     <color name="colorPastelPurple">#C7CEEA</color>
     <color name="textColor">#2F575D</color>
+    <color name="colorShadow">#46000000</color>
 
 
     <array name = "myColors">
