@@ -84,10 +84,10 @@ public class FinishedFragment extends Fragment {
         Task t = findByView(view);
         int index = tasks.indexOf(t);
         tasks.remove(t);
-        t.delete(db);
+        t.delete();
         adapter.notifyItemRemoved(index);
         for(int i = t.index; i < tasks.size();i++){
-            tasks.get(i).moveTo(i,db);
+            tasks.get(i).moveTo(i);
         }
     }
     Task findByView(View view){

@@ -14,73 +14,54 @@ public class Task{
     public  TextView nameView;
     public View container,dobutton,donebutton,doneshadow;
 
-    public boolean Sun, Mon, Tue, Wed, Thu, Fri, Sat;
 
+    public int[] repeat;
+    DatabaseHelper db;
 
     //TODO
 
-    public long dueDate;
-/*
-    public Task(Task t){
-        this.id = t.id;
-        this.name = t.name;
-        this.index = t.index;
-        this.status = t.status;
-        this.list = t.list;
+    public float dueDate;
 
-        this.nameView = t.nameView;
-        this.container = t.container;
-        this.dobutton = t.dobutton;
-        this.donebutton = t.donebutton;
-        this.doneshadow = t.doneshadow;
-    }*/
 
     public Task(String name,int index, int list,DatabaseHelper db){
         this.name = name;
         this.index = index;
         this.status = Task.CURRENT;
         this.list = list;
-
-        Sun=Mon=Tue=Wed=Thu=Fri=Sat=false;
+        repeat = new int[]{0,0,0,0,0,0};
         dueDate = -1;
-
         id = db.addTask(name,index,list);
+        this.db = db;
     }
 
-
-    public Task(int id, String name,int index, int status, int list){
+    //Database task handle
+    public Task(int id, String name,int index, int status, int list, int[] repeat, DatabaseHelper db){
         this.id = id;
         this.name = name;
         this.index = index;
         this.status = status;
         this.list = list;
-
-
-        Sun=Mon=Tue=Wed=Thu=Fri=Sat=false;
+        this.repeat = repeat;
         dueDate = -1;
-
-
+        this.db = db;
     }
 
-    public void setName(String n, DatabaseHelper db){
+    public void setName(String n){
         name = n;
-        db. updateData(id, name, index, status,list);
+        nameView.setText(n);
+        update();
     }
 
-    public void moveTo(int i, DatabaseHelper db){
+    public void moveTo(int i){
         index = i;
-        db. updateData(id, name, i, CURRENT,list);
+        update();
     }
 
-    public void done(DatabaseHelper db){
+    public void done(){
         showFinished();
         status=COMPLETED;
-        if(list == 0) {
-            db.updateData(id,name,index,COMPLETED,0);
-        }
-        else {
-            db.updateData(id, name, index, COMPLETED, 4);
-        }
+        update();
+
     }
 
     void showFinished(){
@@ -93,26 +74,24 @@ public class Task{
         }
     }
 
-    public void delete(DatabaseHelper db){
-        db. remove(id);;
+    public void delete(){
+        db. remove(id);
     }
 
 
     //repeat task
-    public void setSun(){Sun = !Sun;}
-    public void setMon(){Mon = !Mon;}
-    public void setTue(){Tue = !Tue;}
-    public void setWed(){Wed = !Wed;}
-    public void setThu(){Thu = !Thu;}
-    public void setFri(){Fri = !Fri;}
-    public void setSat(){Sat = !Sat;}
-
-    //for databasehelper use
-    public void setName(String n){
-        nameView.setText(n);
-        name = n;
+    public void setRepeat(int[] repeat){
+        System.out.println(repeat.toString());
+        this.repeat = repeat;
+        update();
     }
+
+
+
     public void setId(int id){ this.id = id; }
-    public void setIndex(int index){ this.index = index; }
-    public void setStatus(int status){ this.status = status; }
+
+    void update(){
+        db.updateData(id, name, index, status, list, dueDate, repeat);
+    }
+
 }

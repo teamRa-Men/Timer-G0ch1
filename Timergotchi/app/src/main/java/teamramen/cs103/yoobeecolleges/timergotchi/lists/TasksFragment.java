@@ -1,9 +1,13 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -31,11 +35,14 @@ public class TasksFragment extends Fragment {
     public int listNum;
     protected TasksAdapter adapter;
 
+    public EditText listName;
 
     public TasksFragment(int listNum, DatabaseHelper db){
         this.db = db;
         this.listNum = listNum;
     }
+
+
 
 
     //View editTaskView;
@@ -46,8 +53,11 @@ public class TasksFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.fragment_tasks, container, false);
 
+
+        root = inflater.inflate(R.layout.fragment_tasks, container, false);
+        listName = root.findViewById(R.id.listname);
+        listName.setText("List " + (listNum+1));
 
 
         RecyclerView list = root.findViewById(R.id.list);
@@ -63,18 +73,38 @@ public class TasksFragment extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
 
+
         if(!fetched) {
             fetchTasks();
             fetched = true;
         }
         newTaskName = root.findViewById(R.id.addTask);
-        switch (listNum){
-            case 0:setPrompt("Add Daily Task");break;
-            case 1:setPrompt("Add Morning Task");break;
-            case 2:setPrompt("Add Day Task");break;
-            case 3:setPrompt("Add Evening Task");break;
+        newTaskName.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    newTaskName.setHint("");
+                }
+                else{
+                    newTaskName.setHint("Add New Task");
+                }
+            }
 
+        });
+        newTaskName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    onAddTask();
+
+                }
+                return false;
+            }
         }
+        );
+
+
+
 
 
 
@@ -88,44 +118,45 @@ public class TasksFragment extends Fragment {
         return root;
     }
 
-    public void onAddTask(View view) {
+
+
+    public void onAddTask() {
 
         if(newTaskName.getText().toString().isEmpty()) {
             newTaskName.requestFocus();
 
-        }else{
+        }
+        else {
+            Task newTask = new Task(newTaskName.getText().toString(), tasks.size(), listNum, db);
 
-            Task newTask = new Task(newTaskName.getText().toString(),tasks.size(),listNum,db);
             tasks.add(newTask);
-            //system.out.println(tasks);
-            adapter.notifyItemInserted(tasks.size()-1);
+            adapter.notifyItemInserted(tasks.size() - 1);
+            newTaskName.setText("");
+
+            //newTaskName.setHint(getTextNameHint());
 
         }
-        newTaskName.setText("");
     }
 
 
 
     public void onTaskDone(View view){
         Task t = findByView(view);
-        t.done(db);
+        t.done();
 
-        if(listNum > 0) {
+
             int index = tasks.indexOf(t);
 
             tasks.remove(t);
 
             adapter.notifyItemRemoved(index);
             for (int i = t.index; i < tasks.size(); i++) {
-                tasks.get(i).moveTo(i, db);
+                tasks.get(i).moveTo(i);
             }
-
-            ListsActivity.instance.finishedList.onAddTask(t);
-        }
     }
 
 
-    Task findByView(View view){
+    public Task findByView(View view){
         View taskView = (View)view.getParent();
 
 
@@ -163,8 +194,6 @@ public class TasksFragment extends Fragment {
         db.clearList(listNum);
     }
 
-    public void setPrompt(String n){
-        newTaskName.setHint(n);
-    }
+
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -26,7 +27,7 @@ public class ListsActivity extends AppCompatActivity {
     ListPagerAdapter listAdapter;
     ViewPager pager;
     TabLayout listTabs;
-    public int currentList = 0;
+
     public ArrayList<TasksFragment> lists = new ArrayList<TasksFragment>();
     FinishedFragment finishedList;
     public static ListsActivity instance;
@@ -35,6 +36,17 @@ public class ListsActivity extends AppCompatActivity {
     public TextView pointsView;
     public int points;
     DatabaseHelper db;
+
+    View editMenu,deletePopup, calendarPopup;
+    CalendarView calendar;
+    TextView editName, dueDate;
+    int[] repeat = new int[]{0,0,0,0,0,0,0};
+    Task currentEditTask;
+
+    boolean editing, deleting;
+    Task taskEditing;
+    View[] days;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,69 +58,56 @@ public class ListsActivity extends AppCompatActivity {
 
 
         listAdapter = new ListPagerAdapter(this.getSupportFragmentManager());
-
-        lists.add(new TasksFragment(0,db));
-        lists.add(new TasksFragment(1,db));
-        lists.add(new TasksFragment(2,db));
-        lists.add(new TasksFragment(3,db));
-        finishedList = new FinishedFragment(4,db);
-
-
-
-        listAdapter.addList(lists.get(0), "Daily",0);
-        listAdapter.addList(lists.get(1), "Morning",1);
-        listAdapter.addList(lists.get(2), "Afternoon",2);
-        listAdapter.addList(lists.get(3), "Evening",3);
-        listAdapter.addList(finishedList, "Finished",4);
-
         listTabs = findViewById(R.id.listtabs);
+        editMenu = findViewById(R.id.edit);
+        deletePopup = findViewById(R.id.deletepopup);
+
+
+
+        for(int i = 0; i < 10;i++) {
+            lists.add(new TasksFragment(i, db));
+            listAdapter.addList(lists.get(i), "Morning",i);
+        }
 
         pager = findViewById(R.id.listpager);
         pager.setAdapter(listAdapter);
-
         listTabs.setupWithViewPager(pager);
 
-
-        listTabs.getTabAt(0).setIcon(R.drawable.daily);
-        listTabs.getTabAt(1).setIcon(R.drawable.unmorning);
-        listTabs.getTabAt(2).setIcon(R.drawable.unafternoon);
-        listTabs.getTabAt(3).setIcon(R.drawable.unevening);
-        listTabs.getTabAt(4).setIcon(R.drawable.unfinished);
+        listTabs.getTabAt(0).setIcon(R.drawable.listicon);
+        for(int i = 1; i < 10;i++) {
+            listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
+        }
 
 
 
 
         listTabs.addOnTabSelectedListener(
-            new TabLayout.ViewPagerOnTabSelectedListener(pager){
-                @Override
-                public void onTabSelected(@NonNull TabLayout.Tab tab) {
-                    super.onTabSelected(tab);
-                    switch (tab.getPosition()){
-                        case 0: tab.setIcon(R.drawable.daily);break;
-                        case 1: tab.setIcon(R.drawable.morning);break;
-                        case 2: tab.setIcon(R.drawable.afternoon);break;
-                        case 3: tab.setIcon(R.drawable.evening);break;
-                        case 4: tab.setIcon(R.drawable.finished);break;
+                new TabLayout.ViewPagerOnTabSelectedListener(pager){
+                    @Override
+                    public void onTabSelected(@NonNull TabLayout.Tab tab) {
+                        super.onTabSelected(tab);
+
+                        for(int i = 0; i < lists.size();i++){
+                            if(tab.getPosition() == i){
+                                listTabs.getTabAt(i).setIcon(R.drawable.listicon);
+                            }
+                            else{
+                                listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        super.onTabUnselected(tab);
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+                        super.onTabReselected(tab);
                     }
                 }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-                    super.onTabUnselected(tab);
-                    switch (tab.getPosition()){
-                        case 0: tab.setIcon(R.drawable.undaily);break;
-                        case 1: tab.setIcon(R.drawable.unmorning);break;
-                        case 2: tab.setIcon(R.drawable.unafternoon);break;
-                        case 3: tab.setIcon(R.drawable.unevening);break;
-                        case 4: tab.setIcon(R.drawable.unfinished);break;
-                    }
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                    super.onTabReselected(tab);
-                }
-            }
         );
 
 
@@ -130,103 +129,178 @@ public class ListsActivity extends AppCompatActivity {
         pointsView = findViewById(R.id.pointsview);
         ////system.out.println(pointsView+" points" + pointsView.getText().toString());
         points = db.getPoints();
-        pointsView.setText(points+" gil");
+        pointsView.setText(points+" g");
 
         instance = this;
+
+
+        days = new View[]{ findViewById(R.id.editsun),
+                findViewById(R.id.editmon),
+                findViewById(R.id.edittue),
+                findViewById(R.id.editwed),
+                findViewById(R.id.editthu),
+                findViewById(R.id.editfri),
+                findViewById(R.id.editsat)};
+        editName = findViewById(R.id.editname);
     }
 
 
 
     //add task to list
-    public void onAddTask(View view) { lists.get(pager.getCurrentItem()).onAddTask(view); }
+    public void onAddTask(View view) { lists.get(pager.getCurrentItem()).onAddTask(); }
 
     //pass to timer
     public void onDo(View view) { }
 
+    /*****************************************************************************************
+     * Edit Task
+     *****************************************************************************************/
+    public void onEdit(View view) {
+        editing = true;
+        editMenu.setVisibility(View.VISIBLE);
+        pager.setVisibility(View.INVISIBLE);
+        listTabs.setVisibility(View.INVISIBLE);
+
+        taskEditing = (lists.get(pager.getCurrentItem()).findByView(view));
+
+        editName.setText(taskEditing.name+"");
+        for(int i = 0; i < 7;i++){
+            System.out.println(taskEditing.repeat[i]);
+            if(taskEditing.repeat[i] == 1) {
+                days[i].setVisibility(View.INVISIBLE);
+                repeat[i] = 1;
+            }
+            else{
+                days[i].setVisibility(View.VISIBLE);
+                repeat[i] = 0;
+            }
+        }
+    }
+    public void onEditCancel(View view){
+        closeEditMenu();
+    }
+    public void onEditOK(View view){
+        closeEditMenu();
+    }
+
+    //delete task
+    public void onDeletePopup(View view) {
+
+        deleting = true;
+        deletePopup.setVisibility(View.VISIBLE);
+
+    }
+    public void onDelete(View view) {
+        closeDeletePopup();
+        closeEditMenu();
+    }
+    public void onDeleteCancel(View view) {
+        closeDeletePopup();
+    }
+
+    //close popups
+    void closeEditMenu(){
+        if(!deleting) {
+            editing = false;
+            editMenu.setVisibility(View.INVISIBLE);
+            pager.setVisibility(View.VISIBLE);
+            listTabs.setVisibility(View.VISIBLE);
+        }
+    }
+    void closeDeletePopup(){
+        deleting = false;
+        deletePopup.setVisibility(View.INVISIBLE);
+    }
+
+    public void onRepeat(View view){
+        TextView day = ((TextView)view);
+        switch (day.getText().toString()){
+            case "Sun":toggleDay(0);break;
+            case "Mon":toggleDay(1);break;
+            case "Tue":toggleDay(2);break;
+            case "Wed":toggleDay(3);break;
+            case "Thu":toggleDay(4);break;
+            case "Fri":toggleDay(5);break;
+            case "Sat":toggleDay(6);break;
+        }
+    }
+
+    void toggleDay(int day) {
+        //System.out.println(day);
+        if(repeat[day]==1) {
+            days[day].setVisibility(View.VISIBLE);
+            repeat[day] = 0;
+
+        }
+        else{
+            days[day].setVisibility(View.INVISIBLE);
+            repeat[day] = 1;
+        }
+        taskEditing.setRepeat(repeat);
+    }
+
+
+
+
+    /*****************************************************************************************/
     //on finished task
     public void onTaskDone(View view) {
-        int pick =  (int)(Math.random()*doneSounds.size());
-        try {
-            doneSounds.get(pick).setVolume(0.2f,0.2f);
-            doneSounds.get(pick).start();
-            //System.out.println(doneSounds.get(pick)+" " + pick);
-        }catch (Exception e){
-            System.out.println("null sound " + pick);
+        if(!editing) {
+            int pick = (int) (Math.random() * doneSounds.size());
+            try {
+                doneSounds.get(pick).setVolume(0.2f, 0.2f);
+                doneSounds.get(pick).start();
+                //System.out.println(doneSounds.get(pick)+" " + pick);
+            } catch (Exception e) {
+                System.out.println("null sound " + pick);
+            }
+            lists.get(pager.getCurrentItem()).onTaskDone(view);
+            awardPoints();
         }
-        lists.get(pager.getCurrentItem()).onTaskDone(view);
-        awardPoints();
+
     }
 
 
     //TODO streaks, time used, deadline met
     public void awardPoints(){
         points += 100 + (int)(Math.random()*50);
-        pointsView.setText(points+" gil");
+        pointsView.setText(points+" g");
         db.setPoints(points);
     }
 
 
-/*
-    //editing task
-    public void onEditTask(View view) {
-        TasksFragment.instance.onEditTask(view);
-    }
-    public void closeEditTask(View view) {TasksFragment.instance.closeEditTask(view); }
-    public void onDeleteTask(View view) {TasksFragment.instance.deleteEditTask(); }
 
-    //set repeat days
-    public void onSun(View view) {TasksFragment.instance.repeatSun(); }
-    public void onMon(View view) {TasksFragment.instance.repeatMon(); }
-    public void onTue(View view) {TasksFragment.instance.repeatTue(); }
-    public void onWed(View view) {TasksFragment.instance.repeatWed(); }
-    public void onThu(View view) {TasksFragment.instance.repeatThu(); }
-    public void onFri(View view) {TasksFragment.instance.repeatFri(); }
-    public void onSat(View view) {TasksFragment.instance.repeatSat(); }
-
-*/
-
-
-    public void onClearList(View view) {
-        try {
-
-            switch(pager.getCurrentItem()){
-                case 0:lists.get(0).onClearList();break;
-                case 1:lists.get(1).onClearList();break;
-                case 2:lists.get(2).onClearList();break;
-                case 3:lists.get(3).onClearList();break;
-                case 4:finishedList.onClearList();break;
-            }
-
-        }catch (Exception e){
-
+    public void toTimer(View view) {
+        if(!editing) {
+            Intent i = new Intent(this, TimerActivity.class);
+            startActivity(i);
         }
     }
 
-/*
-    public void toList(View view) {
-        Intent i = new Intent(this, ListsActivity.class);
-        startActivity(i);
-    }*/
-
-    public void toTimer(View view) {
-        Intent i = new Intent(this, TimerActivity.class);
-        startActivity(i);
-    }
-
     public void toPet(View view) {
-        Intent i = new Intent(this, PetActivity.class);
-        startActivity(i);
+        if(!editing) {
+            Intent i = new Intent(this, PetActivity.class);
+            startActivity(i);
+        }
     }
 
-    public void toShop(View view) {
-        Intent i = new Intent(this, ShopActivity.class);
-        startActivity(i);
+    public void toShop(View view){
+        if (!editing) {
+
+            Intent i = new Intent(this, ShopActivity.class);
+            startActivity(i);
+        }
     }
 
     public void toRecord(View view) {
-        Intent i = new Intent(this, RecordActivity.class);
-        startActivity(i);
+        if(!editing) {
+
+            Intent i = new Intent(this, RecordActivity.class);
+            startActivity(i);
+        }
     }
+
+
 }
 
 

@@ -5,7 +5,7 @@
     android:id="@+id/tasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPastelYellow"
+    android:background="@color/colorPrimaryLight"
     tools:context=".pet.PetActivity">
 
     <ImageView
@@ -29,7 +29,7 @@
         android:layout_marginTop="40dp"
         android:text="Healthbar"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/Pet_default"
         app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/Text"
         app:layout_constraintTop_toBottomOf="@+id/healthbar" />
 
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:text="Affection"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/Text1"
         app:layout_constraintTop_toBottomOf="@+id/Text1" />
 
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:text="100"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="28px"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/Text1"
         app:layout_constraintTop_toTopOf="@+id/Text1" />
 
@@ -100,7 +100,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/navBar"
+        android:background="@color/colorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -110,54 +110,71 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="1dp"
-            android:background="@color/navBar"
+            android:background="@color/colorPrimaryLight"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/tolist"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toList"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/lists" />
 
             <ImageView
                 android:id="@+id/totimer"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toTimer"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/timer" />
 
             <ImageView
                 android:id="@+id/topet"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:tint="@color/colorPrimary"
                 app:srcCompat="@drawable/pet" />
 
             <ImageView
                 android:id="@+id/toshop"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toShop"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/rewards" />
 
             <ImageView
                 android:id="@+id/torecord"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toRecord"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/record" />
         </LinearLayout>

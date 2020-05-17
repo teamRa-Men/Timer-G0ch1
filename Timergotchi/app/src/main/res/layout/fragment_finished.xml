@@ -25,8 +25,8 @@
         android:layout_marginRight="44dp"
         android:background="@drawable/task"
         android:focusable="auto"
-        android:nextFocusDown="@id/addbutton"
-        android:textAlignment="center"
+
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,6 @@
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/searchbar"
-        app:layout_constraintEnd_toEndOf="@+id/searchbar"
         app:layout_constraintStart_toStartOf="@+id/searchbar"
         app:layout_constraintTop_toTopOf="@+id/searchbar" />
 

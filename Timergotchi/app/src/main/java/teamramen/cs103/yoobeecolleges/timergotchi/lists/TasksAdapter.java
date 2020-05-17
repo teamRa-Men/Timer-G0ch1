@@ -91,7 +91,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         try {
             Task task = tasks.get(oldPos);
             tasks.remove(oldPos);
-            task.moveTo(newPos, db);
+            task.moveTo(newPos);
             tasks.add(newPos,task);
             notifyItemMoved(oldPos, newPos);
         }
@@ -99,7 +99,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     }
 
     public void onViewSwiped(int pos){
-        tasks.get(pos).delete(db);
+        tasks.get(pos).delete();
         tasks.remove(pos);
 
         notifyItemRemoved(pos);
@@ -115,7 +115,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             super(itemView);
             nameView = itemView.findViewById(R.id.taskname);
             container = itemView.findViewById(R.id.task);
-            dobutton=itemView.findViewById(R.id.dobutton);
+            dobutton=itemView.findViewById(R.id.editbutton);
             donebutton=itemView.findViewById(R.id.donebutton);
             doneshadow=itemView.findViewById(R.id.doneshadow);
 
