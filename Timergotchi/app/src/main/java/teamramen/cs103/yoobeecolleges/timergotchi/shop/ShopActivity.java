@@ -27,7 +27,7 @@ public class ShopActivity extends AppCompatActivity {
     String namelist[] = {"Mushroom", "Backpack"};
     int price[] = {24, 22};
     int shop_images[] ={R.drawable.food_mushroom, R.drawable.backpack_closed};
-    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n 0 Affection \n 5 Food "};
+    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n 0 Affection \n 5 Food ","Back pack, stores items "};
 
     Petitem currentitem;
 
@@ -105,15 +105,16 @@ public class ShopActivity extends AppCompatActivity {
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
+                    if (i < shop_images.length) {
+                        TextView itemdescription = findViewById(R.id.itemdescription);
+                        ImageView itemimage = findViewById(R.id.itemimage);
 
-                    TextView itemdescription = findViewById(R.id.itemdescription);
-                    ImageView itemimage = findViewById(R.id.itemimage);
+                        itemimage.setImageResource(shop_images[i]);
+                        itemdescription.setText(description[i]);
 
-                    itemimage.setImageResource(shop_images[i]);
-                    itemdescription.setText(description[i]);
-
-                    currentitem = new Petitem(namelist[i], shop_images[i]);
+                        currentitem = new Petitem(namelist[i], shop_images[i]);
+                    }
                 }
             });
 

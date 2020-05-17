@@ -146,7 +146,9 @@ public class TasksFragment extends Fragment {
     public void onTaskDone(Task t){
         t.done();
         tasks.remove(t);
-        adapter.notifyItemRemoved(t.index);
+        if(!t.isRepeating()) {
+            adapter.notifyItemRemoved(t.index);
+        }
         for (int i = t.index; i < tasks.size(); i++) {
             tasks.get(i).moveTo(i);
         }

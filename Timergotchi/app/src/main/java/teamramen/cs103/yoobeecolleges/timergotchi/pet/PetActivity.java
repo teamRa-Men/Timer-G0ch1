@@ -44,13 +44,13 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 public class PetActivity extends AppCompatActivity implements View.OnDragListener, View.OnTouchListener {
 
 
-    ImageView Pet_def, Backpack;
+    public ImageView Pet_def, Backpack;
     TextView display;
-    ListView Foodinventory;
+    public ListView Foodinventory;
     ArrayList<Petitem> petitems;
 
     String Boughtitems[] = {""};
-    
+
     boolean Inv = false;
     boolean AnimationPlaying = false;
 
@@ -70,7 +70,7 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
         screenwidth = displayMetrics.widthPixels;
 
         DatabaseHelper db = new DatabaseHelper(this);
-        petitems = db.fetchBackpack();
+        //petitems = db.fetchBackpack();
 
         //making objects dragable
         //Mushroom.setOnTouchListener(this);
@@ -78,9 +78,41 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
 
         Pet_def.setOnDragListener(this);
 
-        adapter adapter = new adapter();
-        Foodinventory.setAdapter(adapter);
+        //adapter adapter = new adapter();
+        //Foodinventory.setAdapter(adapter);
     }
+
+    class adapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return Boughtitems.length; }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+
+            View v = getLayoutInflater().inflate(R.layout.shop_items, null);
+
+            ImageView Picture = v.findViewById(R.id.Picture);
+            TextView Price = v.findViewById(R.id.Price);
+            TextView Name = v.findViewById(R.id.Name);
+
+
+
+            return v;
+        }
+    }
+
 
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
@@ -262,52 +294,7 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
     //==============end of temporary test facility===============//
 
 
-    class adapter extends BaseAdapter {
 
-        @Override
-        public int getCount() {
-            return Boughtitems.length; }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int i, View view, ViewGroup viewGroup) {
-
-            View v = getLayoutInflater().inflate(R.layout.Foodinventory, null);
-
-            ImageView Picture = v.findViewById(R.id.Picture);
-            TextView Price = v.findViewById(R.id.Price);
-            TextView Name = v.findViewById(R.id.Name);
-
-            Picture.setImageResource(shop_images[i]);
-            Price.setText(price[i]+"");
-            Name.setText(namelist[i]);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v){
-
-                    TextView itemdescription = findViewById(R.id.itemdescription);
-                    ImageView itemimage = findViewById(R.id.itemimage);
-
-                    itemimage.setImageResource(shop_images[i]);
-                    itemdescription.setText(description[i]);
-
-                    currentitem = new Petitem(namelist[i], shop_images[i]);
-                }
-            });
-
-            return v;
-        }
-    }
 
 
 

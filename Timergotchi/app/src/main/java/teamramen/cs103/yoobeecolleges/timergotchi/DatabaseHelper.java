@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         //todo deadline, labels*?,repeat* 7
-        String query = "create table Tasks(id integer primary key, taskName text, taskIndex integer, taskStatus integer, list integer, dueDate float, sun int, mon int, tue int, wed int, thu int, fri int, sat int)";
+        String query = "create table Tasks(id integer primary key, taskName text, taskIndex integer, taskStatus float, list integer, dueDate float, sun int, mon int, tue int, wed int, thu int, fri int, sat int)";
         String query1 = "create table Points(id integer primary key, points integer)";
         String query2 = "create table Lists(id integer primary key, listName text, listNum int)";
         String query3 ="create table Backpack(id integer primary key, String name, int image)";
@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public boolean updateData(long id, String newTaskName, int newIndex, int newStatus,int newList, float newDueDate, int[] repeat)
+    public boolean updateData(long id, String newTaskName, int newIndex, float newStatus,int newList, float newDueDate, int[] repeat)
     {
         ContentValues value = new ContentValues();
 
@@ -133,7 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         ContentValues value = new ContentValues();
 
-        value.put("taskStatus", Task.COMPLETED);
+
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -190,12 +190,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int id = c.getInt(0);
                 String name = c.getString(1);
                 int index = c.getInt(2);
-                int status = c.getInt(3);
+                float status = c.getFloat(3);
                 //int list = c.getInt(4);
                 float dueDate = c.getFloat(5);
                 int[] repeat = new int[]{c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11),c.getInt(12)};
 
-                tasks.add(new Task(id,name,index,status,list,repeat, this));
+                tasks.add(new Task(id,name,index,status,list,dueDate,repeat, this));
 
 
                 i++;
