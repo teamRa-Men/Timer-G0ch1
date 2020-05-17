@@ -22,11 +22,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
+import teamramen.cs103.yoobeecolleges.timergotchi.Petitem;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.SwipeDragHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.TasksAdapter;
@@ -38,9 +44,12 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 public class PetActivity extends AppCompatActivity implements View.OnDragListener, View.OnTouchListener {
 
 
-    ImageView Pet_def, Backpack, Mushroom;
+    ImageView Pet_def, Backpack;
     TextView display;
-    LinearLayout Foodinventory;
+    ListView Foodinventory;
+    ArrayList<Petitem> petitems;
+
+    String Boughtitems[] = {""};
     
     boolean Inv = false;
     boolean AnimationPlaying = false;
@@ -60,14 +69,17 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenwidth = displayMetrics.widthPixels;
 
-        //foods
-        Mushroom = findViewById(R.id.Mushroom);
+        DatabaseHelper db = new DatabaseHelper(this);
+        petitems = db.fetchBackpack();
 
         //making objects dragable
-        Mushroom.setOnTouchListener(this);
-        Mushroom.setTag("Mushroom");
+        //Mushroom.setOnTouchListener(this);
+        //Mushroom.setTag("Mushroom");
 
         Pet_def.setOnDragListener(this);
+
+        adapter adapter = new adapter();
+        Foodinventory.setAdapter(adapter);
     }
 
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -249,6 +261,53 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
     }
     //==============end of temporary test facility===============//
 
+
+    class adapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return Boughtitems.length; }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+
+            View v = getLayoutInflater().inflate(R.layout.Foodinventory, null);
+
+            ImageView Picture = v.findViewById(R.id.Picture);
+            TextView Price = v.findViewById(R.id.Price);
+            TextView Name = v.findViewById(R.id.Name);
+
+            Picture.setImageResource(shop_images[i]);
+            Price.setText(price[i]+"");
+            Name.setText(namelist[i]);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+
+                    TextView itemdescription = findViewById(R.id.itemdescription);
+                    ImageView itemimage = findViewById(R.id.itemimage);
+
+                    itemimage.setImageResource(shop_images[i]);
+                    itemdescription.setText(description[i]);
+
+                    currentitem = new Petitem(namelist[i], shop_images[i]);
+                }
+            });
+
+            return v;
+        }
+    }
 
 
 

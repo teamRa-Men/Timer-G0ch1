@@ -24,12 +24,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "create table Tasks(id integer primary key, taskName text, taskIndex integer, taskStatus integer, list integer, dueDate float, sun int, mon int, tue int, wed int, thu int, fri int, sat int)";
         String query1 = "create table Points(id integer primary key, points integer)";
         String query2 = "create table Lists(id integer primary key, listName text, listNum int)";
+        String query3 ="create table Backpack(id integer primary key, String name, int image)";
 
 
         db.execSQL(query);
         db.execSQL(query1);
         db.execSQL(query2);
-
+        db.execSQL(query3);
 
     }
 
@@ -233,6 +234,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.update("Points", value, "id=?", new String[]{"" + 1});
         db.close();
+    }
+
+    public ArrayList<Petitem> fetchBackpack() {
+        String query = "";
+
+        query = "select * ";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        ArrayList<Petitem> backpack = new ArrayList<Petitem>();
+
+        int i = 0;
+        while (c.moveToNext()) {
+
+            String name = c.getString(1);
+            int image = c.getInt(2);
+
+
+            backpack.add(new Petitem(name,image));
+
+            i++;
+
+        }
+        //
+        // ////system.out.println(i+"db tasks");
+
+        db.close();
+
+        return backpack;
+    }
+
+    public long addPetitem( String name, int image)
+    {
+        ContentValues value = new ContentValues();
+
+        value.put("name", name);
+        value.put("image", image);
+
+        //opening the db into writable mode
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long l = 0;
+        l = db.insert("Petitem", null, value);
+
+        db.close();
+        return l;
     }
 
 }

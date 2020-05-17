@@ -1,7 +1,9 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.shop;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
+import teamramen.cs103.yoobeecolleges.timergotchi.Petitem;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
 import teamramen.cs103.yoobeecolleges.timergotchi.pet.PetActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.record.RecordActivity;
@@ -23,6 +27,9 @@ public class ShopActivity extends AppCompatActivity {
     String namelist[] = {"Mushroom", "Backpack"};
     int price[] = {24, 22};
     int shop_images[] ={R.drawable.food_mushroom, R.drawable.backpack_closed};
+    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n 0 Affection \n 5 Food "};
+
+    Petitem currentitem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,13 @@ public class ShopActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void buyitem(View view) {
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        db.addPetitem(currentitem.name, currentitem.image );
+
+    }
+
     class adapter extends BaseAdapter {
 
         @Override
@@ -77,7 +91,7 @@ public class ShopActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
 
             View v = getLayoutInflater().inflate(R.layout.shop_items, null);
 
@@ -88,6 +102,20 @@ public class ShopActivity extends AppCompatActivity {
             Picture.setImageResource(shop_images[i]);
             Price.setText(price[i]+"");
             Name.setText(namelist[i]);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+
+                    TextView itemdescription = findViewById(R.id.itemdescription);
+                    ImageView itemimage = findViewById(R.id.itemimage);
+
+                    itemimage.setImageResource(shop_images[i]);
+                    itemdescription.setText(description[i]);
+
+                    currentitem = new Petitem(namelist[i], shop_images[i]);
+                }
+            });
 
             return v;
         }
