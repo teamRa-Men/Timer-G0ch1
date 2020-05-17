@@ -1,6 +1,9 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
+import android.app.ListActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
@@ -12,7 +15,7 @@ public class Task{
     public int index, status, list;
     public String name;
     public  TextView nameView;
-    public View container,dobutton,donebutton,doneshadow;
+    public View container,dobutton,donebutton,doneshadow,left,right;
 
 
     public int[] repeat;
@@ -28,10 +31,11 @@ public class Task{
         this.index = index;
         this.status = Task.CURRENT;
         this.list = list;
-        repeat = new int[]{0,0,0,0,0,0};
+        repeat = new int[]{0,0,0,0,0,0,0};
         dueDate = -1;
         id = db.addTask(name,index,list);
         this.db = db;
+
     }
 
     //Database task handle
@@ -60,13 +64,15 @@ public class Task{
     public void done(){
         showFinished();
         status=COMPLETED;
+        if(isRepeated()){
+            list = -1;
+        }
         update();
 
     }
 
     void showFinished(){
         try {
-            dobutton.setVisibility(View.INVISIBLE);
             donebutton.setVisibility(View.INVISIBLE);
             doneshadow.setVisibility(View.VISIBLE);
         }catch (Exception e){
@@ -83,9 +89,19 @@ public class Task{
     public void setRepeat(int[] repeat){
         System.out.println(repeat.toString());
         this.repeat = repeat;
+        if(isRepeated()){
+            expandTask();
+        }
+        else{
+            contractTask();
+        }
+
         update();
     }
 
+    public boolean isRepeated() {
+        return repeat[0]+repeat[1]+repeat[2]+repeat[3]+repeat[4]+repeat[5]+repeat[6] > 0;
+    }
 
 
     public void setId(int id){ this.id = id; }
@@ -94,4 +110,30 @@ public class Task{
         db.updateData(id, name, index, status, list, dueDate, repeat);
     }
 
+    void expandTask(){
+        int taskHeight = ListsActivity.instance.taskHeight;
+        ViewGroup.LayoutParams params = nameView.getLayoutParams();
+        System.out.println(params.height);
+        params.height =taskHeight*2;
+        nameView.setLayoutParams(params);
+        params = left.getLayoutParams();
+        params.height = taskHeight*2;
+       left.setLayoutParams(params);
+        params = right.getLayoutParams();
+        params.height = taskHeight*2;
+        right.setLayoutParams(params);
+    }
+
+    void contractTask(){
+        int taskHeight = ListsActivity.instance.taskHeight;
+        ViewGroup.LayoutParams params = nameView.getLayoutParams();
+        params.height = taskHeight;
+        nameView.setLayoutParams(params);
+        params = left.getLayoutParams();
+        params.height = taskHeight;
+        left.setLayoutParams(params);
+        params = right.getLayoutParams();
+        params.height = taskHeight;
+        right.setLayoutParams(params);
+    }
 }

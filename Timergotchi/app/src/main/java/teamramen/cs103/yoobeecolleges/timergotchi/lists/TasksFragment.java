@@ -92,15 +92,15 @@ public class TasksFragment extends Fragment {
 
         });
         newTaskName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    onAddTask();
+                                                  @Override
+                                                  public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                                                      if(actionId == EditorInfo.IME_ACTION_DONE){
+                                                          onAddTask();
 
-                }
-                return false;
-            }
-        }
+                                                      }
+                                                      return false;
+                                                  }
+                                              }
         );
 
 
@@ -142,17 +142,26 @@ public class TasksFragment extends Fragment {
 
     public void onTaskDone(View view){
         Task t = findByView(view);
+        onTaskDone(t);
+    }
+
+    public void onTaskDone(Task t){
         t.done();
 
+        if(t.repeat[0]+t.repeat[1]+t.repeat[2]+t.repeat[3]+t.repeat[4]+t.repeat[5]+t.repeat[6] == 0) {
+            deleteTask(t);
+        }
 
-            int index = tasks.indexOf(t);
+    }
 
-            tasks.remove(t);
+    public void deleteTask(Task t){
+        tasks.remove(t);
+        adapter.notifyItemRemoved(t.index);
+        for (int i = t.index; i < tasks.size(); i++) {
+            tasks.get(i).moveTo(i);
+        }
+        t.delete();
 
-            adapter.notifyItemRemoved(index);
-            for (int i = t.index; i < tasks.size(); i++) {
-                tasks.get(i).moveTo(i);
-            }
     }
 
 

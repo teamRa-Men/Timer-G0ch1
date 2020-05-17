@@ -52,6 +52,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.dobutton = holder.dobutton;
         task.donebutton =holder.donebutton;
         task.doneshadow =holder.doneshadow;
+        task.left =holder.left;
+        task.right =holder.right;
+
         if(task.status == Task.COMPLETED){
             showFinished(task);
         }else{
@@ -62,7 +65,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     void showFinished(Task t){
         try {
-            t.dobutton.setVisibility(View.INVISIBLE);
+
             t.donebutton.setVisibility(View.INVISIBLE);
             t.doneshadow.setVisibility(View.VISIBLE);
         }catch (Exception e){
@@ -71,7 +74,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     }
     void showCurrent(Task t){
         try {
-            t.dobutton.setVisibility(View.VISIBLE);
+
             t.donebutton.setVisibility(View.VISIBLE);
             t.doneshadow.setVisibility(View.INVISIBLE);
         }catch (Exception e){
@@ -110,21 +113,18 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;
-        View container,dobutton,donebutton,doneshadow;
+        View container,dobutton,donebutton,doneshadow,left,right;
         public ViewHolder(View itemView){
             super(itemView);
             nameView = itemView.findViewById(R.id.taskname);
             container = itemView.findViewById(R.id.task);
-            dobutton=itemView.findViewById(R.id.editbutton);
+            dobutton=itemView.findViewById(R.id.dobutton);
             donebutton=itemView.findViewById(R.id.donebutton);
             doneshadow=itemView.findViewById(R.id.doneshadow);
-
+            left = itemView.findViewById(R.id.left);
+            right = itemView.findViewById(R.id.right);
         }
-
     }
-
-
-
 }
 
 

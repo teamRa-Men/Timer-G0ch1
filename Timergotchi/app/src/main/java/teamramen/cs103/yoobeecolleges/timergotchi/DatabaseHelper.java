@@ -190,8 +190,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String name = c.getString(1);
                 int index = c.getInt(2);
                 int status = c.getInt(3);
-                float dueDate = c.getFloat(4);
-                int[] repeat = new int[]{c.getInt(5),c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11)};
+                //int list = c.getInt(4);
+                float dueDate = c.getFloat(5);
+                int[] repeat = new int[]{c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11),c.getInt(12)};
 
                 tasks.add(new Task(id,name,index,status,list,repeat, this));
 

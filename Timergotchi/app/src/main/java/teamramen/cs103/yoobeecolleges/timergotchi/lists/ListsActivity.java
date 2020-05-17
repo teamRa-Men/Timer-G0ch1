@@ -3,14 +3,20 @@ package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
@@ -46,7 +52,7 @@ public class ListsActivity extends AppCompatActivity {
     boolean editing, deleting;
     Task taskEditing;
     View[] days;
-
+    public int taskHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +148,10 @@ public class ListsActivity extends AppCompatActivity {
                 findViewById(R.id.editfri),
                 findViewById(R.id.editsat)};
         editName = findViewById(R.id.editname);
+        calendar = findViewById(R.id.calendarView);
+
+
+        taskHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 44, getResources().getDisplayMetrics());
     }
 
 
@@ -162,24 +172,49 @@ public class ListsActivity extends AppCompatActivity {
         listTabs.setVisibility(View.INVISIBLE);
 
         taskEditing = (lists.get(pager.getCurrentItem()).findByView(view));
-
+        repeat = taskEditing.repeat;
         editName.setText(taskEditing.name+"");
         for(int i = 0; i < 7;i++){
             System.out.println(taskEditing.repeat[i]);
-            if(taskEditing.repeat[i] == 1) {
+            if(repeat[i] == 1) {
                 days[i].setVisibility(View.INVISIBLE);
-                repeat[i] = 1;
+
             }
             else{
                 days[i].setVisibility(View.VISIBLE);
-                repeat[i] = 0;
+
             }
         }
+        System.out.println("date" + taskEditing.dueDate);
     }
     public void onEditCancel(View view){
         closeEditMenu();
     }
     public void onEditOK(View view){
+        if (!editName.getText().toString().isEmpty()) {
+            taskEditing.setName(editName.getText().toString());
+        }
+
+        if(!isRepeating()){
+
+            if(taskEditing.status==Task.COMPLETED) {
+                lists.get(pager.getCurrentItem()).onTaskDone(taskEditing);
+            }
+        }
+
+        taskEditing.setRepeat(repeat);
+        //set task due date
+        try {
+
+            taskEditing.dueDate = calendar.getDate();
+            System.out.println("date" + taskEditing.dueDate);
+        } catch (Exception e) {
+            System.out.println("no date" );
+        }
+
+
+
+
         closeEditMenu();
     }
 
@@ -191,6 +226,7 @@ public class ListsActivity extends AppCompatActivity {
 
     }
     public void onDelete(View view) {
+        lists.get(pager.getCurrentItem()).deleteTask(taskEditing);
         closeDeletePopup();
         closeEditMenu();
     }
@@ -200,12 +236,17 @@ public class ListsActivity extends AppCompatActivity {
 
     //close popups
     void closeEditMenu(){
+
         if(!deleting) {
+
+
             editing = false;
             editMenu.setVisibility(View.INVISIBLE);
             pager.setVisibility(View.VISIBLE);
             listTabs.setVisibility(View.VISIBLE);
+            taskEditing = null;
         }
+
     }
     void closeDeletePopup(){
         deleting = false;
@@ -236,11 +277,13 @@ public class ListsActivity extends AppCompatActivity {
             days[day].setVisibility(View.INVISIBLE);
             repeat[day] = 1;
         }
-        taskEditing.setRepeat(repeat);
     }
 
 
 
+    boolean isRepeating(){
+        return repeat[0]+repeat[1]+repeat[2]+repeat[3]+repeat[4]+repeat[5]+repeat[6] > 0;
+    }
 
     /*****************************************************************************************/
     //on finished task
@@ -257,7 +300,6 @@ public class ListsActivity extends AppCompatActivity {
             lists.get(pager.getCurrentItem()).onTaskDone(view);
             awardPoints();
         }
-
     }
 
 
