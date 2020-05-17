@@ -93,25 +93,19 @@
 
     <TextView
         android:id="@+id/itemdescription"
-        android:layout_width="135dp"
+        android:layout_width="0dp"
         android:layout_height="147dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
-        app:layout_constraintStart_toEndOf="@+id/Shoplist"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintEnd_toStartOf="@+id/itemimage"
+        app:layout_constraintStart_toEndOf="@+id/Shoplist" />
 
     <ImageView
         android:id="@+id/itemimage"
-        android:layout_width="143dp"
-        android:layout_height="146dp"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/itemdescription"
         app:layout_constraintTop_toTopOf="@+id/itemdescription"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/menu_white" />
@@ -131,6 +125,7 @@
         android:id="@+id/Shoplist"
         android:layout_width="120dp"
         android:layout_height="682dp"
+        android:background="@color/colorPrimaryLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
