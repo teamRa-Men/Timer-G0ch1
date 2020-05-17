@@ -1,18 +1,20 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.app.ListActivity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
+import java.util.Date;
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
+import teamramen.cs103.yoobeecolleges.timergotchi.R;
 
 public class Task{
-    public static int CURRENT=0, COMPLETED=1;
+    public static int CURRENT=0;
     public long id;
 
-    public int index, status, list;
+    public int index, list;
     public String name;
     public  TextView nameView;
     public View container,dobutton,donebutton,doneshadow,left,right;
@@ -23,7 +25,7 @@ public class Task{
 
     //TODO
 
-    public float dueDate;
+    public float dueDate,status;
 
 
     public Task(String name,int index, int list,DatabaseHelper db){
@@ -32,22 +34,54 @@ public class Task{
         this.status = Task.CURRENT;
         this.list = list;
         repeat = new int[]{0,0,0,0,0,0,0};
-        dueDate = -1;
+        dueDate = 0;
         id = db.addTask(name,index,list);
         this.db = db;
 
     }
 
     //Database task handle
-    public Task(int id, String name,int index, int status, int list, int[] repeat, DatabaseHelper db){
+    public Task(int id, String name,int index, float status,  int list,float dueDate,int[] repeat, DatabaseHelper db){
         this.id = id;
         this.name = name;
         this.index = index;
         this.status = status;
         this.list = list;
         this.repeat = repeat;
-        dueDate = -1;
+        this.dueDate = dueDate;
         this.db = db;
+
+
+
+
+        Date today = new Date((long)(System.currentTimeMillis()+5.99582088e13) );
+        Date due = new Date((long)dueDate);
+        System.out.println(today.getDate() + " " + today.getMonth() + " " + today.getYear()+ "today");
+        System.out.println(due.getDate() + " " + due.getMonth() + " " + due.getYear());
+
+        int dayOfTheWeek = today.getDay();
+
+        //if repeat day allow to be redone
+        for(int i =0 ; i < 7; i++){
+            if(repeat[i] == 1){
+                if(i==dayOfTheWeek && (System.currentTimeMillis() - status) > 9e7){
+                    this.status = 0;
+                    showFinished();
+                }
+            }
+        }
+
+    }
+
+    public void showOverdue(){
+        System.out.println(dueDate + " compare dates " +System.currentTimeMillis());
+        if(dueDate<(System.currentTimeMillis()+5.99582088e13) && dueDate > 0){
+            //showoverdue
+            nameView.setTextColor(Color.RED);
+        }
+        else{
+            nameView.setTextColor(ListsActivity.instance.getResources().getColor(R.color.textColor));
+        }
     }
 
     public void setName(String n){
@@ -62,22 +96,18 @@ public class Task{
     }
 
     public void done(){
+        status=System.currentTimeMillis();
         showFinished();
-        status=COMPLETED;
-        if(isRepeated()){
+
+
+        System.out.println(status + " currentdate");
+        if(!isRepeating()){
             list = -1;
         }
+
+
         update();
 
-    }
-
-    void showFinished(){
-        try {
-            donebutton.setVisibility(View.INVISIBLE);
-            doneshadow.setVisibility(View.VISIBLE);
-        }catch (Exception e){
-
-        }
     }
 
     public void delete(){
@@ -89,17 +119,12 @@ public class Task{
     public void setRepeat(int[] repeat){
         System.out.println(repeat.toString());
         this.repeat = repeat;
-        if(isRepeated()){
-            expandTask();
-        }
-        else{
-            contractTask();
-        }
+        showTask();
 
         update();
     }
 
-    public boolean isRepeated() {
+    public boolean isRepeating() {
         return repeat[0]+repeat[1]+repeat[2]+repeat[3]+repeat[4]+repeat[5]+repeat[6] > 0;
     }
 
@@ -110,30 +135,81 @@ public class Task{
         db.updateData(id, name, index, status, list, dueDate, repeat);
     }
 
+
+    public void showTask(){
+        if(dueDate==0 && !isRepeating()){
+            contractTask();
+        }
+        else{
+            expandTask();
+        }
+
+    }
+
+
+    void showFinished(){
+        try {
+            if(status !=0) {
+                donebutton.setVisibility(View.INVISIBLE);
+                doneshadow.setVisibility(View.VISIBLE);
+                dobutton.setVisibility(View.INVISIBLE);
+            }
+            else{
+                donebutton.setVisibility(View.VISIBLE);
+                doneshadow.setVisibility(View.INVISIBLE);
+                dobutton.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+
     void expandTask(){
-        int taskHeight = ListsActivity.instance.taskHeight;
-        ViewGroup.LayoutParams params = nameView.getLayoutParams();
-        System.out.println(params.height);
-        params.height =taskHeight*2;
-        nameView.setLayoutParams(params);
-        params = left.getLayoutParams();
-        params.height = taskHeight*2;
-       left.setLayoutParams(params);
-        params = right.getLayoutParams();
-        params.height = taskHeight*2;
-        right.setLayoutParams(params);
+        try {
+            int taskHeight = ListsActivity.instance.taskHeight;
+            ViewGroup.LayoutParams params = nameView.getLayoutParams();
+            System.out.println(params.height);
+            params.height = (int)(taskHeight * 1.5f);
+            nameView.setLayoutParams(params);
+            params = left.getLayoutParams();
+            params.height = (int)(taskHeight * 1.5f);
+            left.setLayoutParams(params);
+            params = right.getLayoutParams();
+            params.height = (int)(taskHeight * 1.5f);
+            right.setLayoutParams(params);
+        }
+        catch (Exception e){
+
+        }
     }
 
     void contractTask(){
-        int taskHeight = ListsActivity.instance.taskHeight;
-        ViewGroup.LayoutParams params = nameView.getLayoutParams();
-        params.height = taskHeight;
-        nameView.setLayoutParams(params);
-        params = left.getLayoutParams();
-        params.height = taskHeight;
-        left.setLayoutParams(params);
-        params = right.getLayoutParams();
-        params.height = taskHeight;
-        right.setLayoutParams(params);
+        try {
+
+            int taskHeight = ListsActivity.instance.taskHeight;
+            ViewGroup.LayoutParams params = nameView.getLayoutParams();
+            params.height = taskHeight;
+            nameView.setLayoutParams(params);
+            params = left.getLayoutParams();
+            params.height = taskHeight;
+            left.setLayoutParams(params);
+            params = right.getLayoutParams();
+            params.height = taskHeight;
+            right.setLayoutParams(params);
+        }
+        catch (Exception e){
+
+        }
+    }
+
+    public void setDueDate(float d){
+        System.out.println(d - dueDate+"datechanged");
+        this.dueDate = d;
+        update();
+        Date dd = new Date((long)dueDate);
+
+        int dayOfTheWeek = dd.getDay();
+
     }
 }
