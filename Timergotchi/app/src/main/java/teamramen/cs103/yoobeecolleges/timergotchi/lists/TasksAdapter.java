@@ -55,32 +55,15 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.left =holder.left;
         task.right =holder.right;
 
-        if(task.status == Task.COMPLETED){
-            showFinished(task);
-        }else{
-            showCurrent(task);
-        }
+
+
+        task.showTask();
+        task.showFinished();
+        task.showOverdue();
     }
 
 
-    void showFinished(Task t){
-        try {
 
-            t.donebutton.setVisibility(View.INVISIBLE);
-            t.doneshadow.setVisibility(View.VISIBLE);
-        }catch (Exception e){
-
-        }
-    }
-    void showCurrent(Task t){
-        try {
-
-            t.donebutton.setVisibility(View.VISIBLE);
-            t.doneshadow.setVisibility(View.INVISIBLE);
-        }catch (Exception e){
-
-        }
-    }
     @Override
     public int getItemCount() {
         return tasks.size();

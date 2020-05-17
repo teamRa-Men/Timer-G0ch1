@@ -19,7 +19,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
@@ -45,9 +49,9 @@ public class ListsActivity extends AppCompatActivity {
 
     View editMenu,deletePopup, calendarPopup;
     CalendarView calendar;
+    int dueDay,dueMonth,dueYear;
     TextView editName, dueDate;
     int[] repeat = new int[]{0,0,0,0,0,0,0};
-    Task currentEditTask;
 
     boolean editing, deleting;
     Task taskEditing;
@@ -58,7 +62,7 @@ public class ListsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        instance = this;
         db = new DatabaseHelper(this);
 
 
@@ -137,7 +141,7 @@ public class ListsActivity extends AppCompatActivity {
         points = db.getPoints();
         pointsView.setText(points+" g");
 
-        instance = this;
+
 
 
         days = new View[]{ findViewById(R.id.editsun),
@@ -146,12 +150,21 @@ public class ListsActivity extends AppCompatActivity {
                 findViewById(R.id.editwed),
                 findViewById(R.id.editthu),
                 findViewById(R.id.editfri),
-                findViewById(R.id.editsat)};
+                findViewById(R.id.editsat),
+                findViewById(R.id.editsun2),
+                findViewById(R.id.editmon2),
+                findViewById(R.id.edittue2),
+                findViewById(R.id.editwed2),
+                findViewById(R.id.editthu2),
+                findViewById(R.id.editfri2),
+                findViewById(R.id.editsat2)};
         editName = findViewById(R.id.editname);
         calendar = findViewById(R.id.calendarView);
+        dueDate = findViewById(R.id.dueDate);
 
 
         taskHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 44, getResources().getDisplayMetrics());
+
     }
 
 
@@ -176,6 +189,7 @@ public class ListsActivity extends AppCompatActivity {
         editName.setText(taskEditing.name+"");
         for(int i = 0; i < 7;i++){
             System.out.println(taskEditing.repeat[i]);
+
             if(repeat[i] == 1) {
                 days[i].setVisibility(View.INVISIBLE);
 
@@ -185,35 +199,71 @@ public class ListsActivity extends AppCompatActivity {
 
             }
         }
-        System.out.println("date" + taskEditing.dueDate);
+        setupCalendar();
+        if(taskEditing.dueDate>0) {
+
+
+            Date d = new Date((long) taskEditing.dueDate);
+
+            dueDate.setText(d.getDate() + "/" + (d.getMonth()+1)+"/"+(d.getYear()));
+            dueDay = d.getDate();
+            dueMonth = d.getMonth();
+            dueYear = d.getYear();
+        }
+        else{
+            dueDate.setText("");
+        }
+
+
+        System.out.println("date" + taskEditing.dueDate + " " +(taskEditing.dueDate>0));
+
+
     }
     public void onEditCancel(View view){
         closeEditMenu();
     }
     public void onEditOK(View view){
-        if (!editName.getText().toString().isEmpty()) {
-            taskEditing.setName(editName.getText().toString());
-        }
-
-        if(!isRepeating()){
-
-            if(taskEditing.status==Task.COMPLETED) {
-                lists.get(pager.getCurrentItem()).onTaskDone(taskEditing);
-            }
-        }
-
-        taskEditing.setRepeat(repeat);
-        //set task due date
         try {
+            if (!editName.getText().toString().isEmpty()) {
+                taskEditing.setName(editName.getText().toString());
+            }
 
-            taskEditing.dueDate = calendar.getDate();
-            System.out.println("date" + taskEditing.dueDate);
-        } catch (Exception e) {
-            System.out.println("no date" );
-        }
+            if (dueDate.getText().toString().isEmpty()) {
+                taskEditing.setDueDate(0);
+
+            } else {
+                Date d = new Date();
+                d.setDate(dueDay);
+                d.setMonth(dueMonth);
+                d.setYear(dueYear);
+                taskEditing.setDueDate(d.getTime());
+
+            }
+            System.out.println("string" + dueDate.getText().toString().isEmpty() + "task" + taskEditing.dueDate);
+
+            if (!isRepeating()) {
+
+                if (taskEditing.status != 0) {
+                    //lists.get(pager.getCurrentItem()).onTaskDone(taskEditing);
+                    taskEditing.status = 0;
+                    taskEditing.showFinished();
+                }
 
 
+            }
 
+            taskEditing.setRepeat(repeat);
+
+
+            if (taskEditing.dueDate == 0 && !isRepeating()) {
+                taskEditing.contractTask();
+            } else {
+                taskEditing.expandTask();
+            }
+
+
+            taskEditing.showOverdue();
+        }catch (Exception e){}
 
         closeEditMenu();
     }
@@ -254,16 +304,30 @@ public class ListsActivity extends AppCompatActivity {
     }
 
     public void onRepeat(View view){
-        TextView day = ((TextView)view);
-        switch (day.getText().toString()){
-            case "Sun":toggleDay(0);break;
-            case "Mon":toggleDay(1);break;
-            case "Tue":toggleDay(2);break;
-            case "Wed":toggleDay(3);break;
-            case "Thu":toggleDay(4);break;
-            case "Fri":toggleDay(5);break;
-            case "Sat":toggleDay(6);break;
+        if (view.getId() == days[0].getId() || view.getId() == days[7].getId()) {
+            toggleDay(0);
         }
+        else if (view.getId() == days[1].getId() || view.getId() == days[8].getId()) {
+            toggleDay(1);
+        }
+        else if (view.getId() == days[2].getId() || view.getId() == days[9].getId()) {
+            toggleDay(2);
+        }
+        else if (view.getId() == days[3].getId() || view.getId() == days[10].getId()) {
+            toggleDay(3);
+        }
+        else if (view.getId() == days[4].getId() || view.getId() == days[11].getId()) {
+            toggleDay(4);
+        }
+        else if (view.getId() == days[5].getId() || view.getId() == days[12].getId()) {
+            toggleDay(5);
+        }
+        else if (view.getId() == days[6].getId() || view.getId() == days[13].getId()) {
+            toggleDay(6);
+        }
+
+
+
     }
 
     void toggleDay(int day) {
@@ -276,6 +340,7 @@ public class ListsActivity extends AppCompatActivity {
         else{
             days[day].setVisibility(View.INVISIBLE);
             repeat[day] = 1;
+            System.out.println("repeat"+day);
         }
     }
 
@@ -312,6 +377,37 @@ public class ListsActivity extends AppCompatActivity {
 
 
 
+
+
+
+    void setupCalendar() {
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                dueDay = dayOfMonth;
+                dueMonth = month;
+                dueYear = year;
+
+                dueDate.setText(dueDay + "/" + (dueMonth+1) + "/" + dueYear);
+            }
+        });
+    }
+
+    public void clearDueDate(View view){
+        dueDate.setText("");
+        taskEditing.setDueDate(0);
+    }
+
+
+
+
+
+
+    /*****************************************************************************************
+     * Navigation
+     *****************************************************************************************/
+
     public void toTimer(View view) {
         if(!editing) {
             Intent i = new Intent(this, TimerActivity.class);
@@ -341,8 +437,6 @@ public class ListsActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
-
-
 }
 
 
