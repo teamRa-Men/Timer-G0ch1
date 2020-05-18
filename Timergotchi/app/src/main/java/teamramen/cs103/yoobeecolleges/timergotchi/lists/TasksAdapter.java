@@ -57,7 +57,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.right =holder.right;
         task.pausebutton=holder.pausebutton;
         task.finishedbutton =holder.finishedbutton ;
-
+        task.showDueDate = holder.showDueDate;
+        task.showRepeat = holder.showRepeat;
 
         task.showTask();
         task.showFinished();
@@ -103,7 +104,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView nameView;
+        TextView nameView,showDueDate,showRepeat;
         View container, doneshadow,left,right;
         ImageView dobutton,donebutton,pausebutton,finishedbutton;
 
@@ -118,6 +119,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             right = itemView.findViewById(R.id.right);
             pausebutton = itemView.findViewById(R.id.pausebutton);
             finishedbutton = itemView.findViewById(R.id.finished);
+            showDueDate = itemView.findViewById(R.id.showDueDate);
+            showRepeat = itemView.findViewById(R.id.showRepeat);
         }
     }
 }

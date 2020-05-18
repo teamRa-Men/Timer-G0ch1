@@ -13,9 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
         android:background="@drawable/task"
         android:ems="10"
         android:focusable="auto"
@@ -67,6 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/donedone"
+        android:onClick="onTaskRedo"
         android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/donebutton"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
@@ -103,5 +102,29 @@
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/taskname"
         app:layout_constraintTop_toTopOf="@+id/taskname" />
+
+    <TextView
+        android:id="@+id/showDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintEnd_toEndOf="@+id/taskname"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/showRepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintEnd_toEndOf="@+id/right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,6 +81,8 @@ public class ListsActivity extends AppCompatActivity {
             listAdapter.addList(lists.get(i), "Morning",i);
         }
 
+
+
         pager = findViewById(R.id.listpager);
         pager.setAdapter(listAdapter);
         listTabs.setupWithViewPager(pager);
@@ -196,6 +198,7 @@ public class ListsActivity extends AppCompatActivity {
      * Edit Task
      *****************************************************************************************/
     public void onEdit(View view) {
+        System.out.println("HELPPPP");
         editing = true;
         editMenu.setVisibility(View.VISIBLE);
         pager.setVisibility(View.INVISIBLE);
@@ -203,7 +206,7 @@ public class ListsActivity extends AppCompatActivity {
 
         taskEditing = (lists.get(pager.getCurrentItem()).findByView(view));
         repeat = taskEditing.repeat;
-        editName.setText(taskEditing.name+"");
+        editName.setText(taskEditing.name);
         for(int i = 0; i < 7;i++){
             System.out.println(taskEditing.repeat[i]);
 
@@ -226,6 +229,7 @@ public class ListsActivity extends AppCompatActivity {
             dueDay = d.getDate();
             dueMonth = d.getMonth();
             dueYear = d.getYear();
+            calendar.setDate((long)(d.getTime()-5.99582088e13));
         }
         else{
             dueDate.setText("");
@@ -272,11 +276,9 @@ public class ListsActivity extends AppCompatActivity {
             taskEditing.setRepeat(repeat);
 
 
-            if (taskEditing.dueDate == 0 && !isRepeating()) {
-                taskEditing.contractTask();
-            } else {
-                taskEditing.expandTask();
-            }
+
+                taskEditing.showTask();
+
 
 
             taskEditing.showOverdue();
@@ -398,6 +400,7 @@ public class ListsActivity extends AppCompatActivity {
 
 
     void setupCalendar() {
+
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
@@ -453,6 +456,13 @@ public class ListsActivity extends AppCompatActivity {
             Intent i = new Intent(this, RecordActivity.class);
             startActivity(i);
         }
+    }
+
+    public void setColor(View view) {
+        taskEditing.toggleColor();
+    }
+
+    public void onTaskRedo(View view) {
     }
 }
 

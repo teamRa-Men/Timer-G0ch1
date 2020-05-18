@@ -33,6 +33,7 @@ public class SwipeDragHelper extends ItemTouchHelper.Callback{
 
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
         adapter.onViewMoved(viewHolder.getAdapterPosition(),target.getAdapterPosition());
         return true;
     }

@@ -19,10 +19,11 @@ public class Task{
 
     public int index, list;
     public String name;
-    public  TextView nameView;
+    public  TextView nameView,showDueDate,showRepeat;
     public View container,doneshadow,left,right;
     public ImageView dobutton,donebutton,pausebutton, finishedbutton;
 
+    public int colorCode = 0;
 
     public int[] repeat;
     DatabaseHelper db;
@@ -141,28 +142,56 @@ public class Task{
 
 
     public void showTask(){
+        /*
         if(dueDate==0 && !isRepeating()){
             contractTask();
+            showDueDate.setText("");
+            showRepeat.setText("");
         }
         else{
             expandTask();
+            if(dueDate > 0) {
+                Date due = new Date((long) dueDate);
+                showDueDate.setText("Due " + due.getDate() + "/" + (due.getMonth() + 1) + "/" + due.getYear());
+            }
+
+            String s = "";
+            if(repeat[0]==1){s= s+"Sun  ";}
+            if(repeat[1]==1){s= s+"Mon  ";}
+            if(repeat[2]==1){s= s+"Tue  ";}
+            if(repeat[3]==1){s= s+"Wed  ";}
+            if(repeat[4]==1){s= s+"Thu  ";}
+            if(repeat[5]==1){s= s+"Fri ";}
+            if(repeat[6]==1){s= s+"Sat ";}
+
+            showRepeat.setText(s);
+
+
         }
+        */
 
     }
 
 
     void showFinished(){
         try {
-            if(status !=0) {
+            if(status > 1) {
                 donebutton.setVisibility(View.INVISIBLE);
                 doneshadow.setVisibility(View.VISIBLE);
                 dobutton.setVisibility(View.INVISIBLE);
+                pausebutton.setVisibility(View.INVISIBLE);
                 finishedbutton.setVisibility(View.VISIBLE);
             }
             else{
                 donebutton.setVisibility(View.VISIBLE);
                 doneshadow.setVisibility(View.INVISIBLE);
-                dobutton.setVisibility(View.VISIBLE);
+                if(status == 0) {
+                    dobutton.setVisibility(View.VISIBLE);
+                    pausebutton.setVisibility(View.INVISIBLE);
+                }else{
+                    dobutton.setVisibility(View.INVISIBLE);
+                    pausebutton.setVisibility(View.VISIBLE);
+                }
                 finishedbutton.setVisibility(View.INVISIBLE);
             }
         }catch (Exception e){
@@ -233,6 +262,23 @@ public class Task{
             status =0;
             dobutton.setVisibility(View.VISIBLE);
             pausebutton.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void toggleColor(){
+        if(colorCode == 1) {
+            pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+            donebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+            dobutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+            finishedbutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+            colorCode = 0;
+        }
+        else{
+            pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
+            donebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
+            dobutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
+            finishedbutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
+            colorCode =1;
         }
     }
 }

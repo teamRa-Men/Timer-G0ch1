@@ -29,6 +29,7 @@ public class ShopActivity extends AppCompatActivity {
     int price[] = {24, 22};
     int shop_images[] ={R.drawable.food_mushroom, R.drawable.backpack_closed};
     String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Affection \n +5 Food ","Back pack, stores items "};
+    int type[] = {0,1};
 
     Petitem currentitem;
 
@@ -71,7 +72,7 @@ public class ShopActivity extends AppCompatActivity {
     public void buyitem(View view) {
 
         DatabaseHelper db = new DatabaseHelper(this);
-        db.addPetitem(currentitem.name, currentitem.image );
+        db.addPetitem(currentitem);
 
     }
 
@@ -114,7 +115,7 @@ public class ShopActivity extends AppCompatActivity {
                         itemimage.setImageResource(shop_images[i]);
                         itemdescription.setText(description[i]);
 
-                        currentitem = new Petitem(namelist[i], shop_images[i]);
+                        currentitem = new Petitem(namelist[i], shop_images[i],type[i],i);
                         Button buybutton =  findViewById(R.id.buybutton);
                         buybutton.setVisibility(View.VISIBLE);
                     }

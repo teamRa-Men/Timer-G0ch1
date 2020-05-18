@@ -8,6 +8,17 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".pet.PetActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inventory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/Backpack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Backpack" />
+
     <ImageView
         android:id="@+id/Pet_default"
         android:layout_width="0dp"
@@ -51,24 +62,15 @@
 
     <ImageView
         android:id="@+id/Backpack"
-        android:layout_width="114dp"
-        android:layout_height="123dp"
+        android:layout_width="124dp"
+        android:layout_height="138dp"
+        android:background="@drawable/gradient"
+        android:backgroundTint="@color/colorPrimaryLight"
         android:onClick="Openinv"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/backpack_closed" />
-
-    <ListView
-        android:id="@+id/Foodinventory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/Backpack"
-        app:layout_constraintEnd_toStartOf="@+id/Backpack"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Backpack"/>
 
 
     <TextView

@@ -41,22 +41,22 @@ import teamramen.cs103.yoobeecolleges.timergotchi.shop.ShopActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.ListsActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
-public class PetActivity extends AppCompatActivity implements View.OnDragListener, View.OnTouchListener {
+public class PetActivity extends AppCompatActivity implements View.OnDragListener{
 
 
     public ImageView Pet_def, Backpack;
     TextView display;
-    public ListView Foodinventory;
-    ArrayList<Petitem> petitems;
-
-    String Boughtitems[] = {""};
+    public RecyclerView inventory;
+    ArrayList<Petitem> petitems = new ArrayList<Petitem>();
 
     boolean Inv = false;
     boolean AnimationPlaying = false;
 
     int affection = 0; int health = 100;
     int screenwidth = 0;
-
+    int itemDragged;
+    BackpackAdapter adapter;
+    DatabaseHelper db;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +64,27 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
         Pet_def = findViewById(R.id.Pet_default);
         display = findViewById(R.id.display);
         Backpack = findViewById(R.id.Backpack);
-        Foodinventory = findViewById(R.id.Foodinventory);
+        inventory = findViewById(R.id.inventory);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenwidth = displayMetrics.widthPixels;
 
-        DatabaseHelper db = new DatabaseHelper(this);
-        //petitems = db.fetchBackpack();
+       db = new DatabaseHelper(this);
+
+        System.out.println(petitems.size());
+
+        adapter = new BackpackAdapter();
+        LinearLayoutManager horizontal = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        inventory.setLayoutManager(horizontal);
+        inventory.setAdapter(adapter);
+        inventory.setVisibility(View.INVISIBLE);
+        petitems = db.fetchBackpack();
+        System.out.println(petitems.size());
+        adapter.notifyDataSetChanged();
+
+        for(int i = 0; i < petitems.size();i++){
+
+        }
 
         //making objects dragable
         //Mushroom.setOnTouchListener(this);
@@ -82,52 +96,8 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
         //Foodinventory.setAdapter(adapter);
     }
 
-    class adapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return Boughtitems.length; }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int i, View view, ViewGroup viewGroup) {
-
-            View v = getLayoutInflater().inflate(R.layout.shop_items, null);
-
-            ImageView Picture = v.findViewById(R.id.Picture);
-            TextView Price = v.findViewById(R.id.Price);
-            TextView Name = v.findViewById(R.id.Name);
 
 
-
-            return v;
-        }
-    }
-
-
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-        ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
-        String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
-        ClipData data = new ClipData(view.getTag().toString(), mimeTypes, item);
-        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-        view.startDrag(data//data to be dragged
-                , shadowBuilder //drag shadow
-                , view//local data about the drag and drop operation
-                , 0//no needed flags
-        );
-
-        return false;
-    }
 
     @Override
     public boolean onDrag(View view, DragEvent event) {
@@ -160,11 +130,17 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
 
                 view.invalidate();
                 View v = (View) event.getLocalState();
-                ViewGroup owner = (ViewGroup) v.getParent();
+                ViewGroup itemContainer = (ViewGroup) v.getParent().getParent();
                 eating(v);
 
-               // owner.removeView(v);//remove the dragged view
+                itemContainer.removeView(v);//remove the dragged view
+                if(petitems.get(itemDragged).type == 0) {
+                    adapter.notifyItemRemoved(itemDragged);
+                    db.removePetitem(petitems.get(itemDragged).id);
+                    petitems.remove(itemDragged);
+                }
                 v.setVisibility(View.VISIBLE);//finally set Visibility to VISIBLE
+
 
                 return true;
 
@@ -203,6 +179,7 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
                 public void onTick(long millisUntilFinished) {
                     if (Happy) {
                         Pet_def.setImageResource(R.drawable.pet_happy);
+
                         Happy = false;
                     } else {
                         Pet_def.setImageResource(R.drawable.pet_happy2);
@@ -232,7 +209,7 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
             animation.start();
 
             Backpack.setImageResource(R.drawable.backpack_open);
-            Foodinventory.setVisibility(View.VISIBLE);
+            inventory.setVisibility(View.VISIBLE);
             Inv = true;
         }
 
@@ -242,7 +219,7 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
             animation.start();
 
             Backpack.setImageResource(R.drawable.backpack_closed);
-            Foodinventory.setVisibility(View.GONE);
+            inventory.setVisibility(View.INVISIBLE);
             Inv = false;}
     }
     //===========================================================//
@@ -293,6 +270,62 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
     }
     //==============end of temporary test facility===============//
 
+
+    public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ItemViewHolder>{
+
+
+
+        @NonNull
+        @Override
+        public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_items,parent,false);
+            return new ItemViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final ItemViewHolder holder, int position) {
+
+            Petitem petitem = petitems.get(position);
+            System.out.println(petitem+"item");
+            System.out.println(petitem.name);
+            holder.nameHolder.setText(petitem.name);
+            holder.imageHolder.setImageResource(petitem.image);
+
+            holder.imageHolder.setTag(petitem.name + ""+ position);
+            holder.imageHolder.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    itemDragged = holder.getAdapterPosition();
+                    ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
+                    String[] mimeTypes = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+                    ClipData data = new ClipData(view.getTag().toString(), mimeTypes, item);
+                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                    view.startDrag(data//data to be dragged
+                            , shadowBuilder //drag shadow
+                            , view//local data about the drag and drop operation
+                            , 0//no needed flags
+                    );
+
+                    return false;
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return petitems.size();
+        }
+
+        public class ItemViewHolder extends RecyclerView.ViewHolder{
+            ImageView imageHolder;
+            TextView nameHolder;
+            public ItemViewHolder(View view) {
+                super(view);
+                imageHolder = view.findViewById(R.id.Picture);
+                nameHolder = view.findViewById(R.id.Name);
+            }
+        }
+    }
 
 
 

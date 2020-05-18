@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/buttonback"
+        android:onClick="buyitem"
         android:text="buy"
         android:textColor="@color/textColor"
         android:visibility="invisible"
