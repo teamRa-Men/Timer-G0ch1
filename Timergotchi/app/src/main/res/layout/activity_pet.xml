@@ -63,7 +63,7 @@
     <ImageView
         android:id="@+id/Backpack"
         android:layout_width="124dp"
-        android:layout_height="138dp"
+        android:layout_height="100dp"
         android:background="@drawable/gradient"
         android:backgroundTint="@color/colorPrimaryLight"
         android:onClick="Openinv"
