@@ -134,26 +134,13 @@
             android:foregroundGravity="left"
             android:text="Monday" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:foregroundGravity="left"
-            android:text="Tuesday" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:foregroundGravity="left"
-            android:text="Wednesday" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +157,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/editmenu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginBottom="0dp"
                 android:background="@color/colorPrimaryLight"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -182,11 +169,14 @@
                     android:id="@+id/repeattitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="8dp"
-                    android:text="Edit Task"
+                    android:text="EDIT TASK"
                     android:textColor="@color/textColor"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -203,10 +193,9 @@
                     android:background="@drawable/task"
                     android:ems="10"
                     android:focusable="auto"
-                    android:gravity="center"
+                    android:gravity="left|center_vertical"
                     android:imeOptions="actionDone"
                     android:inputType="text"
-                    android:paddingTop="12sp"
                     android:selectAllOnFocus="false"
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
@@ -221,7 +210,7 @@
                     android:id="@+id/editname2"
 
                     android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_height="47dp"
                     android:layout_marginStart="44dp"
                     android:layout_marginLeft="44dp"
                     android:layout_marginEnd="44dp"
@@ -231,27 +220,7 @@
                     android:paddingTop="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/repeattitle" />
-
-                <TextView
-                    android:id="@+id/dueDate"
-
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="44dp"
-                    android:layout_marginLeft="44dp"
-                    android:layout_marginEnd="44dp"
-                    android:layout_marginRight="44dp"
-                    android:background="@drawable/task"
-                    android:focusable="auto"
-
-                    android:gravity="center_horizontal"
-                    android:paddingTop="12sp"
-                    android:textColor="@color/textColor"
-                    android:textColorHighlight="@color/colorAccent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/duedatetitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/dueDate2" />
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -269,9 +238,19 @@
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
                     app:layout_constraintBottom_toBottomOf="@+id/dueDate"
-                    app:layout_constraintEnd_toStartOf="@+id/editname"
+                    app:layout_constraintEnd_toStartOf="@+id/dueDate"
                     app:layout_constraintStart_toStartOf="@+id/donebutton"
-                    app:layout_constraintTop_toBottomOf="@+id/duedatetitle" />
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+                    app:layout_constraintEnd_toStartOf="@+id/dueDate"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -309,18 +288,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/duedatetitle" />
 
                 <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/task_bar_end_right"
-                    android:onClick="clearDueDate"
-                    android:src="@drawable/cross"
-                    android:tint="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="@+id/dueDate"
-                    app:layout_constraintStart_toEndOf="@+id/editname"
-                    app:layout_constraintTop_toBottomOf="@+id/duedatetitle" />
-
-                <ImageView
                     android:id="@+id/editdelete"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
@@ -329,6 +296,18 @@
                     app:layout_constraintStart_toEndOf="@+id/editname"
                     app:layout_constraintTop_toTopOf="@+id/editname"
                     app:srcCompat="@drawable/delete" />
+
+                <ImageView
+                    android:id="@+id/calendarback"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/calendarback"
+                    app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+                    app:layout_constraintEnd_toEndOf="@+id/calendarView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/calendarView"
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
 
                 <CalendarView
                     android:id="@+id/calendarView"
@@ -347,18 +326,80 @@
                     app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
                 <TextView
+                    android:id="@+id/dueDate"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginLeft="44dp"
+
+                    android:layout_marginEnd="44dp"
+                    android:layout_marginRight="44dp"
+                    android:background="@drawable/task"
+                    android:focusable="auto"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editname" />
+
+                <ImageView
+                    android:id="@+id/dueDate2"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginLeft="44dp"
+
+                    android:layout_marginEnd="44dp"
+                    android:layout_marginRight="44dp"
+                    android:background="@drawable/task"
+                    android:focusable="auto"
+                    android:paddingRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+                <ImageView
+                    android:id="@+id/clearduedate"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="clearDueDate"
+                    android:src="@drawable/cross"
+                    android:tint="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/dueDate"
+                    app:layout_constraintStart_toEndOf="@+id/dueDate"
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
+
+                <ImageView
+                    android:id="@+id/clearduedate2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:tint="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/calendarView"
+                    app:layout_constraintStart_toEndOf="@+id/dueDate"
+                    app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+                <TextView
                     android:id="@+id/duedatetitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:onClick="onCalendarPopup"
                     android:text="Due Date"
                     android:textColor="@color/textColor"
                     android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/calendarView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.502"
+                    app:layout_constraintHorizontal_bias="0.002"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editname" />
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
 
                 <TextView
                     android:id="@+id/repeattitle"
@@ -366,13 +407,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
                     android:text="Repeat"
                     android:textColor="@color/textColor"
                     android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+                    app:layout_constraintTop_toTopOf="@+id/editname2" />
 
                 <TextView
                     android:id="@+id/editthu2"
@@ -385,6 +427,7 @@
                     android:textColor="@color/design_default_color_surface"
                     app:drawableTint="@color/colorAccent"
                     app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editthu"
                     app:layout_constraintEnd_toEndOf="@+id/editthu"
                     app:layout_constraintHorizontal_bias="0.67"
                     app:layout_constraintStart_toStartOf="@+id/editthu"
@@ -401,6 +444,7 @@
                     android:textColor="@color/design_default_color_surface"
                     app:drawableTint="@color/colorAccent"
                     app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/edittue"
                     app:layout_constraintEnd_toEndOf="@+id/edittue"
                     app:layout_constraintHorizontal_bias="0.33"
                     app:layout_constraintStart_toStartOf="@+id/edittue"
@@ -417,6 +461,7 @@
                     android:textColor="@color/design_default_color_surface"
                     app:drawableTint="@color/colorAccent"
                     app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editfri"
                     app:layout_constraintEnd_toEndOf="@+id/editfri"
                     app:layout_constraintHorizontal_bias="0.75"
                     app:layout_constraintStart_toStartOf="@+id/editfri"
@@ -433,6 +478,7 @@
                     android:textColor="@color/design_default_color_background"
                     app:drawableTint="@color/colorAccent"
                     app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editsat"
                     app:layout_constraintEnd_toEndOf="@+id/editsat"
                     app:layout_constraintHorizontal_bias="0.9"
                     app:layout_constraintStart_toStartOf="@+id/editsat"
@@ -449,6 +495,7 @@
                     android:textColor="@color/design_default_color_on_primary"
                     app:drawableTint="@color/colorAccent"
                     app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editmon"
                     app:layout_constraintEnd_toEndOf="@+id/editmon"
                     app:layout_constraintHorizontal_bias="0.17"
                     app:layout_constraintStart_toStartOf="@+id/editmon"
@@ -464,6 +511,7 @@
                     android:text="S"
                     android:textColor="@color/design_default_color_background"
                     app:drawableTint="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/editsun"
                     app:layout_constraintEnd_toEndOf="@+id/editsun"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/editsun"
@@ -480,6 +528,7 @@
                     android:textColor="@color/design_default_color_on_primary"
                     app:drawableTint="@color/colorAccent"
                     app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editwed"
                     app:layout_constraintEnd_toEndOf="@+id/editwed"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/editwed"
@@ -488,53 +537,65 @@
                 <TextView
                     android:id="@+id/edittue"
                     android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/buttonback"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
                     android:gravity="center"
                     android:onClick="onRepeat"
                     android:text="T"
                     android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.35"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/editname2" />
 
                 <TextView
+                    android:id="@+id/editwed"
+                    android:layout_width="44dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="W"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/editname2" />
+
+                <TextView
                     android:id="@+id/editthu"
                     android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/buttonback"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
                     android:gravity="center"
                     android:onClick="onRepeat"
                     android:text="T"
                     android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.65"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/editname2" />
 
                 <TextView
-                    android:id="@+id/editwed"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/buttonback"
-                    android:gravity="center"
-                    android:onClick="onRepeat"
-                    android:text="W"
-                    android:textColor="@color/textColor"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editname2" />
-
-                <TextView
                     android:id="@+id/editfri"
                     android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/buttonback"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
                     android:gravity="center"
                     android:onClick="onRepeat"
                     android:text="F"
                     android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.8"
                     app:layout_constraintStart_toStartOf="parent"
@@ -543,12 +604,15 @@
                 <TextView
                     android:id="@+id/editsat"
                     android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/buttonback"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
                     android:gravity="center"
                     android:onClick="onRepeat"
                     android:text="S"
                     android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.95"
                     app:layout_constraintStart_toStartOf="parent"
@@ -557,13 +621,16 @@
                 <TextView
                     android:id="@+id/editmon"
                     android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/buttonback"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
                     android:gravity="center"
                     android:onClick="onRepeat"
                     android:text="M"
                     android:textColor="@color/textColor"
                     android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -571,19 +638,20 @@
 
                 <TextView
                     android:id="@+id/editsun"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/buttonback"
+                    android:layout_width="44dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="@color/design_default_color_background"
                     android:gravity="center"
                     android:onClick="onRepeat"
                     android:text="S"
                     android:textColor="@color/textColor"
-                    app:layout_constraintBottom_toBottomOf="@+id/repeattitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/editwed"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.05"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editname2"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="@+id/editwed" />
 
                 <TextView
                     android:id="@+id/editcancel"

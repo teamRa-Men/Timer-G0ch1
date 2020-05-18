@@ -20,7 +20,6 @@
         android:layout_height="44dp"
         android:layout_marginStart="44dp"
         android:layout_marginLeft="44dp"
-        android:layout_marginTop="44dp"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
         android:background="@drawable/task"
@@ -44,42 +43,7 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/task_bar_end_right"
-        app:layout_constraintStart_toEndOf="@+id/addTask"
-        app:layout_constraintTop_toTopOf="@+id/listname" />
-
-    <EditText
-        android:id="@+id/listname"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:background="@drawable/task"
-        android:ems="10"
-        android:focusable="auto"
-        android:hint="List 1"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-
-        android:selectAllOnFocus="false"
-
-        android:text="List 1"
-        android:textColor="@color/textColor"
-        android:textColorLink="@color/design_default_color_background"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/end"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/task_bar_end_left"
-        app:layout_constraintEnd_toStartOf="@+id/addTask"
-        app:layout_constraintTop_toTopOf="@+id/listname" />
+        app:layout_constraintStart_toEndOf="@+id/addTask" />
 
     <ImageView
         android:id="@+id/end3"
@@ -107,15 +71,6 @@
         android:background="@drawable/task_bar_end_right"
         app:layout_constraintStart_toEndOf="@+id/addTask"
         app:layout_constraintTop_toTopOf="@+id/addTask" />
-
-    <Button
-        android:id="@+id/editlistbutton"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/edit_button"
-        android:onClick="onEdit"
-        app:layout_constraintStart_toEndOf="@+id/addTask"
-        app:layout_constraintTop_toTopOf="@+id/listname" />
 
     <Button
         android:id="@+id/editaddbutton"

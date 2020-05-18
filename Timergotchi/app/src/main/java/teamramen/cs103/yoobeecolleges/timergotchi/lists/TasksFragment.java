@@ -57,7 +57,7 @@ public class TasksFragment extends Fragment {
 
         root = inflater.inflate(R.layout.fragment_tasks, container, false);
         listName = root.findViewById(R.id.listname);
-        listName.setText("List " + (listNum+1));
+
 
 
         RecyclerView list = root.findViewById(R.id.list);

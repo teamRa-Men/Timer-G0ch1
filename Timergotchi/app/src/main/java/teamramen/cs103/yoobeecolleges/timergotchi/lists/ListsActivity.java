@@ -58,6 +58,8 @@ public class ListsActivity extends AppCompatActivity {
     View[] days;
     public int taskHeight;
 
+    int numberOfLists = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class ListsActivity extends AppCompatActivity {
 
 
 
-        for(int i = 0; i < 10;i++) {
+        for(int i = 0; i < numberOfLists;i++) {
             lists.add(new TasksFragment(i, db));
             listAdapter.addList(lists.get(i), "Morning",i);
         }
@@ -83,8 +85,9 @@ public class ListsActivity extends AppCompatActivity {
         pager.setAdapter(listAdapter);
         listTabs.setupWithViewPager(pager);
 
+        listTabs.getTabAt(0).setText("TODO");/*
         listTabs.getTabAt(0).setIcon(R.drawable.listicon);
-        for(int i = 1; i < 10;i++) {
+        for(int i = 1; i < numberOfLists;i++) {
             listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
         }
 
@@ -118,7 +121,7 @@ public class ListsActivity extends AppCompatActivity {
                         super.onTabReselected(tab);
                     }
                 }
-        );
+        );*/
 
 
 

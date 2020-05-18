@@ -1,7 +1,9 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.app.ListActivity;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -214,6 +216,10 @@ public class Task{
     }
 
     public void doTask(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelBlue));
+        }
+
         if(status == 0){
             status =1;
             dobutton.setVisibility(View.INVISIBLE);
