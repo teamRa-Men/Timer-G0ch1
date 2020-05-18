@@ -93,4 +93,15 @@
         app:layout_constraintTop_toTopOf="@+id/taskname"
         app:srcCompat="@drawable/do_button" />
 
+    <ImageView
+        android:id="@+id/pausebutton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:onClick="onDo"
+        android:tint="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/taskname"
+        app:srcCompat="@drawable/pause" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

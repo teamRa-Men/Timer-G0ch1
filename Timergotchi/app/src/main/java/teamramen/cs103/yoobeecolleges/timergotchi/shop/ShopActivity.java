@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class ShopActivity extends AppCompatActivity {
     String namelist[] = {"Mushroom", "Backpack"};
     int price[] = {24, 22};
     int shop_images[] ={R.drawable.food_mushroom, R.drawable.backpack_closed};
-    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n 0 Affection \n 5 Food ","Back pack, stores items "};
+    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Affection \n +5 Food ","Back pack, stores items "};
 
     Petitem currentitem;
 
@@ -100,7 +101,7 @@ public class ShopActivity extends AppCompatActivity {
             TextView Name = v.findViewById(R.id.Name);
 
             Picture.setImageResource(shop_images[i]);
-            Price.setText(price[i]+"");
+            Price.setText(  price[i] + "g");
             Name.setText(namelist[i]);
 
             v.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +115,8 @@ public class ShopActivity extends AppCompatActivity {
                         itemdescription.setText(description[i]);
 
                         currentitem = new Petitem(namelist[i], shop_images[i]);
+                        Button buybutton =  findViewById(R.id.buybutton);
+                        buybutton.setVisibility(View.VISIBLE);
                     }
                 }
             });

@@ -54,6 +54,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.doneshadow =holder.doneshadow;
         task.left =holder.left;
         task.right =holder.right;
+        task.pausebutton=holder.pausebutton;
 
 
 
@@ -96,7 +97,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;
-        View container,dobutton,donebutton,doneshadow,left,right;
+        View container,dobutton, pausebutton,donebutton,doneshadow,left,right;
         public ViewHolder(View itemView){
             super(itemView);
             nameView = itemView.findViewById(R.id.taskname);
@@ -106,6 +107,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             doneshadow=itemView.findViewById(R.id.doneshadow);
             left = itemView.findViewById(R.id.left);
             right = itemView.findViewById(R.id.right);
+            pausebutton = itemView.findViewById(R.id.pausebutton);
         }
     }
 }

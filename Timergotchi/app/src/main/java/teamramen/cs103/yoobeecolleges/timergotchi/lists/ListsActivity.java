@@ -173,7 +173,21 @@ public class ListsActivity extends AppCompatActivity {
     public void onAddTask(View view) { lists.get(pager.getCurrentItem()).onAddTask(); }
 
     //pass to timer
-    public void onDo(View view) { }
+    public void onDo(View view) {
+        if(!editing) {
+            /*
+            int pick = (int) (Math.random() * doneSounds.size());
+            try {
+                doneSounds.get(pick).setVolume(0.2f, 0.2f);
+                doneSounds.get(pick).start();
+                //System.out.println(doneSounds.get(pick)+" " + pick);
+            } catch (Exception e) {
+                System.out.println("null sound " + pick);
+            }*/
+            lists.get(pager.getCurrentItem()).onDoTask(view);
+
+        }
+    }
 
     /*****************************************************************************************
      * Edit Task

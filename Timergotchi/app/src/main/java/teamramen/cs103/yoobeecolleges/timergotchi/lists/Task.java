@@ -11,13 +11,13 @@ import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
 
 public class Task{
-    public static int CURRENT=0;
+    public static int CURRENT=0, DOING = 1;
     public long id;
 
     public int index, list;
     public String name;
     public  TextView nameView;
-    public View container,dobutton,donebutton,doneshadow,left,right;
+    public View container,dobutton,donebutton,doneshadow,left,right,pausebutton;
 
 
     public int[] repeat;
@@ -211,5 +211,18 @@ public class Task{
 
         int dayOfTheWeek = dd.getDay();
 
+    }
+
+    public void doTask(){
+        if(status == 0){
+            status =1;
+            dobutton.setVisibility(View.INVISIBLE);
+            pausebutton.setVisibility(View.VISIBLE);
+        }
+        else if(status == 1){
+            status =0;
+            dobutton.setVisibility(View.VISIBLE);
+            pausebutton.setVisibility(View.INVISIBLE);
+        }
     }
 }

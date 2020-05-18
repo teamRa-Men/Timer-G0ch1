@@ -9,9 +9,10 @@
 
     <TextView
         android:id="@+id/itemdescription"
-        android:layout_width="0dp"
-        android:layout_height="147dp"
-        android:text="TextView"
+        android:layout_width="139dp"
+        android:layout_height="227dp"
+        android:gravity="center"
+        android:textColor="@color/textColor"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintEnd_toStartOf="@+id/itemimage"
         app:layout_constraintStart_toEndOf="@+id/Shoplist" />
@@ -20,29 +21,30 @@
         android:id="@+id/itemimage"
         android:layout_width="150dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/buybutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemdescription"
-        app:srcCompat="@drawable/menu_white" />
+        app:layout_constraintTop_toTopOf="@+id/itemdescription" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/buttonback"
         android:text="buy"
-        app:layout_constraintBottom_toTopOf="@+id/itemdescription"
-        app:layout_constraintEnd_toEndOf="@+id/itemimage"
-        app:layout_constraintStart_toStartOf="@+id/itemdescription" />
+        android:textColor="@color/textColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemdescription" />
 
     <ListView
         android:id="@+id/Shoplist"
-        android:layout_width="120dp"
-        android:layout_height="682dp"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimaryLight"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frameLayout2"
@@ -116,12 +118,12 @@
         android:id="@+id/imageView2"
         android:layout_width="267dp"
         android:layout_height="293dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/itemdescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Shoplist"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.844"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/pet_default" /><![CDATA[
 
 

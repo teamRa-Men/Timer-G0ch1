@@ -154,6 +154,11 @@ public class TasksFragment extends Fragment {
         }
     }
 
+    public void onDoTask(View view){
+        Task t = findByView(view);
+        t.doTask();
+    }
+
     public void deleteTask(Task t){
         tasks.remove(t);
         adapter.notifyItemRemoved(t.index);
