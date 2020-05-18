@@ -63,45 +63,45 @@
         app:layout_constraintTop_toTopOf="@+id/taskname" />
 
     <ImageView
-        android:id="@+id/done"
+        android:id="@+id/finished"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/donedone"
         android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/donebutton"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
         app:layout_constraintStart_toStartOf="@+id/donebutton"
-        app:layout_constraintTop_toTopOf="@+id/donebutton"
-        app:srcCompat="@drawable/donedone" />
+        app:layout_constraintTop_toTopOf="@+id/donebutton" />
 
     <ImageView
         android:id="@+id/donebutton"
         android:layout_width="44dp"
         android:layout_height="44dp"
+        android:background="@drawable/done"
         android:onClick="onTaskDone"
         android:tint="@color/colorAccent"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/taskname"
-        app:srcCompat="@drawable/done" />
+        app:layout_constraintTop_toTopOf="@+id/taskname" />
 
     <ImageView
         android:id="@+id/dobutton"
         android:layout_width="44dp"
         android:layout_height="44dp"
+        android:background="@drawable/do_button"
         android:onClick="onDo"
         android:tint="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/taskname"
-        app:srcCompat="@drawable/do_button" />
+        app:layout_constraintTop_toTopOf="@+id/taskname" />
 
     <ImageView
         android:id="@+id/pausebutton"
         android:layout_width="44dp"
         android:layout_height="44dp"
+        android:background="@drawable/pause"
         android:onClick="onDo"
         android:tint="@color/colorAccent"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/taskname"
-        app:srcCompat="@drawable/pause" />
+        app:layout_constraintTop_toTopOf="@+id/taskname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

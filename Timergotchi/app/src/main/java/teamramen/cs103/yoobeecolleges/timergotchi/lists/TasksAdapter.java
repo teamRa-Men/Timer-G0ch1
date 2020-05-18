@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,12 +56,18 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.left =holder.left;
         task.right =holder.right;
         task.pausebutton=holder.pausebutton;
-
+        task.finishedbutton =holder.finishedbutton ;
 
 
         task.showTask();
         task.showFinished();
         task.showOverdue();
+
+        task.pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+        task.donebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+        task.dobutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+        task.finishedbutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
+
     }
 
 
@@ -97,7 +104,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;
-        View container,dobutton, pausebutton,donebutton,doneshadow,left,right;
+        View container, doneshadow,left,right;
+        ImageView dobutton,donebutton,pausebutton,finishedbutton;
+
         public ViewHolder(View itemView){
             super(itemView);
             nameView = itemView.findViewById(R.id.taskname);
@@ -108,6 +117,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             left = itemView.findViewById(R.id.left);
             right = itemView.findViewById(R.id.right);
             pausebutton = itemView.findViewById(R.id.pausebutton);
+            finishedbutton = itemView.findViewById(R.id.finished);
         }
     }
 }

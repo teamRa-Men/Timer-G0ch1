@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import java.util.Date;
@@ -19,7 +20,8 @@ public class Task{
     public int index, list;
     public String name;
     public  TextView nameView;
-    public View container,dobutton,donebutton,doneshadow,left,right,pausebutton;
+    public View container,doneshadow,left,right;
+    public ImageView dobutton,donebutton,pausebutton, finishedbutton;
 
 
     public int[] repeat;
@@ -155,11 +157,13 @@ public class Task{
                 donebutton.setVisibility(View.INVISIBLE);
                 doneshadow.setVisibility(View.VISIBLE);
                 dobutton.setVisibility(View.INVISIBLE);
+                finishedbutton.setVisibility(View.VISIBLE);
             }
             else{
                 donebutton.setVisibility(View.VISIBLE);
                 doneshadow.setVisibility(View.INVISIBLE);
                 dobutton.setVisibility(View.VISIBLE);
+                finishedbutton.setVisibility(View.INVISIBLE);
             }
         }catch (Exception e){
 
@@ -216,9 +220,9 @@ public class Task{
     }
 
     public void doTask(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelBlue));
-        }
+
+
+
 
         if(status == 0){
             status =1;
