@@ -43,16 +43,26 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class PetActivity extends AppCompatActivity implements View.OnDragListener{
 
+/* TODO
+buy item price, (if "price" >= "your money"), add item (x1) to backpack and "your money" - "price" 'maybe add sounds'?,
+can't find amounth of money/points
+
+* petdesigns
+* * adding hunger over Time and stored hunger*/
+
+/* DONE
+* * adding stats to the food (health and affection) done, consumables works pretty fine */
+
 
     public ImageView Pet_def, Backpack;
-    TextView display;
+    TextView display, healthbar;
     public RecyclerView inventory;
     ArrayList<Petitem> petitems = new ArrayList<Petitem>();
 
     boolean Inv = false;
     boolean AnimationPlaying = false;
 
-    int affection = 0; int health = 100;
+    int affection = 50; int health = 100;
     int screenwidth = 0;
     int itemDragged;
     BackpackAdapter adapter;
@@ -63,6 +73,8 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
         setContentView(R.layout.activity_pet);
         Pet_def = findViewById(R.id.Pet_default);
         display = findViewById(R.id.display);
+        healthbar = findViewById(R.id.healthbar);
+
         Backpack = findViewById(R.id.Backpack);
         inventory = findViewById(R.id.inventory);
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -124,24 +136,30 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
                 view.invalidate();
                 return true;
 
+
+                //============================//
             case DragEvent.ACTION_DROP:
-                ClipData.Item item = event.getClipData().getItemAt(0);
-                String dragData = item.getText().toString();
+                if(AnimationPlaying == false) {
+                    ClipData.Item item = event.getClipData().getItemAt(0);
+                    String dragData = item.getText().toString();
 
-                view.invalidate();
-                View v = (View) event.getLocalState();
-                ViewGroup itemContainer = (ViewGroup) v.getParent().getParent();
-                eating(v);
+                    view.invalidate();
+                    View v = (View) event.getLocalState();
+                    ViewGroup itemContainer = (ViewGroup) v.getParent().getParent();
 
-                itemContainer.removeView(v);//remove the dragged view
-                if(petitems.get(itemDragged).type == 0) {
-                    adapter.notifyItemRemoved(itemDragged);
-                    db.removePetitem(petitems.get(itemDragged).id);
-                    petitems.remove(itemDragged);
+                    itemContainer.removeView(v);//remove the dragged view
+                    if (petitems.get(itemDragged).type == 0) {
+                        adapter.notifyItemRemoved(itemDragged);
+                        db.removePetitem(petitems.get(itemDragged).id);
+                        petitems.remove(itemDragged);
+
+                        eating(v);
+                        affection += petitems.get(itemDragged).affection;
+                        health += petitems.get(itemDragged).health;
+                    }
+                    v.setVisibility(View.VISIBLE);//finally set Visibility to VISIBLE
+
                 }
-                v.setVisibility(View.VISIBLE);//finally set Visibility to VISIBLE
-
-
                 return true;
 
             case DragEvent.ACTION_DRAG_ENDED:
@@ -259,9 +277,10 @@ public class PetActivity extends AppCompatActivity implements View.OnDragListene
                     }
                     public void onFinish(){
                         Pet_def.setImageResource(R.drawable.pet_default);
-                        AnimationPlaying = false;}
+                        AnimationPlaying = false; }
                 }.start();
-
+                display.setText(Integer.toString(affection));
+                healthbar.setText(Integer.toString(health));
             }
 
         }.start();

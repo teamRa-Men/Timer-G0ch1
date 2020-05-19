@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String query1 = "create table Points(id integer primary key, points integer)";
 
-        String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer)";
+        String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
 
 
         db.execSQL(query);
@@ -255,8 +255,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int image = c.getInt(2);
             int id = c.getInt(0);
             int type = c.getInt(3);
+            int health = c.getInt(4);
+            int affection = c.getInt(5);
 
-            backpack.add(new Petitem(name,image,type,id));
+            backpack.add(new Petitem(name,image,type,id,health,affection));
 
             i++;
 
@@ -277,6 +279,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("name", petitem.name);
         value.put("image", petitem.image);
         value.put("type", petitem.type);
+        value.put("health", petitem.health);
+        value.put("affection", petitem.affection);
+
         //opening the db into writable mode
         SQLiteDatabase db = this.getWritableDatabase();
 
