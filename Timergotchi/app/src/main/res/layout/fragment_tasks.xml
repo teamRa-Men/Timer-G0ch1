@@ -19,9 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
         android:background="@drawable/task"
         android:ems="10"
         android:focusable="auto"
@@ -32,7 +30,7 @@
 
         android:textColor="@color/textColor"
         android:textColorHint="@color/colorAccent"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +41,8 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/task_bar_end_right"
-        app:layout_constraintStart_toEndOf="@+id/addTask" />
+        app:layout_constraintStart_toEndOf="@+id/addTask"
+        app:layout_constraintTop_toTopOf="@+id/addTask" />
 
     <ImageView
         android:id="@+id/end3"
@@ -54,17 +53,6 @@
         app:layout_constraintTop_toTopOf="@+id/addTask" />
 
     <ImageView
-        android:id="@+id/add"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/add"
-        android:onClick="onAddTask"
-        android:tint="@color/colorAccent"
-        app:layout_constraintEnd_toStartOf="@+id/addTask"
-        app:layout_constraintTop_toTopOf="@+id/addTask"
-        app:srcCompat="@drawable/add" />
-
-    <ImageView
         android:id="@+id/endright"
         android:layout_width="44dp"
         android:layout_height="44dp"
@@ -72,13 +60,25 @@
         app:layout_constraintStart_toEndOf="@+id/addTask"
         app:layout_constraintTop_toTopOf="@+id/addTask" />
 
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/add"
+        android:onClick="onAddTask"
+        android:tint="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="@+id/endrightlist"
+        app:layout_constraintStart_toEndOf="@+id/addTask"
+        app:layout_constraintTop_toTopOf="@+id/addTask"
+        app:srcCompat="@drawable/add" />
+
     <Button
         android:id="@+id/editaddbutton"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/edit_button"
         android:onClick="onEdit"
-        app:layout_constraintStart_toEndOf="@+id/addTask"
+        app:layout_constraintStart_toStartOf="@+id/end3"
         app:layout_constraintTop_toTopOf="@+id/addTask" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -32,23 +32,16 @@ public class TasksFragment extends Fragment {
     protected EditText addTask;
     protected View root;
 
-    public int listNum;
+
     protected TasksAdapter adapter;
 
     public EditText listName;
 
-    public TasksFragment(int listNum, DatabaseHelper db){
+    public TasksFragment( DatabaseHelper db){
         this.db = db;
-        this.listNum = listNum;
+
     }
 
-
-
-
-    //View editTaskView;
-    //EditText editTaskName;
-    //Task taskEditing;
-    //boolean editing;
     TextView newTaskName;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,7 +54,7 @@ public class TasksFragment extends Fragment {
 
 
         RecyclerView list = root.findViewById(R.id.list);
-        adapter = new TasksAdapter(tasks, listNum, db);
+        adapter = new TasksAdapter(tasks, db);
 
 
         ItemTouchHelper.Callback callback = new SwipeDragHelper(adapter);
@@ -100,19 +93,6 @@ public class TasksFragment extends Fragment {
                                                   }
                                               }
         );
-
-
-
-
-
-
-
-
-        //editTaskView = root.findViewById(R.id.task_edit_menu);
-        //editTaskView.setVisibility(View.INVISIBLE);
-        //editTaskName = root.findViewById(R.id.task_edit_name);
-        //editing = false;
-
         return root;
     }
 
@@ -125,14 +105,11 @@ public class TasksFragment extends Fragment {
 
         }
         else {
-            Task newTask = new Task(newTaskName.getText().toString(), tasks.size(), listNum, db);
+            Task newTask = new Task(newTaskName.getText().toString(), tasks.size(), db);
 
             tasks.add(newTask);
             adapter.notifyItemInserted(tasks.size() - 1);
             newTaskName.setText("");
-
-            //newTaskName.setHint(getTextNameHint());
-
         }
     }
 
@@ -145,12 +122,8 @@ public class TasksFragment extends Fragment {
 
     public void onTaskDone(Task t){
         t.done();
-        tasks.remove(t);
-        if(!t.isRepeating()) {
-            adapter.notifyItemRemoved(t.index);
-        }
-        for (int i = t.index; i < tasks.size(); i++) {
-            tasks.get(i).moveTo(i);
+        if(!t.isRepeating()){
+            deleteTask(t);
         }
     }
 
@@ -160,12 +133,10 @@ public class TasksFragment extends Fragment {
     }
 
     public void deleteTask(Task t){
-        tasks.remove(t);
-        adapter.notifyItemRemoved(t.index);
-        for (int i = t.index; i < tasks.size(); i++) {
-            tasks.get(i).moveTo(i);
-        }
-        t.delete();
+            adapter.notifyItemRemoved(tasks.indexOf(t));
+            t.delete();
+            tasks.remove(t);
+
     }
 
 
@@ -184,7 +155,7 @@ public class TasksFragment extends Fragment {
 
     public void fetchTasks(){
         //system.out.println(listNum+"lsit");
-        ArrayList<Task> oldTasks = db.fetchTasks(listNum);
+        ArrayList<Task> oldTasks = db.fetchTasks();
 
         for(int i = 0; i < oldTasks.size();i++){
 
@@ -197,16 +168,5 @@ public class TasksFragment extends Fragment {
         }
 
     }
-
-    public void onClearList(){
-        for(int i = 0; i < tasks.size();i++){
-
-            adapter.notifyItemRemoved(0);
-        }
-        tasks.clear();
-        db.clearList(listNum);
-    }
-
-
 
 }

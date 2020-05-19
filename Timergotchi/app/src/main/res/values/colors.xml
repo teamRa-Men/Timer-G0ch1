@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#6D9197</color>
-    <color name="colorPrimaryLight">#F8FAE2</color>
+    <color name="colorAccent">#527C83</color>
+    <color name="colorPrimaryLight">#E9F4F1</color>
     <color name="colorPrimary">#6D9197</color>
-    <color name="colorPrimaryMedium">#756D9197</color>
-    <color name="colorPrimaryDark">#2F575D</color>
+    <color name="colorPrimaryMedium">#72498781</color>
+    <color name="colorPrimaryDark">#608F98</color>
     <color name="colorPrimarysdfsdf">#55C8A4</color>
     <color name="navBar">#24CB8E</color>
-    <color name="colorPastelYellow">#FFFCCE</color>
-    <color name="colorPastelPinkOrange">#FFB8B3</color>
-    <color name="colorPastelRed">#FF9BA3</color>
-    <color name="colorPastelOrange">#F8D7CB</color>
-    <color name="colorPastelYellowOrange">#F8D9B6</color>
-    <color name="colorPastelBlue">#DAFFFF</color>
-    <color name="colorPastelPurple">#C7CEEA</color>
+    <color name="colorLabel0">#76F44336</color>
+    <color name="colorLabel1">#7AFF9800</color>
+    <color name="colorLabel2">#FFEB3B</color>
+    <color name="colorLabel3">#789C27B0</color>
+    <color name="colorLabel4">#784CAF50</color>
+    <color name="colorLabel5">#7500BCD4</color>
+    <color name="colorLabel6">#75673AB7</color>
     <color name="textColor">#2F575D</color>
     <color name="colorShadow">#46000000</color>
 

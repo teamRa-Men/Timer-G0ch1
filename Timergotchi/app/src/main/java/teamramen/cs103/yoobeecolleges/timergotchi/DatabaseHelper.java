@@ -20,16 +20,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //status 0 = current, 1 = removed;
 
     public void onCreate(SQLiteDatabase db) {
-        //todo deadline, labels*?,repeat* 7
-        String query = "create table Tasks(id integer primary key, taskName text, taskIndex integer, taskStatus float, list integer, dueDate float, sun int, mon int, tue int, wed int, thu int, fri int, sat int)";
+
+        //name status created dueTime dueDate smtwtfs 0123456
+        String query = "create table Tasks(id integer primary key, " +
+                "taskName text, " +
+                "taskStatus float, " +
+                "timeCreated float, "+
+                "dueTime float, " +
+                "dueDate float, " +
+                "sun int, mon int, tue int, wed int, thu int, fri int, sat int, " +
+                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int)";
+
+
+
         String query1 = "create table Points(id integer primary key, points integer)";
-        String query2 = "create table Lists(id integer primary key, listName text, listNum integer)";
+
         String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer)";
 
 
         db.execSQL(query);
         db.execSQL(query1);
-        db.execSQL(query2);
+
         db.execSQL(query3);
 
     }
@@ -45,14 +56,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void clearList(int list){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        db.delete("Tasks","list=?", new String[]{"" + list});
-
-        db.close();
-    }
-
     public void clearAll(){
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS Tasks");
@@ -63,15 +66,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //user defined functions
 
 
-
-    public long addTask( String taskName, int taskIndex, int list)
+    //name status created dueTime dueDate smtwtfs 0123456
+    public long addTask( String taskName, float timeCreated)
     {
         ContentValues value = new ContentValues();
 
         value.put("taskName", taskName);
-        value.put("taskIndex", taskIndex);
         value.put("taskStatus", 0);
-        value.put("list", list);
+        value.put("timeCreated", timeCreated);
+        value.put("dueTime", 0);
         value.put("dueDate", 0);
         value.put("sun", 0);
         value.put("mon", 0);
@@ -80,6 +83,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("thu", 0);
         value.put("fri", 0);
         value.put("sat", 0);
+        value.put("label0", 0);
+        value.put("label1", 0);
+        value.put("label2", 0);
+        value.put("label3", 0);
+        value.put("label4", 0);
+        value.put("label5", 0);
+        value.put("label6", 0);
 
         //opening the db into writable mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -93,16 +103,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-    public boolean updateData(long id, String newTaskName, int newIndex, float newStatus,int newList, float newDueDate, int[] repeat)
+    //name status created dueTime dueDate smtwtfs 0123456
+    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels)
     {
         ContentValues value = new ContentValues();
 
         value.put("taskName", newTaskName);
-        value.put("taskIndex", newIndex);
         value.put("taskStatus", newStatus);
-        value.put("list",newList);
+        value.put("dueTime",newDueTime);
         value.put("dueDate",newDueDate);
+
         value.put("sun", repeat[0]);
         value.put("mon", repeat[1]);
         value.put("tue", repeat[2]);
@@ -110,6 +120,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("thu", repeat[4]);
         value.put("fri", repeat[5]);
         value.put("sat", repeat[6]);
+
+        value.put("label0", labels[0]);
+        value.put("label1", labels[1]);
+        value.put("label2", labels[2]);
+        value.put("label3", labels[3]);
+        value.put("label4", labels[4]);
+        value.put("label5", labels[5]);
+        value.put("label6", labels[6]);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -153,30 +171,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
-
-/*
-    public ArrayList<String> get(int i) {
-        // String query = "select * from Person_Profile where firstname =firstname ='\"+first_name+\"' and lastname = '\"+last_name+\"'";
-        String query = "select * from Tasks where taskIndex ='" + i + "' and taskStatus = '" + 0 + "'";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(query, null);
-
-        ArrayList<String> result = new ArrayList<String>();
-        while (c.moveToNext()) {
-            result.add(c.getString(0).toString() + "\t");
-        }
-        db.close();
-        return result;
-    }
-*/
 //todo list<string[]{id,name,index,status,deadline,labels,repeat}>
 
 
-    public ArrayList<Task> fetchTasks(int list) {
+    public ArrayList<Task> fetchTasks() {
         String query = "";
 
-            query = "select * from Tasks where list = '" + list + "'";
+            query = "select * from Tasks";
 
 
 
@@ -186,23 +187,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ArrayList<Task> tasks = new ArrayList<Task>();
 
             int i = 0;
+
+        //id name status created dueTime dueDate smtwtfs 0123456
             while (c.moveToNext()) {
                 int id = c.getInt(0);
                 String name = c.getString(1);
-                int index = c.getInt(2);
-                float status = c.getFloat(3);
-                //int list = c.getInt(4);
+                float status = c.getFloat(2);
+                float created = c.getFloat(3);
+                int dueTime = c.getInt(4);
                 float dueDate = c.getFloat(5);
+
                 int[] repeat = new int[]{c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11),c.getInt(12)};
 
-                tasks.add(new Task(id,name,index,status,list,dueDate,repeat, this));
+                int[] labels = new int[]{c.getInt(13),c.getInt(14),c.getInt(15),c.getInt(16),c.getInt(17),c.getInt(18),c.getInt(19)};
+                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels, this));
 
 
                 i++;
 
             }
-           //
-        // ////system.out.println(i+"db tasks");
 
             db.close();
 

@@ -19,14 +19,13 @@ import teamramen.cs103.yoobeecolleges.timergotchi.R;
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
 
     ArrayList<Task> tasks;
-    int list;
+
     DatabaseHelper db;
 
-    public TasksAdapter(ArrayList<Task> tasks, int list, DatabaseHelper db){
+    public TasksAdapter(ArrayList<Task> tasks, DatabaseHelper db){
 
 
         this.tasks = tasks;
-        this.list = list;
         this.db = db;
     }
 
@@ -55,19 +54,16 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.doneshadow =holder.doneshadow;
         task.left =holder.left;
         task.right =holder.right;
-        task.pausebutton=holder.pausebutton;
+
         task.finishedbutton =holder.finishedbutton ;
-        task.showDueDate = holder.showDueDate;
-        task.showRepeat = holder.showRepeat;
+        task.showrepeat = holder.showrepeat;
+
+
 
         task.showTask();
         task.showFinished();
         task.showOverdue();
 
-        task.pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-        task.donebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-        task.dobutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-        task.finishedbutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
 
     }
 
@@ -86,7 +82,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         try {
             Task task = tasks.get(oldPos);
             tasks.remove(oldPos);
-            task.moveTo(newPos);
             tasks.add(newPos,task);
             notifyItemMoved(oldPos, newPos);
         }
@@ -104,9 +99,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView nameView,showDueDate,showRepeat;
+        TextView nameView;
         View container, doneshadow,left,right;
-        ImageView dobutton,donebutton,pausebutton,finishedbutton;
+        ImageView dobutton,donebutton,finishedbutton,showrepeat;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -117,10 +112,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             doneshadow=itemView.findViewById(R.id.doneshadow);
             left = itemView.findViewById(R.id.left);
             right = itemView.findViewById(R.id.right);
-            pausebutton = itemView.findViewById(R.id.pausebutton);
+
             finishedbutton = itemView.findViewById(R.id.finished);
-            showDueDate = itemView.findViewById(R.id.showDueDate);
-            showRepeat = itemView.findViewById(R.id.showRepeat);
+            showrepeat = itemView.findViewById(R.id.showrepeating);
+
         }
     }
 }

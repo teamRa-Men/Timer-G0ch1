@@ -14,56 +14,54 @@ import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
 
 public class Task{
-    public static int CURRENT=0, DOING = 1;
+    public static int CURRENT=0;
     public long id;
 
-    public int index, list;
+    public int index;
     public String name;
-    public  TextView nameView,showDueDate,showRepeat;
+    public  TextView nameView;
     public View container,doneshadow,left,right;
-    public ImageView dobutton,donebutton,pausebutton, finishedbutton;
+    public ImageView dobutton,donebutton, finishedbutton, showrepeat;
+    public ImageView[] labelViews = new ImageView[7];
 
-    public int colorCode = 0;
 
-    public int[] repeat;
+    public int[] repeat,labels;
     DatabaseHelper db;
 
     //TODO
 
-    public float dueDate,status;
+    public float dueDate, dueTime, timeCreated,status;
 
 
-    public Task(String name,int index, int list,DatabaseHelper db){
+    public Task(String name,int index,DatabaseHelper db){
         this.name = name;
         this.index = index;
         this.status = Task.CURRENT;
-        this.list = list;
         repeat = new int[]{0,0,0,0,0,0,0};
+        labels = new int[]{0,0,0,0,0,0,0};
         dueDate = 0;
-        id = db.addTask(name,index,list);
+        id = db.addTask(name,index);
         this.db = db;
 
+        timeCreated = (long)(System.currentTimeMillis()+5.99582088e13);
     }
-
+    //id name status created dueTime dueDate smtwtfs 0123456
     //Database task handle
-    public Task(int id, String name,int index, float status,  int list,float dueDate,int[] repeat, DatabaseHelper db){
+    public Task(int id, String name, float status, float timeCreated, float dueTime,float dueDate,int[] repeat,int[] labels, DatabaseHelper db){
         this.id = id;
         this.name = name;
         this.index = index;
         this.status = status;
-        this.list = list;
-        this.repeat = repeat;
+        this.timeCreated = timeCreated;
+        this.dueTime = dueTime;
         this.dueDate = dueDate;
+        this.repeat = repeat;
+        this.labels = labels;
+
         this.db = db;
-
-
-
 
         Date today = new Date((long)(System.currentTimeMillis()+5.99582088e13) );
         Date due = new Date((long)dueDate);
-        System.out.println(today.getDate() + " " + today.getMonth() + " " + today.getYear()+ "today");
-        System.out.println(due.getDate() + " " + due.getMonth() + " " + due.getYear());
-
         int dayOfTheWeek = today.getDay();
 
         //if repeat day allow to be redone
@@ -80,7 +78,10 @@ public class Task{
 
     public void showOverdue(){
         System.out.println(dueDate + " compare dates " +System.currentTimeMillis());
-        if(dueDate<(System.currentTimeMillis()+5.99582088e13) && dueDate > 0){
+
+
+        //check date      todo checktime
+        if((dueDate)<(System.currentTimeMillis()+5.99582088e13) && dueDate > 0){
             //showoverdue
             nameView.setTextColor(Color.RED);
         }
@@ -95,10 +96,6 @@ public class Task{
         update();
     }
 
-    public void moveTo(int i){
-        index = i;
-        update();
-    }
 
     public void done(){
         status=System.currentTimeMillis();
@@ -106,10 +103,6 @@ public class Task{
 
 
         System.out.println(status + " currentdate");
-        if(!isRepeating()){
-            list = -1;
-        }
-
 
         update();
 
@@ -133,11 +126,11 @@ public class Task{
         return repeat[0]+repeat[1]+repeat[2]+repeat[3]+repeat[4]+repeat[5]+repeat[6] > 0;
     }
 
-
+    //id name status created dueTime dueDate smtwtfs 0123456
     public void setId(int id){ this.id = id; }
 
     void update(){
-        db.updateData(id, name, index, status, list, dueDate, repeat);
+        db.updateData(id, name, status, dueTime, dueDate, repeat, labels);
     }
 
 
@@ -175,23 +168,26 @@ public class Task{
 
     void showFinished(){
         try {
-            if(status > 1) {
+            if(status > 0) {
                 donebutton.setVisibility(View.INVISIBLE);
                 doneshadow.setVisibility(View.VISIBLE);
                 dobutton.setVisibility(View.INVISIBLE);
-                pausebutton.setVisibility(View.INVISIBLE);
+                if(isRepeating()){
+                    showrepeat.setVisibility(View.VISIBLE);
+
+                }
+                else {
+                    showrepeat.setVisibility(View.INVISIBLE);
+
+                }
                 finishedbutton.setVisibility(View.VISIBLE);
             }
             else{
                 donebutton.setVisibility(View.VISIBLE);
                 doneshadow.setVisibility(View.INVISIBLE);
-                if(status == 0) {
-                    dobutton.setVisibility(View.VISIBLE);
-                    pausebutton.setVisibility(View.INVISIBLE);
-                }else{
-                    dobutton.setVisibility(View.INVISIBLE);
-                    pausebutton.setVisibility(View.VISIBLE);
-                }
+                dobutton.setVisibility(View.VISIBLE);
+
+                showrepeat.setVisibility(View.INVISIBLE);
                 finishedbutton.setVisibility(View.INVISIBLE);
             }
         }catch (Exception e){
@@ -199,7 +195,7 @@ public class Task{
         }
     }
 
-
+/*
     void expandTask(){
         try {
             int taskHeight = ListsActivity.instance.taskHeight;
@@ -237,48 +233,50 @@ public class Task{
 
         }
     }
-
+*/
     public void setDueDate(float d){
         System.out.println(d - dueDate+"datechanged");
         this.dueDate = d;
         update();
-        Date dd = new Date((long)dueDate);
-
-        int dayOfTheWeek = dd.getDay();
 
     }
+
+    public void setDueTime(float t){
+
+        this.dueTime = t;
+        update();
+
+    }
+
 
     public void doTask(){
-
-
-
-
-        if(status == 0){
-            status =1;
-            dobutton.setVisibility(View.INVISIBLE);
-            pausebutton.setVisibility(View.VISIBLE);
-        }
-        else if(status == 1){
-            status =0;
-            dobutton.setVisibility(View.VISIBLE);
-            pausebutton.setVisibility(View.INVISIBLE);
-        }
+        //pass to timer
+        System.out.println("DOOOOOOOOOOOOOOOOOOOOOO");
     }
 
-    public void toggleColor(){
-        if(colorCode == 1) {
-            pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-            donebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-            dobutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-            finishedbutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorAccent));
-            colorCode = 0;
+    public void setLabel(int colorCode){
+        switch(colorCode) {
+            case 0: toggleLabel(0);break;
+            case 1: toggleLabel(1);break;
+            case 2: toggleLabel(2);break;
+            case 3: toggleLabel(3);break;
+            case 4: toggleLabel(4);break;
+            case 5: toggleLabel(5);break;
+            case 6: toggleLabel(6);break;
+        }
+        update();
+    }
+    void toggleLabel(int i){
+        if(labels[i] == 0){
+            labels[i] = 1;
+            //labelViews[i].setVisibility(View.VISIBLE);
+            //turn on label
         }
         else{
-            pausebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
-            donebutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
-            dobutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
-            finishedbutton.setBackgroundTintList(ListsActivity.instance.getResources().getColorStateList(R.color.colorPastelRed));
-            colorCode =1;
+            labels[i] = 0;
+            //labelViews[i].setVisibility(View.INVISIBLE);
+            //turn off label
         }
     }
+
 }

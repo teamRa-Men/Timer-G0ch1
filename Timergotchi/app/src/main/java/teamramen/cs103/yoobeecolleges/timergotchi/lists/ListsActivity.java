@@ -38,8 +38,10 @@ public class ListsActivity extends AppCompatActivity {
     ViewPager pager;
     TabLayout listTabs;
 
-    public ArrayList<TasksFragment> lists = new ArrayList<TasksFragment>();
-    FinishedFragment finishedList;
+    public TasksFragment todoList;
+
+
+
     public static ListsActivity instance;
     ArrayList<MediaPlayer> doneSounds = new ArrayList<MediaPlayer>();
 
@@ -50,7 +52,7 @@ public class ListsActivity extends AppCompatActivity {
     View editMenu,deletePopup, calendarPopup;
     CalendarView calendar;
     int dueDay,dueMonth,dueYear;
-    TextView editName, dueDate;
+    TextView editName, dueDate, dueTime;
     int[] repeat = new int[]{0,0,0,0,0,0,0};
 
     boolean editing, deleting;
@@ -58,7 +60,7 @@ public class ListsActivity extends AppCompatActivity {
     View[] days;
     public int taskHeight;
 
-    int numberOfLists = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,64 +69,17 @@ public class ListsActivity extends AppCompatActivity {
         instance = this;
         db = new DatabaseHelper(this);
 
-
-
         listAdapter = new ListPagerAdapter(this.getSupportFragmentManager());
         listTabs = findViewById(R.id.listtabs);
         editMenu = findViewById(R.id.edit);
         deletePopup = findViewById(R.id.deletepopup);
 
-
-
-        for(int i = 0; i < numberOfLists;i++) {
-            lists.add(new TasksFragment(i, db));
-            listAdapter.addList(lists.get(i), "Morning",i);
-        }
-
-
+        todoList = new TasksFragment( db);
+        listAdapter.addList(todoList, "TODO",0);
 
         pager = findViewById(R.id.listpager);
         pager.setAdapter(listAdapter);
         listTabs.setupWithViewPager(pager);
-
-        listTabs.getTabAt(0).setText("TODO");/*
-        listTabs.getTabAt(0).setIcon(R.drawable.listicon);
-        for(int i = 1; i < numberOfLists;i++) {
-            listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
-        }
-
-
-
-
-        listTabs.addOnTabSelectedListener(
-                new TabLayout.ViewPagerOnTabSelectedListener(pager){
-                    @Override
-                    public void onTabSelected(@NonNull TabLayout.Tab tab) {
-                        super.onTabSelected(tab);
-
-                        for(int i = 0; i < lists.size();i++){
-                            if(tab.getPosition() == i){
-                                listTabs.getTabAt(i).setIcon(R.drawable.listicon);
-                            }
-                            else{
-                                listTabs.getTabAt(i).setIcon(R.drawable.listiconoff);
-                            }
-                        }
-                    }
-
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-                        super.onTabUnselected(tab);
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-                        super.onTabReselected(tab);
-                    }
-                }
-        );*/
-
 
 
         MediaPlayer completed = MediaPlayer.create(this, R.raw.completed);
@@ -166,6 +121,7 @@ public class ListsActivity extends AppCompatActivity {
         editName = findViewById(R.id.editname);
         calendar = findViewById(R.id.calendarView);
         dueDate = findViewById(R.id.dueDate);
+        dueTime = findViewById(R.id.dueTime);
 
 
         taskHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 44, getResources().getDisplayMetrics());
@@ -175,22 +131,12 @@ public class ListsActivity extends AppCompatActivity {
 
 
     //add task to list
-    public void onAddTask(View view) { lists.get(pager.getCurrentItem()).onAddTask(); }
+    public void onAddTask(View view) { todoList.onAddTask(); }
 
     //pass to timer
     public void onDo(View view) {
         if(!editing) {
-            /*
-            int pick = (int) (Math.random() * doneSounds.size());
-            try {
-                doneSounds.get(pick).setVolume(0.2f, 0.2f);
-                doneSounds.get(pick).start();
-                //System.out.println(doneSounds.get(pick)+" " + pick);
-            } catch (Exception e) {
-                System.out.println("null sound " + pick);
-            }*/
-            lists.get(pager.getCurrentItem()).onDoTask(view);
-
+            todoList.onDoTask(view);
         }
     }
 
@@ -198,17 +144,15 @@ public class ListsActivity extends AppCompatActivity {
      * Edit Task
      *****************************************************************************************/
     public void onEdit(View view) {
-        System.out.println("HELPPPP");
         editing = true;
         editMenu.setVisibility(View.VISIBLE);
         pager.setVisibility(View.INVISIBLE);
         listTabs.setVisibility(View.INVISIBLE);
 
-        taskEditing = (lists.get(pager.getCurrentItem()).findByView(view));
+        taskEditing = todoList.findByView(view);
         repeat = taskEditing.repeat;
         editName.setText(taskEditing.name);
         for(int i = 0; i < 7;i++){
-            System.out.println(taskEditing.repeat[i]);
 
             if(repeat[i] == 1) {
                 days[i].setVisibility(View.INVISIBLE);
@@ -221,10 +165,7 @@ public class ListsActivity extends AppCompatActivity {
         }
         setupCalendar();
         if(taskEditing.dueDate>0) {
-
-
             Date d = new Date((long) taskEditing.dueDate);
-
             dueDate.setText(d.getDate() + "/" + (d.getMonth()+1)+"/"+(d.getYear()));
             dueDay = d.getDate();
             dueMonth = d.getMonth();
@@ -234,17 +175,14 @@ public class ListsActivity extends AppCompatActivity {
         else{
             dueDate.setText("");
         }
-
-
-        System.out.println("date" + taskEditing.dueDate + " " +(taskEditing.dueDate>0));
-
-
     }
+
     public void onEditCancel(View view){
         closeEditMenu();
     }
+
     public void onEditOK(View view){
-        try {
+
             if (!editName.getText().toString().isEmpty()) {
                 taskEditing.setName(editName.getText().toString());
             }
@@ -258,57 +196,39 @@ public class ListsActivity extends AppCompatActivity {
                 d.setMonth(dueMonth);
                 d.setYear(dueYear);
                 taskEditing.setDueDate(d.getTime());
-
             }
-            System.out.println("string" + dueDate.getText().toString().isEmpty() + "task" + taskEditing.dueDate);
-
-            if (!isRepeating()) {
-
-                if (taskEditing.status != 0) {
-                    //lists.get(pager.getCurrentItem()).onTaskDone(taskEditing);
-                    taskEditing.status = 0;
-                    taskEditing.showFinished();
-                }
-
-
-            }
-
             taskEditing.setRepeat(repeat);
-
-
-
-                taskEditing.showTask();
-
-
-
             taskEditing.showOverdue();
-        }catch (Exception e){}
+            taskEditing.showFinished();
 
+
+        System.out.println(taskEditing.status);
+        if(!taskEditing.isRepeating() && taskEditing.status!=0){
+            System.out.println("deledting");
+            todoList.deleteTask(taskEditing);
+        }
         closeEditMenu();
     }
 
     //delete task
     public void onDeletePopup(View view) {
-
         deleting = true;
         deletePopup.setVisibility(View.VISIBLE);
-
     }
-    public void onDelete(View view) {
-        lists.get(pager.getCurrentItem()).deleteTask(taskEditing);
+    public void onDeleteFromMenu(View view) {
+       todoList.deleteTask(taskEditing);
         closeDeletePopup();
         closeEditMenu();
     }
+
+
     public void onDeleteCancel(View view) {
         closeDeletePopup();
     }
 
     //close popups
     void closeEditMenu(){
-
         if(!deleting) {
-
-
             editing = false;
             editMenu.setVisibility(View.INVISIBLE);
             pager.setVisibility(View.VISIBLE);
@@ -381,10 +301,12 @@ public class ListsActivity extends AppCompatActivity {
             } catch (Exception e) {
                 System.out.println("null sound " + pick);
             }
-            lists.get(pager.getCurrentItem()).onTaskDone(view);
+            todoList.onTaskDone(view);
             awardPoints();
         }
     }
+
+
 
 
     //TODO streaks, time used, deadline met
@@ -418,8 +340,36 @@ public class ListsActivity extends AppCompatActivity {
         dueDate.setText("");
         taskEditing.setDueDate(0);
     }
+    public void clearDueTime(View view){
+        dueTime.setText("");
+        taskEditing.setDueTime(0);
+    }
 
+    public void setDueDate(View view){
 
+    }
+    public void setDueTime(View view){
+
+    }
+
+    public void setLabel(View view) {
+        taskEditing.setLabel(-1);
+    }
+    public void setLabel0(View view) {
+        taskEditing.setLabel(0);
+    }
+    public void setLabel1(View view) {
+        taskEditing.setLabel(1);
+    }
+    public void setLabel2(View view) {
+        taskEditing.setLabel(2);
+    }
+    public void setLabel3(View view) {
+        taskEditing.setLabel(3);
+    }
+    public void setLabel4(View view) {
+        taskEditing.setLabel(4);
+    }
 
 
 
@@ -458,12 +408,8 @@ public class ListsActivity extends AppCompatActivity {
         }
     }
 
-    public void setColor(View view) {
-        taskEditing.toggleColor();
-    }
 
-    public void onTaskRedo(View view) {
-    }
+
 }
 
 
