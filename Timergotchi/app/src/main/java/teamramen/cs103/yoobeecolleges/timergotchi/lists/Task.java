@@ -9,20 +9,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import java.util.Comparator;
 import java.util.Date;
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
 
-public class Task{
+public class Task implements Comparable<Task>{
     public static int CURRENT=0;
+    public int order;
     public long id;
-
-    public int index;
     public String name;
-    public  TextView nameView;
-    public View container,doneshadow,left,right;
+    public  TextView nameView,showduedate;
+    public View container,left,right;
     public ImageView dobutton,donebutton, finishedbutton, showrepeat;
-    public ImageView[] labelViews = new ImageView[7];
+    public ImageView[] labelViews;
 
 
     public int[] repeat,labels;
@@ -33,31 +34,32 @@ public class Task{
     public float dueDate, dueTime, timeCreated,status;
 
 
-    public Task(String name,int index,DatabaseHelper db){
+    public Task(String name,int order,DatabaseHelper db)
+
+    {
         this.name = name;
-        this.index = index;
+        this.order = order;
         this.status = Task.CURRENT;
         repeat = new int[]{0,0,0,0,0,0,0};
         labels = new int[]{0,0,0,0,0,0,0};
         dueDate = 0;
-        id = db.addTask(name,index);
+        id = db.addTask(name,order);
         this.db = db;
 
         timeCreated = (long)(System.currentTimeMillis()+5.99582088e13);
     }
     //id name status created dueTime dueDate smtwtfs 0123456
     //Database task handle
-    public Task(int id, String name, float status, float timeCreated, float dueTime,float dueDate,int[] repeat,int[] labels, DatabaseHelper db){
+    public Task(int id, String name, float status, float timeCreated, float dueTime,float dueDate,int[] repeat,int[] labels, int order, DatabaseHelper db){
         this.id = id;
         this.name = name;
-        this.index = index;
         this.status = status;
         this.timeCreated = timeCreated;
         this.dueTime = dueTime;
         this.dueDate = dueDate;
         this.repeat = repeat;
         this.labels = labels;
-
+        this.order = order;
         this.db = db;
 
         Date today = new Date((long)(System.currentTimeMillis()+5.99582088e13) );
@@ -73,6 +75,8 @@ public class Task{
                 }
             }
         }
+
+
 
     }
 
@@ -130,38 +134,76 @@ public class Task{
     public void setId(int id){ this.id = id; }
 
     void update(){
-        db.updateData(id, name, status, dueTime, dueDate, repeat, labels);
+        db.updateData(id, name, status, dueTime, dueDate, repeat, labels,order);
     }
 
 
     public void showTask(){
-        /*
-        if(dueDate==0 && !isRepeating()){
-            contractTask();
-            showDueDate.setText("");
-            showRepeat.setText("");
+
+        if(isRepeating() && status>0){
+            String s = "";
+            if(repeat[0]==1){s= s+"Sun ";}
+            if(repeat[1]==1){s= s+"Mon ";}
+            if(repeat[2]==1){s= s+"Tue ";}
+            if(repeat[3]==1){s= s+"Wed ";}
+            if(repeat[4]==1){s= s+"Thu ";}
+            if(repeat[5]==1){s= s+"Fri ";}
+            if(repeat[6]==1){s= s+"Sat";}
+
+            showduedate.setText(s);
+
+
         }
-        else{
-            expandTask();
-            if(dueDate > 0) {
-                Date due = new Date((long) dueDate);
-                showDueDate.setText("Due " + due.getDate() + "/" + (due.getMonth() + 1) + "/" + due.getYear());
+        if(dueDate > 0 && status == 0) {
+            Date due = new Date((long) dueDate);
+
+            String s = "due "+due.getDate();
+            switch (due.getMonth()){
+                case 0: s+= " Jan";break;
+                case 1: s+= " Feb";break;
+                case 2: s+= " Mar";break;
+                case 3: s+= " Apr";break;
+                case 4: s+= " May";break;
+                case 5: s+= " Jun";break;
+                case 6: s+= " Jul";break;
+                case 7: s+= " Aug";break;
+                case 8: s+= " Sep";break;
+                case 9: s+= " Oct";break;
+                case 10: s+= " Nov";break;
+                case 11: s+= " Dec";break;
+
             }
 
-            String s = "";
-            if(repeat[0]==1){s= s+"Sun  ";}
-            if(repeat[1]==1){s= s+"Mon  ";}
-            if(repeat[2]==1){s= s+"Tue  ";}
-            if(repeat[3]==1){s= s+"Wed  ";}
-            if(repeat[4]==1){s= s+"Thu  ";}
-            if(repeat[5]==1){s= s+"Fri ";}
-            if(repeat[6]==1){s= s+"Sat ";}
+            showduedate.setText(s);
+        }
+        else if(status == 0){
+            showduedate.setText("");
+        }
 
-            showRepeat.setText(s);
 
+
+
+
+        if(isLabelled() || dueDate > 0){
+            expandTask();
 
         }
-        */
+        else{
+            contractTask();
+        }
+        for(int i = 0; i < 7; i++){
+            if(labels[i] == 1){
+
+                labelViews[i].setVisibility(View.VISIBLE);
+
+            }
+            else{
+
+                labelViews[i].setVisibility(View.INVISIBLE);
+                //turn off label
+            }
+
+        }
 
     }
 
@@ -170,7 +212,7 @@ public class Task{
         try {
             if(status > 0) {
                 donebutton.setVisibility(View.INVISIBLE);
-                doneshadow.setVisibility(View.VISIBLE);
+
                 dobutton.setVisibility(View.INVISIBLE);
                 if(isRepeating()){
                     showrepeat.setVisibility(View.VISIBLE);
@@ -184,7 +226,7 @@ public class Task{
             }
             else{
                 donebutton.setVisibility(View.VISIBLE);
-                doneshadow.setVisibility(View.INVISIBLE);
+
                 dobutton.setVisibility(View.VISIBLE);
 
                 showrepeat.setVisibility(View.INVISIBLE);
@@ -195,12 +237,12 @@ public class Task{
         }
     }
 
-/*
+
     void expandTask(){
         try {
             int taskHeight = ListsActivity.instance.taskHeight;
             ViewGroup.LayoutParams params = nameView.getLayoutParams();
-            System.out.println(params.height);
+
             params.height = (int)(taskHeight * 1.5f);
             nameView.setLayoutParams(params);
             params = left.getLayoutParams();
@@ -233,11 +275,13 @@ public class Task{
 
         }
     }
-*/
+
     public void setDueDate(float d){
-        System.out.println(d - dueDate+"datechanged");
+
+
         this.dueDate = d;
         update();
+        showTask();
 
     }
 
@@ -254,29 +298,27 @@ public class Task{
         System.out.println("DOOOOOOOOOOOOOOOOOOOOOO");
     }
 
-    public void setLabel(int colorCode){
-        switch(colorCode) {
-            case 0: toggleLabel(0);break;
-            case 1: toggleLabel(1);break;
-            case 2: toggleLabel(2);break;
-            case 3: toggleLabel(3);break;
-            case 4: toggleLabel(4);break;
-            case 5: toggleLabel(5);break;
-            case 6: toggleLabel(6);break;
-        }
+public void setLabels(int[] labels){
+        labels = labels;
+        showTask();
         update();
-    }
-    void toggleLabel(int i){
-        if(labels[i] == 0){
-            labels[i] = 1;
-            //labelViews[i].setVisibility(View.VISIBLE);
-            //turn on label
-        }
-        else{
-            labels[i] = 0;
-            //labelViews[i].setVisibility(View.INVISIBLE);
-            //turn off label
-        }
+}
+
+
+
+    boolean isLabelled(){
+        return labels[0]+labels[1]+labels[2]+labels[3]+labels[4]+labels[5]+labels[6] > 0;
     }
 
+    @Override
+    public int compareTo(Task o) {
+        if(order > o.order){
+            return 1;
+        }
+
+        if(order < o.order){
+            return -1;
+        }
+        return 0;
+    }
 }

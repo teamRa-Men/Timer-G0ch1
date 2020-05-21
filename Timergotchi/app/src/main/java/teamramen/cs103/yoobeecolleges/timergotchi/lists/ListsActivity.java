@@ -54,10 +54,13 @@ public class ListsActivity extends AppCompatActivity {
     int dueDay,dueMonth,dueYear;
     TextView editName, dueDate, dueTime;
     int[] repeat = new int[]{0,0,0,0,0,0,0};
+    int[] labels = new int[]{0,0,0,0,0,0,0};
 
     boolean editing, deleting;
     Task taskEditing;
     View[] days;
+    View[] labelViews;
+    TextView[] labelTexts;
     public int taskHeight;
 
 
@@ -73,7 +76,7 @@ public class ListsActivity extends AppCompatActivity {
         listTabs = findViewById(R.id.listtabs);
         editMenu = findViewById(R.id.edit);
         deletePopup = findViewById(R.id.deletepopup);
-
+        calendarPopup = findViewById(R.id.calendarPopup);
         todoList = new TasksFragment( db);
         listAdapter.addList(todoList, "TODO",0);
 
@@ -97,14 +100,15 @@ public class ListsActivity extends AppCompatActivity {
 
         points = 0;
         pointsView = findViewById(R.id.pointsview);
-        ////system.out.println(pointsView+" points" + pointsView.getText().toString());
+
         points = db.getPoints();
         pointsView.setText(points+" g");
 
 
 
 
-        days = new View[]{ findViewById(R.id.editsun),
+        days = new View[]{
+                findViewById(R.id.editsun),
                 findViewById(R.id.editmon),
                 findViewById(R.id.edittue),
                 findViewById(R.id.editwed),
@@ -122,6 +126,35 @@ public class ListsActivity extends AppCompatActivity {
         calendar = findViewById(R.id.calendarView);
         dueDate = findViewById(R.id.dueDate);
         dueTime = findViewById(R.id.dueTime);
+
+        labelViews = new View[]{
+                findViewById(R.id.labelon),
+                findViewById(R.id.labelon0),
+                findViewById(R.id.labelon1),
+                findViewById(R.id.labelon2),
+                findViewById(R.id.labelon3),
+                findViewById(R.id.labelon4),
+                findViewById(R.id.labelon5),
+                findViewById(R.id.labeloff),
+                findViewById(R.id.labeloff0),
+                findViewById(R.id.labeloff1),
+                findViewById(R.id.labeloff2),
+                findViewById(R.id.labeloff3),
+                findViewById(R.id.labeloff4),
+                findViewById(R.id.labeloff5)
+        };
+
+        labelTexts = new TextView[]{
+                findViewById(R.id.label),
+                findViewById(R.id.label0),
+                findViewById(R.id.label1),
+                findViewById(R.id.label2),
+                findViewById(R.id.label3),
+                findViewById(R.id.label4),
+                findViewById(R.id.label5),
+        };
+
+
 
 
         taskHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 44, getResources().getDisplayMetrics());
@@ -144,6 +177,9 @@ public class ListsActivity extends AppCompatActivity {
      * Edit Task
      *****************************************************************************************/
     public void onEdit(View view) {
+
+
+
         editing = true;
         editMenu.setVisibility(View.VISIBLE);
         pager.setVisibility(View.INVISIBLE);
@@ -151,6 +187,7 @@ public class ListsActivity extends AppCompatActivity {
 
         taskEditing = todoList.findByView(view);
         repeat = taskEditing.repeat;
+        labels = taskEditing.labels;
         editName.setText(taskEditing.name);
         for(int i = 0; i < 7;i++){
 
@@ -163,6 +200,24 @@ public class ListsActivity extends AppCompatActivity {
 
             }
         }
+        for(int i = 0; i < 7;i++){
+
+            if(labels[i] == 1) {
+                labelViews[i].setVisibility(View.VISIBLE);
+                labelViews[i+7].setVisibility(View.INVISIBLE);
+
+            }
+            else{
+                labelViews[i].setVisibility(View.INVISIBLE);
+                labelViews[i+7].setVisibility(View.VISIBLE);
+
+            }
+        }
+
+
+        labels = taskEditing.labels;
+
+
         setupCalendar();
         if(taskEditing.dueDate>0) {
             Date d = new Date((long) taskEditing.dueDate);
@@ -174,6 +229,11 @@ public class ListsActivity extends AppCompatActivity {
         }
         else{
             dueDate.setText("");
+        }
+
+        String[] l = db.getLabels();
+        for(int i = 0; i < 7;i++){
+            labelTexts[i].setText(l[i]);
         }
     }
 
@@ -198,13 +258,30 @@ public class ListsActivity extends AppCompatActivity {
                 taskEditing.setDueDate(d.getTime());
             }
             taskEditing.setRepeat(repeat);
+            taskEditing.setLabels(labels);
+
+
+
+
+            db.setLabels(new String[] {labelTexts[0].getText().toString(),
+                    labelTexts[1].getText().toString(),
+                    labelTexts[2].getText().toString(),
+                    labelTexts[3].getText().toString(),
+                    labelTexts[4].getText().toString(),
+                    labelTexts[5].getText().toString(),
+                    labelTexts[6].getText().toString()});
+
+
             taskEditing.showOverdue();
             taskEditing.showFinished();
+            taskEditing.showTask();
+            taskEditing.update();
 
 
         System.out.println(taskEditing.status);
         if(!taskEditing.isRepeating() && taskEditing.status!=0){
-            System.out.println("deledting");
+
+
             todoList.deleteTask(taskEditing);
         }
         closeEditMenu();
@@ -279,7 +356,7 @@ public class ListsActivity extends AppCompatActivity {
         else{
             days[day].setVisibility(View.INVISIBLE);
             repeat[day] = 1;
-            System.out.println("repeat"+day);
+
         }
     }
 
@@ -297,9 +374,9 @@ public class ListsActivity extends AppCompatActivity {
             try {
                 doneSounds.get(pick).setVolume(0.2f, 0.2f);
                 doneSounds.get(pick).start();
-                //System.out.println(doneSounds.get(pick)+" " + pick);
+
             } catch (Exception e) {
-                System.out.println("null sound " + pick);
+
             }
             todoList.onTaskDone(view);
             awardPoints();
@@ -331,7 +408,26 @@ public class ListsActivity extends AppCompatActivity {
                 dueMonth = month;
                 dueYear = year;
 
-                dueDate.setText(dueDay + "/" + (dueMonth+1) + "/" + dueYear);
+                String s = ""+dayOfMonth;
+                switch (month){
+                    case 0: s+= " Jan";break;
+                    case 1: s+= " Feb";break;
+                    case 2: s+= " Mar";break;
+                    case 3: s+= " Apr";break;
+                    case 4: s+= " May";break;
+                    case 5: s+= " Jun";break;
+                    case 6: s+= " Jul";break;
+                    case 7: s+= " Aug";break;
+                    case 8: s+= " Sep";break;
+                    case 9: s+= " Oct";break;
+                    case 10: s+= " Nov";break;
+                    case 11: s+= " Dec";break;
+
+                }
+                s+=" "  + dueYear;
+
+                dueDate.setText(s);
+
             }
         });
     }
@@ -346,29 +442,55 @@ public class ListsActivity extends AppCompatActivity {
     }
 
     public void setDueDate(View view){
-
+        calendarPopup.setVisibility(View.VISIBLE);
     }
     public void setDueTime(View view){
 
     }
 
-    public void setLabel(View view) {
-        taskEditing.setLabel(-1);
+    public void onCalendarOk(View view){
+        calendarPopup.setVisibility(View.INVISIBLE);
     }
-    public void setLabel0(View view) {
-        taskEditing.setLabel(0);
+    public void onCalendarCancel(View view){
+        calendarPopup.setVisibility(View.INVISIBLE);
     }
-    public void setLabel1(View view) {
-        taskEditing.setLabel(1);
+
+    public void setLabel(View view) { setLabel(0); }
+    public void setLabel0(View view) {setLabel(1); }
+    public void setLabel1(View view) { setLabel(2); }
+    public void setLabel2(View view) { setLabel(3); }
+    public void setLabel3(View view) { setLabel(4); }
+    public void setLabel4(View view) {setLabel(5); }
+    public void setLabel5(View view) { setLabel(6); }
+
+
+    public void setLabel(int colorCode){
+        switch(colorCode) {
+            case 0: toggleLabel(0);break;
+            case 1: toggleLabel(1);break;
+            case 2: toggleLabel(2);break;
+            case 3: toggleLabel(3);break;
+            case 4: toggleLabel(4);break;
+            case 5: toggleLabel(5);break;
+            case 6: toggleLabel(6);break;
+        }
     }
-    public void setLabel2(View view) {
-        taskEditing.setLabel(2);
-    }
-    public void setLabel3(View view) {
-        taskEditing.setLabel(3);
-    }
-    public void setLabel4(View view) {
-        taskEditing.setLabel(4);
+    void toggleLabel(int i){
+        if(labels[i] == 0){
+            labels[i] = 1;
+            labelViews[i].setVisibility(View.VISIBLE);
+            labelViews[i+7].setVisibility(View.INVISIBLE);
+
+
+        }
+        else{
+            labels[i] = 0;
+            labelViews[i].setVisibility(View.INVISIBLE);
+            labelViews[i+7].setVisibility(View.VISIBLE);
+
+            //turn off label
+        }
+
     }
 
 

@@ -147,858 +147,990 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/editmenu"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryLight"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/editname"
-
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/repeatbar"
-
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:focusable="auto"
-                android:paddingTop="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dueDate" />
-
-            <ImageView
-                android:id="@+id/editnameleft"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintEnd_toStartOf="@+id/editname"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/editname" />
-
-            <ImageView
-                android:id="@+id/repeatleft"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintEnd_toStartOf="@+id/editname"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
-
-            <ImageView
-                android:id="@+id/repeatright"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                app:layout_constraintStart_toEndOf="@+id/editname"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
-
-            <ImageView
-                android:id="@+id/editnameright"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                app:layout_constraintBottom_toBottomOf="@+id/editname"
-                app:layout_constraintStart_toEndOf="@+id/editname"
-                app:layout_constraintTop_toTopOf="@+id/editname" />
-
-            <ImageView
-                android:id="@+id/editdelete"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:onClick="onDeletePopup"
-                android:tint="@color/colorAccent"
-                app:layout_constraintStart_toEndOf="@+id/editname"
-                app:layout_constraintTop_toTopOf="@+id/editname"
-                app:srcCompat="@drawable/delete" />
-
-            <TextView
-                android:id="@+id/dueDate"
-
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:focusable="auto"
-                android:gravity="center"
-                android:onClick="setDueDate"
-                android:paddingRight="20dp"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dueTime" />
-
-            <ImageView
-                android:id="@+id/duetimeleft"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toTopOf="@+id/dueDate"
-                app:layout_constraintEnd_toStartOf="@+id/dueDate"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/dueTime" />
-
-            <ImageView
-                android:id="@+id/clearduetime"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="clearDueDate"
-                android:src="@drawable/cross"
-                android:tint="@color/colorAccent"
-                app:layout_constraintBottom_toTopOf="@+id/dueDate"
-                app:layout_constraintStart_toEndOf="@+id/dueDate"
-                app:layout_constraintTop_toTopOf="@+id/dueTime" />
-
-            <TextView
-                android:id="@+id/dueTime"
-
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:focusable="auto"
-                android:gravity="center"
-                android:onClick="setDueTime"
-                android:paddingRight="20dp"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editname" />
-
-            <TextView
-                android:id="@+id/duetimetitle"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/editmenu"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:onClick="onCalendarPopup"
-                android:text="Due Time"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/dueDate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.002"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/dueTime" />
+                android:background="@color/colorPrimaryLight">
 
-            <ImageView
-                android:id="@+id/duedateleft"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/dueDate"
-                app:layout_constraintEnd_toStartOf="@+id/dueDate"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/dueDate" />
+                <EditText
+                    android:id="@+id/editname"
 
-            <ImageView
-                android:id="@+id/clearduedate"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="clearDueDate"
-                android:src="@drawable/cross"
-                android:tint="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@+id/dueDate"
-                app:layout_constraintStart_toEndOf="@+id/dueDate"
-                app:layout_constraintTop_toTopOf="@+id/dueDate" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/duedatetitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:onClick="onCalendarPopup"
-                android:text="Due Date"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/dueDate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.002"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/dueDate" />
+                <ImageView
+                    android:id="@+id/repeatbar"
 
-            <TextView
-                android:id="@+id/repeattitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="Repeat"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:focusable="auto"
+                    android:paddingTop="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
-            <TextView
-                android:id="@+id/editthu2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="T"
-                android:textColor="@color/design_default_color_surface"
-                app:drawableTint="@color/colorAccent"
-                app:drawableTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/editthu"
-                app:layout_constraintEnd_toEndOf="@+id/editthu"
-                app:layout_constraintHorizontal_bias="0.67"
-                app:layout_constraintStart_toStartOf="@+id/editthu"
-                app:layout_constraintTop_toTopOf="@+id/editthu" />
+                <ImageView
+                    android:id="@+id/editnameleft"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintEnd_toStartOf="@+id/editname"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/editname" />
 
-            <TextView
-                android:id="@+id/edittue2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="T"
-                android:textColor="@color/design_default_color_surface"
-                app:drawableTint="@color/colorAccent"
-                app:drawableTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/edittue"
-                app:layout_constraintEnd_toEndOf="@+id/edittue"
-                app:layout_constraintHorizontal_bias="0.33"
-                app:layout_constraintStart_toStartOf="@+id/edittue"
-                app:layout_constraintTop_toTopOf="@+id/edittue" />
+                <ImageView
+                    android:id="@+id/repeatleft"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintEnd_toStartOf="@+id/editname"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <TextView
-                android:id="@+id/editfri2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="F"
-                android:textColor="@color/design_default_color_surface"
-                app:drawableTint="@color/colorAccent"
-                app:drawableTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/editfri"
-                app:layout_constraintEnd_toEndOf="@+id/editfri"
-                app:layout_constraintHorizontal_bias="0.75"
-                app:layout_constraintStart_toStartOf="@+id/editfri"
-                app:layout_constraintTop_toTopOf="@+id/editfri" />
+                <ImageView
+                    android:id="@+id/repeatright"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    app:layout_constraintStart_toEndOf="@+id/editname"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <TextView
-                android:id="@+id/editsat2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="S"
-                android:textColor="@color/design_default_color_background"
-                app:drawableTint="@color/colorAccent"
-                app:drawableTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/editsat"
-                app:layout_constraintEnd_toEndOf="@+id/editsat"
-                app:layout_constraintHorizontal_bias="0.9"
-                app:layout_constraintStart_toStartOf="@+id/editsat"
-                app:layout_constraintTop_toTopOf="@+id/editsat" />
+                <ImageView
+                    android:id="@+id/editnameright"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    app:layout_constraintBottom_toBottomOf="@+id/editname"
+                    app:layout_constraintStart_toEndOf="@+id/editname"
+                    app:layout_constraintTop_toTopOf="@+id/editname" />
 
-            <TextView
-                android:id="@+id/editmon2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="M"
-                android:textColor="@color/design_default_color_on_primary"
-                app:drawableTint="@color/colorAccent"
-                app:drawableTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/editmon"
-                app:layout_constraintEnd_toEndOf="@+id/editmon"
-                app:layout_constraintHorizontal_bias="0.17"
-                app:layout_constraintStart_toStartOf="@+id/editmon"
-                app:layout_constraintTop_toTopOf="@+id/editmon" />
+                <ImageView
+                    android:id="@+id/editdelete"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:onClick="onDeletePopup"
+                    android:tint="@color/colorAccent"
+                    app:layout_constraintStart_toEndOf="@+id/editname"
+                    app:layout_constraintTop_toTopOf="@+id/editname"
+                    app:srcCompat="@drawable/delete" />
 
-            <TextView
-                android:id="@+id/editsun2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="S"
-                android:textColor="@color/design_default_color_background"
-                app:drawableTint="@color/colorAccent"
-                app:layout_constraintBottom_toBottomOf="@+id/editsun"
-                app:layout_constraintEnd_toEndOf="@+id/editsun"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editsun"
-                app:layout_constraintTop_toTopOf="@+id/editsun" />
+                <TextView
+                    android:id="@+id/dueDate"
 
-            <TextView
-                android:id="@+id/editwed2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/buttonbackon"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="W"
-                android:textColor="@color/design_default_color_on_primary"
-                app:drawableTint="@color/colorAccent"
-                app:drawableTintMode="add"
-                app:layout_constraintBottom_toBottomOf="@+id/editwed"
-                app:layout_constraintEnd_toEndOf="@+id/editwed"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editwed"
-                app:layout_constraintTop_toTopOf="@+id/editwed" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
 
-            <TextView
-                android:id="@+id/edittue"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="T"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.35"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:focusable="auto"
+                    android:gravity="right|center_vertical"
+                    android:onClick="setDueDate"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dueTime" />
 
-            <TextView
-                android:id="@+id/editwed"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="W"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                <ImageView
+                    android:id="@+id/duetimeleft"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toTopOf="@+id/dueDate"
+                    app:layout_constraintEnd_toStartOf="@+id/dueDate"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/dueTime" />
 
-            <TextView
-                android:id="@+id/editthu"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="T"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.65"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                <ImageView
+                    android:id="@+id/clearduetime"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="clearDueDate"
+                    android:src="@drawable/cross"
+                    android:tint="@color/colorAccent"
+                    app:layout_constraintBottom_toTopOf="@+id/dueDate"
+                    app:layout_constraintStart_toEndOf="@+id/dueDate"
+                    app:layout_constraintTop_toTopOf="@+id/dueTime" />
 
-            <TextView
-                android:id="@+id/editfri"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="F"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                <TextView
+                    android:id="@+id/dueTime"
 
-            <TextView
-                android:id="@+id/editsat"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="S"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.95"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
 
-            <TextView
-                android:id="@+id/editmon"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="M"
-                android:textColor="@color/textColor"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/repeatbar" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:focusable="auto"
+                    android:gravity="center"
+                    android:onClick="setDueTime"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editname" />
 
-            <TextView
-                android:id="@+id/editsun"
-                android:layout_width="44dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="60dp"
-                android:background="@color/design_default_color_background"
-                android:gravity="center"
-                android:onClick="onRepeat"
-                android:text="S"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="@+id/editwed"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editwed" />
+                <TextView
+                    android:id="@+id/duetimetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:onClick="onCalendarPopup"
+                    android:text="Due Time"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/dueDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.002"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/dueTime" />
 
-            <TextView
-                android:id="@+id/editcancel"
-                android:layout_width="100dp"
-                android:layout_height="44dp"
-                android:background="@drawable/dateback"
-                android:gravity="center"
-                android:onClick="onEditCancel"
-                android:text="CANCEL"
-                android:textColor="@color/textColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/editok" />
+                <ImageView
+                    android:id="@+id/duedateleft"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/dueDate"
+                    app:layout_constraintEnd_toStartOf="@+id/dueDate"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
 
-            <TextView
-                android:id="@+id/editok"
-                android:layout_width="100dp"
-                android:layout_height="44dp"
-                android:background="@drawable/dateback"
-                android:gravity="center"
-                android:onClick="onEditOK"
-                android:text="@android:string/ok"
-                android:textColor="@color/textColor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.75"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label5" />
+                <ImageView
+                    android:id="@+id/clearduedate"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="clearDueDate"
+                    android:src="@drawable/cross"
+                    android:tint="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/dueDate"
+                    app:layout_constraintStart_toEndOf="@+id/dueDate"
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
 
-            <ImageView
-                android:id="@+id/showLabel"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintEnd_toStartOf="@+id/editname"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/editname" />
+                <TextView
+                    android:id="@+id/duedatetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:onClick="onCalendarPopup"
+                    android:text="Due Date"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/dueDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.002"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/dueDate" />
 
-            <ImageView
-                android:id="@+id/labelright"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label" />
+                <TextView
+                    android:id="@+id/repeattitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Repeat"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <ImageView
-                android:id="@+id/labelleft"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label" />
+                <TextView
+                    android:id="@+id/editthu2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="T"
+                    android:textColor="@color/design_default_color_surface"
+                    app:drawableTint="@color/colorAccent"
+                    app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editthu"
+                    app:layout_constraintEnd_toEndOf="@+id/editthu"
+                    app:layout_constraintStart_toStartOf="@+id/editthu"
+                    app:layout_constraintTop_toTopOf="@+id/editthu" />
 
-            <EditText
-                android:id="@+id/label"
+                <TextView
+                    android:id="@+id/edittue2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="T"
+                    android:textColor="@color/design_default_color_surface"
+                    app:drawableTint="@color/colorAccent"
+                    app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/edittue"
+                    app:layout_constraintEnd_toEndOf="@+id/edittue"
+                    app:layout_constraintStart_toStartOf="@+id/edittue"
+                    app:layout_constraintTop_toTopOf="@+id/edittue" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/repeatbar" />
+                <TextView
+                    android:id="@+id/editfri2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="F"
+                    android:textColor="@color/design_default_color_surface"
+                    app:drawableTint="@color/colorAccent"
+                    app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editfri"
+                    app:layout_constraintEnd_toEndOf="@+id/editfri"
+                    app:layout_constraintStart_toStartOf="@+id/editfri"
+                    app:layout_constraintTop_toTopOf="@+id/editfri" />
 
-            <ImageView
-                android:id="@+id/colorcode"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorAccent"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label" />
+                <TextView
+                    android:id="@+id/editsat2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="S"
+                    android:textColor="@color/design_default_color_background"
+                    app:drawableTint="@color/colorAccent"
+                    app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editsat"
+                    app:layout_constraintEnd_toEndOf="@+id/editsat"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="@+id/editsat"
+                    app:layout_constraintTop_toTopOf="@+id/editsat" />
 
-            <ImageView
-                android:id="@+id/labelright0"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel0"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label0" />
+                <TextView
+                    android:id="@+id/editmon2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="M"
+                    android:textColor="@color/design_default_color_on_primary"
+                    app:drawableTint="@color/colorAccent"
+                    app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editmon"
+                    app:layout_constraintEnd_toEndOf="@+id/editmon"
+                    app:layout_constraintStart_toStartOf="@+id/editmon"
+                    app:layout_constraintTop_toTopOf="@+id/editmon" />
 
-            <ImageView
-                android:id="@+id/labelleft0"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label0" />
+                <TextView
+                    android:id="@+id/editsun2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="S"
+                    android:textColor="@color/design_default_color_background"
+                    app:drawableTint="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/editsun"
+                    app:layout_constraintEnd_toEndOf="@+id/editsun"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="@+id/editsun"
+                    app:layout_constraintTop_toTopOf="@+id/editsun" />
 
-            <EditText
-                android:id="@+id/label0"
+                <TextView
+                    android:id="@+id/editwed2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/buttonbackon"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="W"
+                    android:textColor="@color/design_default_color_on_primary"
+                    app:drawableTint="@color/colorAccent"
+                    app:drawableTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="@+id/editwed"
+                    app:layout_constraintEnd_toEndOf="@+id/editwed"
+                    app:layout_constraintStart_toStartOf="@+id/editwed"
+                    app:layout_constraintTop_toTopOf="@+id/editwed" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label" />
+                <TextView
+                    android:id="@+id/edittue"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="T"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.35"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <ImageView
-                android:id="@+id/colorcode0"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorLabel0"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label0" />
+                <TextView
+                    android:id="@+id/editwed"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="W"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <ImageView
-                android:id="@+id/labelright1"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel1"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label1" />
+                <TextView
+                    android:id="@+id/editthu"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="T"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.65"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <ImageView
-                android:id="@+id/labelleft1"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label1" />
+                <TextView
+                    android:id="@+id/editfri"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="F"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <EditText
-                android:id="@+id/label1"
+                <TextView
+                    android:id="@+id/editsat"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="S"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label0" />
+                <TextView
+                    android:id="@+id/editmon"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="M"
+                    android:textColor="@color/textColor"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/repeatbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
-            <ImageView
-                android:id="@+id/colorcode1"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorLabel1"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label1" />
+                <TextView
+                    android:id="@+id/editsun"
+                    android:layout_width="44dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="60dp"
+                    android:background="@color/design_default_color_background"
+                    android:gravity="center"
+                    android:onClick="onRepeat"
+                    android:text="S"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/editwed"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/editwed" />
 
-            <ImageView
-                android:id="@+id/labelright2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel2"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label2" />
+                <TextView
+                    android:id="@+id/editcancel"
+                    android:layout_width="100dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/dateback"
+                    android:gravity="center"
+                    android:onClick="onEditCancel"
+                    android:text="CANCEL"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/editok" />
 
-            <ImageView
-                android:id="@+id/labelleft2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label2" />
+                <TextView
+                    android:id="@+id/editok"
+                    android:layout_width="100dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/dateback"
+                    android:gravity="center"
+                    android:onClick="onEditOK"
+                    android:text="@android:string/ok"
+                    android:textColor="@color/textColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.75"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label5" />
 
-            <EditText
-                android:id="@+id/label2"
+                <ImageView
+                    android:id="@+id/labelright"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label1" />
+                <ImageView
+                    android:id="@+id/labelon"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label" />
 
-            <ImageView
-                android:id="@+id/colorcode2"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorLabel2"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label2" />
+                <ImageView
+                    android:id="@+id/labeloff"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label" />
 
-            <ImageView
-                android:id="@+id/labelright3"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel3"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label3" />
+                <ImageView
+                    android:id="@+id/labelleft"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label" />
 
-            <ImageView
-                android:id="@+id/labelleft3"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label3" />
+                <EditText
+                    android:id="@+id/label"
 
-            <EditText
-                android:id="@+id/label3"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repeatbar" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label2" />
+                <ImageView
+                    android:id="@+id/colorcode"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorAccent"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label" />
 
-            <ImageView
-                android:id="@+id/colorcode3"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorLabel3"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label3" />
+                <ImageView
+                    android:id="@+id/labelright0"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="setLabel0"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label0" />
 
-            <ImageView
-                android:id="@+id/labelright4"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel4"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label4" />
+                <ImageView
+                    android:id="@+id/labelon0"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel0"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label" />
 
-            <ImageView
-                android:id="@+id/labelleft4"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label4" />
+                <ImageView
+                    android:id="@+id/labeloff0"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel0"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label" />
 
-            <EditText
-                android:id="@+id/label4"
+                <ImageView
+                    android:id="@+id/labelleft0"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label0" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label3" />
+                <EditText
+                    android:id="@+id/label0"
 
-            <ImageView
-                android:id="@+id/colorcode4"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorLabel4"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label4" />
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label" />
 
-            <ImageView
-                android:id="@+id/labelright5"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_right"
-                android:onClick="setLabel4"
-                app:layout_constraintStart_toEndOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label5" />
+                <ImageView
+                    android:id="@+id/colorcode0"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorLabel0"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label0" />
 
-            <ImageView
-                android:id="@+id/labelleft5"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/task_bar_end_left"
-                app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                app:layout_constraintStart_toStartOf="@+id/donebutton"
-                app:layout_constraintTop_toTopOf="@+id/label5" />
+                <ImageView
+                    android:id="@+id/labelright1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="setLabel1"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label1" />
 
-            <EditText
-                android:id="@+id/label5"
+                <ImageView
+                    android:id="@+id/labelon1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel1"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label0" />
 
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginEnd="44dp"
-                android:background="@drawable/task"
-                android:ems="10"
-                android:focusable="auto"
-                android:gravity="left|center_vertical"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:selectAllOnFocus="false"
-                android:shadowColor="@color/colorAccent"
-                android:textColor="@color/textColor"
-                android:textColorHighlight="@color/colorAccent"
-                android:textColorHint="@color/colorAccent"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label4" />
+                <ImageView
+                    android:id="@+id/labeloff1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel1"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label0" />
 
-            <ImageView
-                android:id="@+id/colorcode5"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/label"
-                android:backgroundTint="@color/colorLabel5"
-                app:layout_constraintEnd_toStartOf="@+id/label"
-                app:layout_constraintTop_toTopOf="@+id/label5" />
+                <ImageView
+                    android:id="@+id/labelleft1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label1" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/label1"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label0" />
+
+                <ImageView
+                    android:id="@+id/colorcode1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorLabel1"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label1" />
+
+                <ImageView
+                    android:id="@+id/labelright2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="setLabel3"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label2" />
+
+                <ImageView
+                    android:id="@+id/labelon2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel2"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label1" />
+
+                <ImageView
+                    android:id="@+id/labeloff2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel2"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label1" />
+
+                <ImageView
+                    android:id="@+id/labelleft2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label2" />
+
+                <EditText
+                    android:id="@+id/label2"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label1" />
+
+                <ImageView
+                    android:id="@+id/colorcode2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorLabel2"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label2" />
+
+                <ImageView
+                    android:id="@+id/labelright3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label3" />
+
+                <ImageView
+                    android:id="@+id/labelon3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel3"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label2" />
+
+                <ImageView
+                    android:id="@+id/labeloff3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel3"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label2" />
+
+                <ImageView
+                    android:id="@+id/labelleft3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label3" />
+
+                <EditText
+                    android:id="@+id/label3"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label2" />
+
+                <ImageView
+                    android:id="@+id/colorcode3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorLabel3"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label3" />
+
+                <ImageView
+                    android:id="@+id/labelright4"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="setLabel4"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label4" />
+
+                <ImageView
+                    android:id="@+id/labelon4"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel4"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label3" />
+
+                <ImageView
+                    android:id="@+id/labeloff4"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel4"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label3" />
+
+                <ImageView
+                    android:id="@+id/labelright6"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_right"
+                    android:onClick="setLabel4"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label4" />
+
+                <ImageView
+                    android:id="@+id/labelon5"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/donedone"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel5"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label4" />
+
+                <ImageView
+                    android:id="@+id/labeloff5"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/done"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="setLabel5"
+                    app:layout_constraintStart_toEndOf="@+id/label"
+                    app:layout_constraintTop_toBottomOf="@+id/label4" />
+
+                <ImageView
+                    android:id="@+id/labelleft4"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label4" />
+
+                <EditText
+                    android:id="@+id/label4"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label3" />
+
+                <ImageView
+                    android:id="@+id/colorcode4"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorLabel4"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label4" />
+
+                <ImageView
+                    android:id="@+id/labelleft5"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/task_bar_end_left"
+                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+                    app:layout_constraintTop_toTopOf="@+id/label5" />
+
+                <EditText
+                    android:id="@+id/label5"
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginEnd="44dp"
+                    android:background="@drawable/task"
+                    android:ems="10"
+                    android:focusable="auto"
+                    android:gravity="left|center_vertical"
+                    android:hint="Add Label"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:selectAllOnFocus="false"
+                    android:shadowColor="@color/colorAccent"
+                    android:textColor="@color/textColor"
+                    android:textColorHighlight="@color/colorAccent"
+                    android:textColorHint="@color/colorAccent"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label4" />
+
+                <ImageView
+                    android:id="@+id/colorcode5"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/label"
+                    android:backgroundTint="@color/colorLabel5"
+                    app:layout_constraintEnd_toStartOf="@+id/label"
+                    app:layout_constraintTop_toTopOf="@+id/label5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/calendarPopup"
@@ -1012,38 +1144,24 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/editdeleteok2"
+                android:id="@+id/calendarok"
                 android:layout_width="100dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/dateback"
                 android:gravity="center"
-                android:onClick="onDelete"
+                android:onClick="onCalendarOk"
                 android:text="@android:string/ok"
                 android:textColor="@color/textColor"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/calendarView"
-                app:layout_constraintHorizontal_bias="0.75"
                 app:layout_constraintStart_toStartOf="@+id/calendarView"
                 app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-            <TextView
-                android:id="@+id/deletecancel2"
-                android:layout_width="100dp"
-                android:layout_height="44dp"
-                android:background="@drawable/dateback"
-                android:gravity="center"
-                android:onClick="onDeleteCancel"
-                android:text="CANCEL"
-                android:textColor="@color/textColor"
-                app:layout_constraintEnd_toEndOf="@+id/calendarView"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="@+id/calendarView"
-                app:layout_constraintTop_toTopOf="@+id/editdeleteok2" />
-
             <CalendarView
                 android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
                 android:background="@drawable/calendarback"
                 android:unfocusedMonthDateColor="@color/textColor"
                 android:weekNumberColor="@color/textColor"

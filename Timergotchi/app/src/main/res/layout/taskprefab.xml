@@ -18,10 +18,10 @@
         android:ems="10"
         android:focusable="auto"
         android:focusableInTouchMode="false"
-        android:gravity="center_vertical"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:onClick="onEdit"
+        android:paddingTop="10dp"
         android:selectAllOnFocus="false"
         android:shadowColor="@color/colorAccent"
         android:textColor="@color/textColor"
@@ -46,18 +46,6 @@
         android:layout_height="44dp"
         android:background="@drawable/task_bar_end_right"
         app:layout_constraintStart_toEndOf="@+id/taskname"
-        app:layout_constraintTop_toTopOf="@+id/taskname" />
-
-    <ImageView
-        android:id="@+id/doneshadow"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/finishedtask"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/taskname"
-        app:layout_constraintEnd_toEndOf="@+id/taskname"
-        app:layout_constraintStart_toStartOf="@+id/taskname"
         app:layout_constraintTop_toTopOf="@+id/taskname" />
 
     <ImageView
@@ -104,27 +92,106 @@
         app:layout_constraintTop_toTopOf="@+id/taskname" />
 
     <TextView
-        android:id="@+id/showDueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textColor="@color/textColor"
-        app:layout_constraintBottom_toBottomOf="@+id/taskname"
-        app:layout_constraintEnd_toEndOf="@+id/taskname"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <TextView
-        android:id="@+id/showRepeat"
+        android:id="@+id/showduedate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:textColor="@color/textColor"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/taskname"
         app:layout_constraintEnd_toEndOf="@+id/right"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintStart_toStartOf="@+id/left" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorLabel0"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintStart_toEndOf="@+id/imageView6" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorLabel1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintStart_toEndOf="@+id/imageView7" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorLabel2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintStart_toEndOf="@+id/imageView8" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorLabel3"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintStart_toEndOf="@+id/imageView9" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorLabel4"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintStart_toEndOf="@+id/imageView10" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/buttonback"
+        android:backgroundTint="@color/colorLabel5"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/taskname"
+        app:layout_constraintStart_toEndOf="@+id/imageView11" />
+
+    <TextView
+        android:id="@+id/showduedate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/taskname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

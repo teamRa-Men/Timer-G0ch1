@@ -1,6 +1,7 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,18 +52,20 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         task.container = holder.container;
         task.dobutton = holder.dobutton;
         task.donebutton =holder.donebutton;
-        task.doneshadow =holder.doneshadow;
+
         task.left =holder.left;
         task.right =holder.right;
 
         task.finishedbutton =holder.finishedbutton ;
         task.showrepeat = holder.showrepeat;
+        task.showduedate = holder.showduedate;
+        task.labelViews = holder.labelViews;
 
 
 
-        task.showTask();
         task.showFinished();
         task.showOverdue();
+        task.showTask();
 
 
     }
@@ -82,7 +85,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         try {
             Task task = tasks.get(oldPos);
             tasks.remove(oldPos);
+
+
             tasks.add(newPos,task);
+
+            for(int i = 0; i < tasks.size();i++){
+                tasks.get(i).order = i;
+                tasks.get(i).update();
+
+            }
+            ListsActivity.instance.todoList.tasks = tasks;
+
             notifyItemMoved(oldPos, newPos);
         }
         catch (Exception e){}
@@ -99,9 +112,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView nameView;
+        TextView nameView,showduedate;
         View container, doneshadow,left,right;
         ImageView dobutton,donebutton,finishedbutton,showrepeat;
+        ImageView[] labelViews;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -109,12 +123,24 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             container = itemView.findViewById(R.id.task);
             dobutton=itemView.findViewById(R.id.dobutton);
             donebutton=itemView.findViewById(R.id.donebutton);
-            doneshadow=itemView.findViewById(R.id.doneshadow);
+
             left = itemView.findViewById(R.id.left);
             right = itemView.findViewById(R.id.right);
 
             finishedbutton = itemView.findViewById(R.id.finished);
             showrepeat = itemView.findViewById(R.id.showrepeating);
+            showduedate = itemView.findViewById(R.id.showduedate);
+            labelViews = new ImageView[7];
+
+            labelViews[0] = itemView.findViewById(R.id.imageView6);
+            labelViews[1] = itemView.findViewById(R.id.imageView7);
+            labelViews[2] = itemView.findViewById(R.id.imageView8);
+            labelViews[3] = itemView.findViewById(R.id.imageView9);
+            labelViews[4] = itemView.findViewById(R.id.imageView10);
+            labelViews[5] = itemView.findViewById(R.id.imageView11);
+            labelViews[6] = itemView.findViewById(R.id.imageView12);
+
+
 
         }
     }

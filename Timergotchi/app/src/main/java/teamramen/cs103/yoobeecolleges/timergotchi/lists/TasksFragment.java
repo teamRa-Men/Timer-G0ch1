@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
@@ -35,7 +36,7 @@ public class TasksFragment extends Fragment {
 
     protected TasksAdapter adapter;
 
-    public EditText listName;
+
 
     public TasksFragment( DatabaseHelper db){
         this.db = db;
@@ -49,7 +50,7 @@ public class TasksFragment extends Fragment {
 
 
         root = inflater.inflate(R.layout.fragment_tasks, container, false);
-        listName = root.findViewById(R.id.listname);
+
 
 
 
@@ -109,6 +110,8 @@ public class TasksFragment extends Fragment {
 
             tasks.add(newTask);
             adapter.notifyItemInserted(tasks.size() - 1);
+            newTask.order=tasks.size() - 1;
+            newTask.update();
             newTaskName.setText("");
         }
     }
@@ -140,6 +143,7 @@ public class TasksFragment extends Fragment {
     }
 
 
+
     public Task findByView(View view){
         View taskView = (View)view.getParent();
 
@@ -156,15 +160,21 @@ public class TasksFragment extends Fragment {
     public void fetchTasks(){
         //system.out.println(listNum+"lsit");
         ArrayList<Task> oldTasks = db.fetchTasks();
+        Task[] old = new Task[oldTasks.size()];
 
         for(int i = 0; i < oldTasks.size();i++){
+                old[i] = oldTasks.get(i);
+        }
+        Arrays.sort(old);
 
-            if(tasks.indexOf(oldTasks.get(i))<0) {
-                tasks.add(oldTasks.get(i));
+        for(int i = 0; i < oldTasks.size();i++){
+            old[i].order = i;
+            System.out.println(old[i].order);
+            System.out.println(old[i].id);
+            old[i].update();
+                tasks.add(old[i]);
                 adapter.notifyItemInserted(i);
 
-
-            }
         }
 
     }
