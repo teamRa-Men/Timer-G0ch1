@@ -151,11 +151,13 @@ can't find amounth of money/points
                     if (petitems.get(itemDragged).type == 0) {
                         adapter.notifyItemRemoved(itemDragged);
                         db.removePetitem(petitems.get(itemDragged).id);
-                        petitems.remove(itemDragged);
+
 
                         eating(v);
                         affection += petitems.get(itemDragged).affection;
                         health += petitems.get(itemDragged).health;
+
+                        petitems.remove(itemDragged);
                     }
                     v.setVisibility(View.VISIBLE);//finally set Visibility to VISIBLE
 

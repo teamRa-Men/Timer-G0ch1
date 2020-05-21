@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.Task;
+import teamramen.cs103.yoobeecolleges.timergotchi.record.FinishedTask;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {
@@ -268,6 +270,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("FinishedTasks",null, value);
         db.close();
+    }
+
+    public ArrayList<FinishedTask> getFinished(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'FinishedTasks' ",null);
+
+        ArrayList<FinishedTask> finishedTasks = new ArrayList<FinishedTask>();
+        while (c.moveToNext()) {
+            String name = c.getString(1);
+            int day = c.getInt(2);
+            int month = c.getInt(3);
+            int year = c.getInt(4);
+            float time = c.getFloat(5);
+            finishedTasks.add(new FinishedTask(name,day,month,year,time));
+        }
+        db.close();
+        return  finishedTasks;
     }
 
 
