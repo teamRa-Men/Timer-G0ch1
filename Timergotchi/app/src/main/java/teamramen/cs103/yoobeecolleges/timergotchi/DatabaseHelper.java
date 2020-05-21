@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -30,18 +29,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "dueTime float, " +
                 "dueDate float, " +
                 "sun int, mon int, tue int, wed int, thu int, fri int, sat int, " +
-                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int,i int)";
+                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int)";
 
 
 
         String query1 = "create table Points(id integer primary key, points integer)";
-        String query2 = "create table Labels(id integer primary key, label text,label0 text,label1 text,label2 text,label3 text,label4 text,label5 text)";
-        String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer)";
+
+        String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
 
 
         db.execSQL(query);
         db.execSQL(query1);
-        db.execSQL(query2);
+
         db.execSQL(query3);
 
     }
@@ -91,7 +90,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("label4", 0);
         value.put("label5", 0);
         value.put("label6", 0);
-        value.put("i",0);
 
         //opening the db into writable mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -106,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //name status created dueTime dueDate smtwtfs 0123456
-    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels, int i)
+    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels)
     {
         ContentValues value = new ContentValues();
 
@@ -130,8 +128,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("label4", labels[4]);
         value.put("label5", labels[5]);
         value.put("label6", labels[6]);
-
-        value.put("i",i);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -204,9 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int[] repeat = new int[]{c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11),c.getInt(12)};
 
                 int[] labels = new int[]{c.getInt(13),c.getInt(14),c.getInt(15),c.getInt(16),c.getInt(17),c.getInt(18),c.getInt(19)};
-                int order = c.getInt(20);
-
-                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels,order, this));
+                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels, this));
 
 
                 i++;
@@ -261,8 +255,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int image = c.getInt(2);
             int id = c.getInt(0);
             int type = c.getInt(3);
+            int health = c.getInt(4);
+            int affection = c.getInt(5);
 
-            backpack.add(new Petitem(name,image,type,id));
+            backpack.add(new Petitem(name,image,type,id,health,affection));
 
             i++;
 
@@ -283,6 +279,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("name", petitem.name);
         value.put("image", petitem.image);
         value.put("type", petitem.type);
+        value.put("health", petitem.health);
+        value.put("affection", petitem.affection);
+
         //opening the db into writable mode
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -302,40 +301,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete("Backpack","id=?", new String[]{"" + id});
         db.close();
     }
-    public void setLabels(String[] labels){
-        ContentValues value = new ContentValues();
-        value.put("label", labels[0]);
-        value.put("label0", labels[1]);
-        value.put("label1", labels[2]);
-        value.put("label2", labels[3]);
-        value.put("label3", labels[4]);
-        value.put("label4", labels[5]);
-        value.put("label5", labels[6]);
-        System.out.println(labels[0]+" label");
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("Labels", null,value);
-        db.close();
-    }
 
-    public String[] getLabels(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Labels' ",null);
-
-
-        String[] labels = new String[]{"","","","","","",""};
-        while (c.moveToNext()) {
-            labels[0] = c.getString(1);
-
-            labels[1] = c.getString(2);
-            labels[2] = c.getString(3);
-            labels[3] = c.getString(4);
-            labels[4] = c.getString(5);
-            labels[5] = c.getString(6);
-            labels[6] = c.getString(7);
-        }
-
-
-        db.close();
-        return  labels;
-    }
 }
