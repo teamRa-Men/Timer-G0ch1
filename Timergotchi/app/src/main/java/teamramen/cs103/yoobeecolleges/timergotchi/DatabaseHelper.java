@@ -29,20 +29,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "dueTime float, " +
                 "dueDate float, " +
                 "sun int, mon int, tue int, wed int, thu int, fri int, sat int, " +
-                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int)";
+                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int, i int)";
 
 
 
         String query1 = "create table Points(id integer primary key, points integer)";
-
+        String query2 = "create table Labels (id integer primary key, l text, l0 text,l1 text,l2 text,l3 text,l4 text,l5 text)";
         String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
-
+        String query4 = "create table FinishedTasks(id integer primary key, name text, dayFin int, monthFin int, yearFin, timeSpent float)";
 
         db.execSQL(query);
         db.execSQL(query1);
-
+        db.execSQL(query2);
         db.execSQL(query3);
-
+        db.execSQL(query4);
     }
 
     @Override
@@ -90,6 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("label4", 0);
         value.put("label5", 0);
         value.put("label6", 0);
+        value.put("i", 0);
 
         //opening the db into writable mode
         SQLiteDatabase db = this.getWritableDatabase();
@@ -104,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //name status created dueTime dueDate smtwtfs 0123456
-    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels)
+    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels, int order)
     {
         ContentValues value = new ContentValues();
 
@@ -128,6 +129,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("label4", labels[4]);
         value.put("label5", labels[5]);
         value.put("label6", labels[6]);
+
+        value.put("i", order);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -197,10 +200,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int dueTime = c.getInt(4);
                 float dueDate = c.getFloat(5);
 
+
                 int[] repeat = new int[]{c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11),c.getInt(12)};
 
                 int[] labels = new int[]{c.getInt(13),c.getInt(14),c.getInt(15),c.getInt(16),c.getInt(17),c.getInt(18),c.getInt(19)};
-                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels, this));
+
+                int order = c.getInt(20);
+
+                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels, order, this));
 
 
                 i++;
@@ -212,9 +219,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return tasks;
     }
 
+    public String[] getLabels(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'Labels' ",null);
+        String[] l = new String[] {"","","","","","",""};
+        while (c.moveToNext()) {
+            l[0] = c.getString(1);
+            l[1] = c.getString(2);
+            l[2] = c.getString(3);
+            l[3] = c.getString(4);
+            l[4] = c.getString(5);
+            l[5] = c.getString(6);
+            l[6] = c.getString(7);
+        }
+        return l;
+    }
+
+
+
+    public void setLabels(String[] l){
+        ContentValues value = new ContentValues();
+        value.put("l", l[0]);
+        value.put("l0", l[1]);
+        value.put("l1", l[2]);
+        value.put("l2", l[3]);
+        value.put("l3", l[4]);
+        value.put("l4", l[5]);
+        value.put("l5", l[6]);
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert("Labels",null, value);
+        db.close();
+    }
+
+
+
+    public void setFinished(String name, int day, int month, int year, float time){
+        ContentValues value = new ContentValues();
+        value.put("name", name);
+        value.put("dayFin", day);
+        value.put("monthFin", month);
+        value.put("yearFin", year);
+        value.put("timeSpent", time);
+
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert("FinishedTasks",null, value);
+        db.close();
+    }
+
+
+
+
+
+
     public int getPoints(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Points' ",null);
+        Cursor c = db.rawQuery("select * from 'Labels' ",null);
 
         int pts =0;
         while (c.moveToNext()) {

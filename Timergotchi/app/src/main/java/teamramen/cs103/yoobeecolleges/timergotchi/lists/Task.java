@@ -109,7 +109,18 @@ public class Task implements Comparable<Task>{
         System.out.println(status + " currentdate");
 
         update();
+        storeFinished();
 
+    }
+
+    void storeFinished(){
+        Date due = new Date((long)(System.currentTimeMillis()+5.99582088e13));
+        int day = due.getDate()-1;
+        int month = due.getMonth()+1;
+        int year = due.getYear();
+
+        db.setFinished(name,day,month,year,0);
+        System.out.println(name + " " + day + " " + month + " " + year);
     }
 
     public void delete(){
@@ -138,6 +149,8 @@ public class Task implements Comparable<Task>{
     }
 
 
+
+
     public void showTask(){
 
         if(isRepeating() && status>0){
@@ -158,19 +171,19 @@ public class Task implements Comparable<Task>{
             Date due = new Date((long) dueDate);
 
             String s = "due "+due.getDate();
-            switch (due.getMonth()){
-                case 0: s+= " Jan";break;
-                case 1: s+= " Feb";break;
-                case 2: s+= " Mar";break;
-                case 3: s+= " Apr";break;
-                case 4: s+= " May";break;
-                case 5: s+= " Jun";break;
-                case 6: s+= " Jul";break;
-                case 7: s+= " Aug";break;
-                case 8: s+= " Sep";break;
-                case 9: s+= " Oct";break;
-                case 10: s+= " Nov";break;
-                case 11: s+= " Dec";break;
+            switch (due.getMonth()+1){
+                case 1: s+= " Jan";break;
+                case 2: s+= " Feb";break;
+                case 3: s+= " Mar";break;
+                case 4: s+= " Apr";break;
+                case 5: s+= " May";break;
+                case 6: s+= " Jun";break;
+                case 7: s+= " Jul";break;
+                case 8: s+= " Aug";break;
+                case 9: s+= " Sep";break;
+                case 10: s+= " Oct";break;
+                case 11: s+= " Nov";break;
+                case 12: s+= " Dec";break;
 
             }
 
