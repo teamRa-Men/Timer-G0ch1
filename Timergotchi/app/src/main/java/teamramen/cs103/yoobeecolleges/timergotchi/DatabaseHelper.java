@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query1 = "create table Points(id integer primary key, points integer)";
         String query2 = "create table Labels (id integer primary key, l text, l0 text,l1 text,l2 text,l3 text,l4 text,l5 text)";
         String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
-        String query4 = "create table FinishedTasks(id integer primary key, name text, dayFin int, monthFin int, yearFin, timeSpent float)";
+        String query4 = "create table FinishedTasks(id integer primary key, name text, dayFin int, date float , timeSpent float)";
 
         db.execSQL(query);
         db.execSQL(query1);
@@ -257,12 +257,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public void setFinished(String name, int day, int month, int year, float time){
+    public void setFinished(String name, float date, float time){
         ContentValues value = new ContentValues();
         value.put("name", name);
-        value.put("dayFin", day);
-        value.put("monthFin", month);
-        value.put("yearFin", year);
+        value.put("date", date);
         value.put("timeSpent", time);
 
 
@@ -279,24 +277,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<FinishedTask> finishedTasks = new ArrayList<FinishedTask>();
         while (c.moveToNext()) {
             String name = c.getString(1);
-            int day = c.getInt(2);
-            int month = c.getInt(3);
-            int year = c.getInt(4);
-            float time = c.getFloat(5);
-            finishedTasks.add(new FinishedTask(name,day,month,year,time));
+            float date = c.getInt(2);
+            float time = c.getFloat(3);
+
+            finishedTasks.add(new FinishedTask(name,date,time));
         }
         db.close();
         return  finishedTasks;
     }
 
+    public int getTasksLeft() {
+        String query = "";
 
+        query = "select * from 'Tasks'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        int i = 0;
+        while (c.moveToNext()) {
+          i++;
+        }
+        db.close();
+        return i;
+    }
 
 
 
 
     public int getPoints(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Labels' ",null);
+        Cursor c = db.rawQuery("select * from 'Points' ",null);
 
         int pts =0;
         while (c.moveToNext()) {
@@ -340,7 +350,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int health = c.getInt(4);
             int affection = c.getInt(5);
 
-            backpack.add(new Petitem(name,image,type,id,health,affection));
+            backpack.add(new Petitem(name,image,type,id,health,affection,0));
 
             i++;
 

@@ -109,19 +109,11 @@ public class Task implements Comparable<Task>{
         System.out.println(status + " currentdate");
 
         update();
-        storeFinished();
+        db.setFinished(name,(float)(System.currentTimeMillis()+5.99582088e13),0);
 
     }
 
-    void storeFinished(){
-        Date due = new Date((long)(System.currentTimeMillis()+5.99582088e13));
-        int day = due.getDate()-1;
-        int month = due.getMonth()+1;
-        int year = due.getYear();
 
-        db.setFinished(name,day,month,year,0);
-        System.out.println(name + " " + day + " " + month + " " + year);
-    }
 
     public void delete(){
         db. remove(id);

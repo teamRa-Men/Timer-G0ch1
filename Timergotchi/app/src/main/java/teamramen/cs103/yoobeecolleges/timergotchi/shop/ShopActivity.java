@@ -6,6 +6,7 @@ import androidx.appcompat.view.menu.MenuView;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,6 +25,7 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class ShopActivity extends AppCompatActivity {
     ListView shoplist;
+    TextView shoppoints;
 
     String namelist[] = {"Mushroom", "Backpack"};
     int affection[] = {-2,2} ;
@@ -33,19 +35,26 @@ public class ShopActivity extends AppCompatActivity {
     String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Affection \n +5 Food ","Back pack, stores items "};
     int type[] = {0,1};
 
-    /*(mushroom)
-    health = 5
-    price = 25
-    affection = -2*/
+    int point;
 
     Petitem currentitem;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_shop);
 
+
         shoplist = findViewById(R.id.Shoplist);
+
+        db = new DatabaseHelper(this);
+        shoppoints = findViewById(R.id.textView3);
+        point = db.getPoints();
+        shoppoints.setText(db.getPoints() + " g");
+
 
         adapter adapter = new adapter();
         shoplist.setAdapter(adapter);
@@ -78,10 +87,13 @@ public class ShopActivity extends AppCompatActivity {
 
     public void buyitem(View view) {
 
-        //if(price >= ) {
+        if(currentitem.price <= point) {
             DatabaseHelper db = new DatabaseHelper(this);
             db.addPetitem(currentitem);
-        //}
+            point = point - currentitem.price;
+            db.setPoints(point);
+            shoppoints.setText(point + " g");
+        }
     }
 
     class adapter extends BaseAdapter {
@@ -123,7 +135,7 @@ public class ShopActivity extends AppCompatActivity {
                         itemimage.setImageResource(shop_images[i]);
                         itemdescription.setText(description[i]);
 
-                        currentitem = new Petitem(namelist[i], shop_images[i],type[i],i,health[i],affection[i]);
+                        currentitem = new Petitem(namelist[i], shop_images[i],type[i],i,health[i],affection[i],price[i]);
                         Button buybutton =  findViewById(R.id.buybutton);
                         buybutton.setVisibility(View.VISIBLE);
                     }
