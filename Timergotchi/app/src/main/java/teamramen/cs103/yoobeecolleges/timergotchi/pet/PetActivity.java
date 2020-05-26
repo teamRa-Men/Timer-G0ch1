@@ -66,6 +66,8 @@ can't find amounth of money/points
     int screenwidth = 0;
     int itemDragged;
     BackpackAdapter adapter;
+    public TextView pointsView;
+    public int points;
     DatabaseHelper db;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,11 @@ can't find amounth of money/points
 
         //adapter adapter = new adapter();
         //Foodinventory.setAdapter(adapter);
+
+        pointsView = findViewById(R.id.pointsview3);
+        db = new DatabaseHelper(this);
+        points = db.getPoints();
+        pointsView.setText(points+" ");
     }
 
 
@@ -224,7 +231,7 @@ can't find amounth of money/points
     public void Openinv(View view) {
 
         if(Inv == false){
-            ObjectAnimator animation = ObjectAnimator.ofFloat(Backpack, "translationX", (screenwidth/2)-100);
+            ObjectAnimator animation = ObjectAnimator.ofFloat(Backpack, "translationX", (screenwidth/2)-50);
             animation.setDuration(200);
             animation.start();
 
@@ -299,7 +306,7 @@ can't find amounth of money/points
         @NonNull
         @Override
         public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_items,parent,false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bag_items,parent,false);
             return new ItemViewHolder(v);
         }
 
@@ -308,8 +315,8 @@ can't find amounth of money/points
 
             Petitem petitem = petitems.get(position);
             System.out.println(petitem+"item");
-            System.out.println(petitem.name);
-            holder.nameHolder.setText(petitem.name);
+            //System.out.println(petitem.name);
+            //holder.nameHolder.setText(petitem.name);
             holder.imageHolder.setImageResource(petitem.image);
 
             holder.imageHolder.setTag(petitem.name + ""+ position);
@@ -339,11 +346,11 @@ can't find amounth of money/points
 
         public class ItemViewHolder extends RecyclerView.ViewHolder{
             ImageView imageHolder;
-            TextView nameHolder;
+            //TextView nameHolder;
             public ItemViewHolder(View view) {
                 super(view);
                 imageHolder = view.findViewById(R.id.Picture);
-                nameHolder = view.findViewById(R.id.Name);
+                //nameHolder = view.findViewById(R.id.Name);
             }
         }
     }

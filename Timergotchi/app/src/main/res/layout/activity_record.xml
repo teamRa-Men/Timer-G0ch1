@@ -7,6 +7,144 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".record.RecordActivity">
 
+    <ImageView
+        android:id="@+id/pointsbackground4"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pointsicon2"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:tint="@color/colorLabel2"
+        app:layout_constraintBottom_toBottomOf="@+id/recordpoints"
+        app:layout_constraintStart_toEndOf="@+id/recordpoints"
+        app:layout_constraintTop_toTopOf="@+id/recordpoints"
+        app:srcCompat="@drawable/rewards" />
+
+    <TextView
+        android:id="@+id/recordpoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:text="0 g"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/left2"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/task_bar_end_left"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/showMinDate" />
+
+    <ImageView
+        android:id="@+id/right2"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/task_bar_end_right"
+        app:layout_constraintStart_toEndOf="@+id/showMinDate"
+        app:layout_constraintTop_toTopOf="@+id/showMinDate" />
+
+    <ImageView
+        android:id="@+id/right3"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/task_bar_end_right"
+        app:layout_constraintStart_toEndOf="@+id/showMaxDate"
+        app:layout_constraintTop_toTopOf="@+id/showMaxDate" />
+
+    <ImageView
+        android:id="@+id/left3"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/task_bar_end_left"
+        app:layout_constraintEnd_toStartOf="@+id/taskname"
+        app:layout_constraintTop_toTopOf="@+id/showMaxDate" />
+
+    <TextView
+        android:id="@+id/showMinDate"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/task"
+        android:gravity="center"
+        android:onClick="onSetMin"
+        android:text="min Date"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/showMaxDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/showMaxDate"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/task"
+        android:gravity="center"
+        android:onClick="onSetMax"
+        android:text="max Date"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.66"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout5"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/calendarback"
+        app:layout_constraintBottom_toTopOf="@+id/showMinDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/taskstitle"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:gravity="center"
+            android:text="Tasks per Day"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/taskplot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <FrameLayout
         android:id="@+id/frameLayout3"
         android:layout_width="0dp"
@@ -84,6 +222,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/leftcount"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,21 +245,6 @@
         app:layout_constraintTop_toBottomOf="@+id/recordpoints"
         app:layout_constraintVertical_bias="0.049" />
 
-    <TextView
-        android:id="@+id/recordpoints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        android:text="0 g"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
@@ -130,22 +254,80 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/minCalendarPopup"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorShadow"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fincount">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/sunfinished"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:background="@drawable/graphbar"
+        <TextView
+            android:id="@+id/mincalendarok"
+            android:layout_width="100dp"
+            android:layout_height="44dp"
+            android:background="@drawable/dateback"
+            android:gravity="center"
+            android:onClick="onMinOk"
+            android:text="@android:string/ok"
+            android:textColor="@color/textColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/minCalendarView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/minCalendarView" />
+
+        <CalendarView
+            android:id="@+id/minCalendarView"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:background="@drawable/calendarback"
+            android:unfocusedMonthDateColor="@color/textColor"
+            android:weekNumberColor="@color/textColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/maxCalendarPopup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorShadow"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/maxcalendarok"
+            android:layout_width="100dp"
+            android:layout_height="44dp"
+            android:background="@drawable/dateback"
+            android:gravity="center"
+            android:onClick="onMaxOk"
+            android:text="@android:string/ok"
+            android:textColor="@color/textColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/maxCalendarView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/maxCalendarView" />
+
+        <CalendarView
+            android:id="@+id/maxCalendarView"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:background="@drawable/calendarback"
+            android:unfocusedMonthDateColor="@color/textColor"
+            android:weekNumberColor="@color/textColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

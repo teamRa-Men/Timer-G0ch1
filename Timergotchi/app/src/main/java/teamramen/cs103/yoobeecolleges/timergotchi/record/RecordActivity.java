@@ -1,15 +1,33 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.record;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
@@ -19,11 +37,14 @@ import teamramen.cs103.yoobeecolleges.timergotchi.lists.ListsActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class RecordActivity extends AppCompatActivity {
-    TextView finCount, points;
+    TextView finCount, points,showMin,showMax;
     TextView tasksLeft, timeSpent;
     ArrayList<FinishedTask> finishedTasks;
-    ImageView bar0;
-
+    DatabaseHelper db;
+    CalendarView minCalendar, maxCalendar;
+    View minCalendarPopup, maxCalendarPopup;
+    long minDate, maxDate;
+    BarChart taskPlot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,33 +56,66 @@ public class RecordActivity extends AppCompatActivity {
         tasksLeft = findViewById(R.id.leftcount);
         //timeSpent = findViewById(R.id.timespent);
 
-        DatabaseHelper db = new DatabaseHelper(this);
-        finishedTasks = db.getFinished();
+        db = new DatabaseHelper(this);
 
-        for(int i = 0; i< finishedTasks.size();i++){
-            System.out.println(finishedTasks.get(i).name);
-        }
+        showMax = findViewById(R.id.showMaxDate);
+        showMin = findViewById(R.id.showMinDate);
 
-        finCount.setText(finishedTasks.size()+" tasks done");
-        tasksLeft.setText(db.getTasksLeft()+ " tasks left");
+        minCalendarPopup = findViewById(R.id.minCalendarPopup);
+        maxCalendarPopup = findViewById(R.id.maxCalendarPopup);
 
-        points.setText(db.getPoints() + " g");
+        minCalendar = findViewById(R.id.minCalendarView);
+        maxCalendar = findViewById(R.id.maxCalendarView);
+
+        setupMaxCalendar();
+        setupMinCalendar();
+
+        minDate = (long)(System.currentTimeMillis() - 8.64e7*7);
+        maxDate = System.currentTimeMillis();
+
+        maxCalendar.setDate(maxDate);
+        minCalendar.setDate(minDate);
+
+        showMin.setText("from " + dateToString(minDate));
+        showMax.setText("to " + dateToString(maxDate));
+
+        taskPlot = findViewById(R.id.taskplot);
+
+        System.out.println(dateToString(minDate)+"min");
+        System.out.println(dateToString(maxDate)+"max");
+
+        taskPlot.getAxisLeft().setTextColor(this.getResources().getColor(R.color.textColor));
+        taskPlot.getAxisRight().setEnabled(false);
+        taskPlot.getXAxis().setTextColor(this.getResources().getColor(R.color.textColor));
 
 
+
+        Description description = new Description();
+        description.setText("");
+        taskPlot.setDescription(description);
+        taskPlot.setDrawValueAboveBar(false);
+
+        taskPlot.getLegend().setEnabled(false);
+
+        setCharts();
     }
-/*
-    void expandTask(){
-        try {
-            int taskHeight = ListsActivity.instance.taskHeight;
-            ViewGroup.LayoutParams params = bar0.getLayoutParams();
 
-            params.height = (int)(taskHeight * );
-            bar0.setLayoutParams(params);
-        }
-        catch (Exception e){
+    public void onSetMin(View view){
+        minCalendarPopup.setVisibility(View.VISIBLE);
+    }
+    public void onMinOk(View view){
+        minCalendarPopup.setVisibility(View.INVISIBLE);
+        setCharts();
+    }
+    public void onSetMax(View view){
+        maxCalendarPopup.setVisibility(View.VISIBLE);
+    }
+    public void onMaxOk(View view){
+        maxCalendarPopup.setVisibility(View.INVISIBLE);
+        setCharts();
+    }
 
-        }
-    }*/
+
 
     public void toList(View view) {
         Intent i = new Intent(this, ListsActivity.class);
@@ -82,9 +136,219 @@ public class RecordActivity extends AppCompatActivity {
         Intent i = new Intent(this, ShopActivity.class);
         startActivity(i);
     }
-/*
-    public void toRecord(View view) {
-        Intent i = new Intent(this, RecordActivity.class);
-        startActivity(i);
-    }*/
+
+    void setCharts(){
+        taskPlot.setVisibility(View.VISIBLE);
+        finishedTasks = db.getFinished(minDate,maxDate);
+
+        if(finishedTasks.size()>0) {
+            int finished = 0;
+            for (int i = 0; i < finishedTasks.size(); i++) {
+                //System.out.println(finishedTasks.get(i).name);
+                finished++;
+            }
+
+
+            String s = finished + "";
+            if (finished == 1) {
+                s += " task done";
+            } else {
+                s += " tasks done";
+            }
+            finCount.setText(s);
+
+
+            s = db.getTasksLeft() + "";
+            if (db.getTasksLeft() == 1) {
+                s += " task left";
+            } else {
+                s += " tasks left";
+            }
+            tasksLeft.setText(s);
+
+            points.setText(db.getPoints() + " ");
+
+
+            double current = finishedTasks.get(0).dateTimeFinished;
+            double last = finishedTasks.get(finishedTasks.size() - 1).timeFinished;
+
+
+            int timePeriod = (int) Math.round((last - current) / 8.64e7);
+            int[] taskCount = new int[timePeriod];
+            double[] dateCount = new double[timePeriod];
+
+            for (int i = 0; i < timePeriod; i++) {
+                dateCount[i] = current + i * 8.64e7;
+            }
+
+
+            for (int i = 0; i < timePeriod; i++) {
+                for (int j = 0; j < finishedTasks.size(); j++) {
+
+                    if (finishedTasks.get(j).dateEquals(new Date((long) dateCount[i]))) {
+                        taskCount[i]++;
+                    }
+                }
+            }
+
+            int maximum = 0;
+
+            for (int i = 0; i < timePeriod; i++) {
+                if (taskCount[i] > maximum) {
+                    maximum = taskCount[i];
+                }
+            }
+
+
+            List<BarEntry> entries = new ArrayList<BarEntry>();
+            for (int i = 0; i < timePeriod; i++) {
+                Date d = new Date((long) dateCount[i]);
+                entries.add(new BarEntry(i, taskCount[i]));
+            }
+            //System.out.println(maximum + "max");
+            BarDataSet set = new BarDataSet(entries, "BarDataSet");
+            set.setColor(this.getResources().getColor(R.color.colorPrimary));
+            set.setDrawValues(false);
+            BarData data = new BarData(set);
+            data.setBarWidth(0.5f);
+
+            taskPlot.setData(data);
+            taskPlot.notifyDataSetChanged();
+            taskPlot.setFitBars(true);
+
+
+
+            final String[] labelString = new String[timePeriod];
+            for (int i = 0; i < timePeriod; i++) {
+                Date d = new Date((long) dateCount[i]);
+                labelString[i] = d.getDate() + "/" + (d.getMonth() + 1);
+            }
+
+
+
+
+            ValueFormatter formatter = new ValueFormatter() {
+
+                public String getAxisLabel(float value, AxisBase axis) {
+                    try {
+                        return labelString[(int) value];
+                    }catch(Exception e){
+                        return "";
+                    }
+                }
+            };
+
+            XAxis xAxis = taskPlot.getXAxis();
+            xAxis.setGranularity(1f);
+            xAxis.setValueFormatter(formatter);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setDrawGridLines(false);
+            xAxis.setDrawAxisLine(false);
+
+            taskPlot.getAxisLeft().setGranularity(1);
+            taskPlot.getAxisLeft().setDrawGridLines(false);
+            taskPlot.getAxisLeft().setDrawZeroLine(false);
+            taskPlot.getAxisLeft().setDrawAxisLine(false);
+
+            taskPlot.invalidate();
+        }
+        else{
+            taskPlot.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    void setupMinCalendar() {
+
+        minCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                Date d = new Date();
+                d.setDate(dayOfMonth);
+                d.setMonth(month);
+                d.setYear(year-1900);
+                if(d.getTime()<maxDate) {
+                    minDate = d.getTime();
+                }else{
+                    minDate = (long)(maxDate-8.64e7);
+                }
+                showMin.setText("from "+dateToString(minDate));
+
+            }
+        });
+    }
+
+    void setupMaxCalendar() {
+
+        maxCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Date d = new Date();
+                d.setDate(dayOfMonth);
+                d.setMonth(month);
+                d.setYear(year-1900);
+                if(d.getTime()> minDate) {
+                    maxDate = d.getTime();
+                }else{
+                    maxDate = (long)(minDate+8.64e7);
+                }
+
+
+                showMax.setText("to "+dateToString(maxDate));
+
+            }
+        });
+    }
+
+    String dateToString(long date){
+        Date d = new Date(date);
+        String s = d.getDate() + " " + getMonth(d.getMonth()) + " " + (d.getYear()+1900);
+        return  s;
+    }
+
+    String getMonth(int i){
+        String s = "";
+        switch (i) {
+            case 0:
+                s += "Jan";
+                break;
+            case 1:
+                s += "Feb";
+                break;
+            case 2:
+                s += "Mar";
+                break;
+            case 3:
+                s += "Apr";
+                break;
+            case 4:
+                s += "May";
+                break;
+            case 5:
+                s += "Jun";
+                break;
+            case 6:
+                s += "Jul";
+                break;
+            case 7:
+                s += "Aug";
+                break;
+            case 8:
+                s += "Sep";
+                break;
+            case 9:
+                s += "Oct";
+                break;
+            case 10:
+                s += "Nov";
+                break;
+            case 11:
+                s += "Dec";
+                break;
+        }
+        return  s;
+    }
 }

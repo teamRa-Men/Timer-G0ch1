@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#527C83</color>
-    <color name="colorPrimaryLight">#E9F4F1</color>
+    <color name="colorAccent">#608F98</color>
+    <color name="colorPrimaryLight">#ECFAD5</color>
     <color name="colorPrimary">#6D9197</color>
     <color name="colorPrimaryMedium">#72498781</color>
     <color name="colorPrimaryDark">#608F98</color>
@@ -14,9 +14,9 @@
     <color name="colorLabel4">#784CAF50</color>
     <color name="colorLabel5">#7500BCD4</color>
     <color name="colorLabel6">#75673AB7</color>
-    <color name="textColor">#2F575D</color>
+    <color name="textColor">#9A7249</color>
     <color name="colorShadow">#46000000</color>
-
+    <color name="colorPoints">#FFF493</color>
 
     <array name = "myColors">
         <item>@color/colorAccent</item>

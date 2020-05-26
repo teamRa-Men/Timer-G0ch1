@@ -7,15 +7,144 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".timer.TimerActivity">
 
-    <EditText
+    <ImageView
+        android:id="@+id/pointsbackground5"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pointsicon4"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:tint="@color/colorLabel2"
+        app:layout_constraintBottom_toBottomOf="@+id/pointsview2"
+        app:layout_constraintStart_toEndOf="@+id/pointsview2"
+        app:layout_constraintTop_toTopOf="@+id/pointsview2"
+        app:srcCompat="@drawable/rewards" />
+
+    <TextView
+        android:id="@+id/pointsview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Points"
+        android:textColor="@color/design_default_color_on_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="0dp"
+        android:layout_height="113dp"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHighlight="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taskDoing"
+        app:layout_constraintVertical_bias="0.26" />
+
+    <Button
+        android:id="@+id/button_start_pause"
+        android:layout_width="150dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/dateback"
+        android:text="Start Lap"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <Button
+        android:id="@+id/button_skip"
+        android:layout_width="150dp"
+        android:layout_height="44dp"
+        android:background="@drawable/dateback"
+        android:onClick="onSkip"
+        android:shadowColor="@color/colorAccent"
+        android:text="SKIP BREAK"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_start_pause" />
+
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="150dp"
+        android:layout_height="44dp"
+        android:background="@drawable/dateback"
+        android:text="reset"
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_skip" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/status_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_countdown"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_view_lap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/status_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/taskDoing"
         android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
         android:background="@drawable/task"
         android:ems="10"
         android:focusable="auto"
@@ -41,6 +170,7 @@
         app:layout_constraintTop_toTopOf="@+id/taskDoing" />
 
     <FrameLayout
+        android:id="@+id/frameLayout4"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@color/navBar"
@@ -143,7 +273,7 @@
 
     <ImageView
         android:id="@+id/endrightlist2"
-        android:layout_width="wrap_content"
+        android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/task_bar_end_right"
         app:layout_constraintEnd_toEndOf="parent"

@@ -32,7 +32,7 @@ public class ShopActivity extends AppCompatActivity {
     int health[] = {2,0} ;
     int price[] = {24, 1250};
     int shop_images[] ={R.drawable.food_mushroom, R.drawable.backpack_closed};
-    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Affection \n +5 Food ","Back pack, stores items "};
+    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Happiness \n +5 Food ","Back pack, stores items "};
     int type[] = {0,1};
 
     int point;
@@ -53,11 +53,12 @@ public class ShopActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         shoppoints = findViewById(R.id.textView3);
         point = db.getPoints();
-        shoppoints.setText(db.getPoints() + " g");
+        shoppoints.setText(db.getPoints() + " ");
 
 
         adapter adapter = new adapter();
         shoplist.setAdapter(adapter);
+        showItemDetails(0);
     }
 
     public void toList(View view) {
@@ -92,7 +93,7 @@ public class ShopActivity extends AppCompatActivity {
             db.addPetitem(currentitem);
             point = point - currentitem.price;
             db.setPoints(point);
-            shoppoints.setText(point + " g");
+            shoppoints.setText(point + " ");
         }
     }
 
@@ -122,27 +123,31 @@ public class ShopActivity extends AppCompatActivity {
             TextView Name = v.findViewById(R.id.Name);
 
             Picture.setImageResource(shop_images[i]);
-            Price.setText(  price[i] + "g");
+            Price.setText(  price[i] + " ");
             Name.setText(namelist[i]);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (i < shop_images.length) {
-                        TextView itemdescription = findViewById(R.id.itemdescription);
-                        ImageView itemimage = findViewById(R.id.itemimage);
-
-                        itemimage.setImageResource(shop_images[i]);
-                        itemdescription.setText(description[i]);
-
-                        currentitem = new Petitem(namelist[i], shop_images[i],type[i],i,health[i],affection[i],price[i]);
-                        Button buybutton =  findViewById(R.id.buybutton);
-                        buybutton.setVisibility(View.VISIBLE);
-                    }
+                    showItemDetails(i);
                 }
             });
 
             return v;
+        }
+    }
+
+    void showItemDetails(int i){
+        if (i < shop_images.length) {
+            TextView itemdescription = findViewById(R.id.itemdescription);
+            ImageView itemimage = findViewById(R.id.itemimage);
+
+            itemimage.setImageResource(shop_images[i]);
+            itemdescription.setText(description[i]);
+
+            currentitem = new Petitem(namelist[i], shop_images[i],type[i],i,health[i],affection[i],price[i]);
+            Button buybutton =  findViewById(R.id.buybutton);
+
         }
     }
 }

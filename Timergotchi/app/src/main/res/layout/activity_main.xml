@@ -8,6 +8,15 @@
     android:background="@color/colorPrimaryLight"
     android:paddingTop="0dp">
 
+    <ImageView
+        android:id="@+id/pointsbackground"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/pointsview"
         android:layout_width="wrap_content"
@@ -15,7 +24,7 @@
         android:layout_marginStart="16dp"
         android:gravity="center"
         android:text="Points"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/design_default_color_background"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,16 +32,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/pointsicon"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:tint="@color/colorLabel2"
+        app:layout_constraintBottom_toBottomOf="@+id/pointsview"
+        app:layout_constraintStart_toEndOf="@+id/pointsview"
+        app:layout_constraintTop_toTopOf="@+id/pointsview"
+        app:srcCompat="@drawable/rewards" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/listpager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listtabs"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.45">
 
     </androidx.viewpager.widget.ViewPager>
@@ -60,7 +79,7 @@
                 android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@drawable/lists" />
 
             <ImageView
@@ -234,7 +253,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:onClick="onDeletePopup"
-                    android:tint="@color/colorAccent"
+                    android:tint="@color/textColor"
                     app:layout_constraintStart_toEndOf="@+id/editname"
                     app:layout_constraintTop_toTopOf="@+id/editname"
                     app:srcCompat="@drawable/delete" />
@@ -264,6 +283,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toTopOf="@+id/dueDate"
                     app:layout_constraintEnd_toStartOf="@+id/dueDate"
                     app:layout_constraintStart_toStartOf="@+id/donebutton"
@@ -276,7 +296,8 @@
                     android:background="@drawable/task_bar_end_right"
                     android:onClick="clearDueDate"
                     android:src="@drawable/cross"
-                    android:tint="@color/colorAccent"
+                    android:tint="@color/textColor"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toTopOf="@+id/dueDate"
                     app:layout_constraintStart_toEndOf="@+id/dueDate"
                     app:layout_constraintTop_toTopOf="@+id/dueTime" />
@@ -285,7 +306,7 @@
                     android:id="@+id/dueTime"
 
                     android:layout_width="0dp"
-                    android:layout_height="44dp"
+                    android:layout_height="0dp"
                     android:layout_marginStart="44dp"
 
                     android:layout_marginTop="10dp"
@@ -297,6 +318,7 @@
                     android:paddingRight="20dp"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editname" />
@@ -310,6 +332,7 @@
                     android:text="Due Time"
                     android:textColor="@color/textColor"
                     android:textSize="14sp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toTopOf="@+id/dueDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.002"
@@ -333,7 +356,7 @@
                     android:background="@drawable/task_bar_end_right"
                     android:onClick="clearDueDate"
                     android:src="@drawable/cross"
-                    android:tint="@color/colorAccent"
+                    android:tint="@color/textColor"
                     app:layout_constraintBottom_toBottomOf="@+id/dueDate"
                     app:layout_constraintStart_toEndOf="@+id/dueDate"
                     app:layout_constraintTop_toTopOf="@+id/dueDate" />
@@ -377,7 +400,7 @@
                     android:onClick="onRepeat"
                     android:text="T"
                     android:textColor="@color/design_default_color_surface"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:drawableTintMode="add"
                     app:layout_constraintBottom_toBottomOf="@+id/editthu"
                     app:layout_constraintEnd_toEndOf="@+id/editthu"
@@ -393,7 +416,7 @@
                     android:onClick="onRepeat"
                     android:text="T"
                     android:textColor="@color/design_default_color_surface"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:drawableTintMode="add"
                     app:layout_constraintBottom_toBottomOf="@+id/edittue"
                     app:layout_constraintEnd_toEndOf="@+id/edittue"
@@ -409,7 +432,7 @@
                     android:onClick="onRepeat"
                     android:text="F"
                     android:textColor="@color/design_default_color_surface"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:drawableTintMode="add"
                     app:layout_constraintBottom_toBottomOf="@+id/editfri"
                     app:layout_constraintEnd_toEndOf="@+id/editfri"
@@ -425,7 +448,7 @@
                     android:onClick="onRepeat"
                     android:text="S"
                     android:textColor="@color/design_default_color_background"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:drawableTintMode="add"
                     app:layout_constraintBottom_toBottomOf="@+id/editsat"
                     app:layout_constraintEnd_toEndOf="@+id/editsat"
@@ -442,7 +465,7 @@
                     android:onClick="onRepeat"
                     android:text="M"
                     android:textColor="@color/design_default_color_on_primary"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:drawableTintMode="add"
                     app:layout_constraintBottom_toBottomOf="@+id/editmon"
                     app:layout_constraintEnd_toEndOf="@+id/editmon"
@@ -458,7 +481,7 @@
                     android:onClick="onRepeat"
                     android:text="S"
                     android:textColor="@color/design_default_color_background"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:layout_constraintBottom_toBottomOf="@+id/editsun"
                     app:layout_constraintEnd_toEndOf="@+id/editsun"
                     app:layout_constraintHorizontal_bias="0.51"
@@ -474,7 +497,7 @@
                     android:onClick="onRepeat"
                     android:text="W"
                     android:textColor="@color/design_default_color_on_primary"
-                    app:drawableTint="@color/colorAccent"
+                    app:drawableTint="@color/textColor"
                     app:drawableTintMode="add"
                     app:layout_constraintBottom_toBottomOf="@+id/editwed"
                     app:layout_constraintEnd_toEndOf="@+id/editwed"
@@ -636,7 +659,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toTopOf="@+id/label" />
@@ -646,7 +669,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toTopOf="@+id/label" />
@@ -679,7 +702,7 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -709,7 +732,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel0"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label" />
@@ -719,7 +742,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel0"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label" />
@@ -751,7 +774,7 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -781,7 +804,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel1"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label0" />
@@ -791,7 +814,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel1"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label0" />
@@ -823,7 +846,7 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -853,7 +876,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel2"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label1" />
@@ -863,7 +886,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel2"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label1" />
@@ -895,7 +918,7 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -924,7 +947,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel3"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label2" />
@@ -934,7 +957,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel3"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label2" />
@@ -966,7 +989,7 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -996,7 +1019,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel4"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label3" />
@@ -1006,7 +1029,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel4"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label3" />
@@ -1025,7 +1048,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/donedone"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel5"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label4" />
@@ -1035,7 +1058,7 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/done"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/textColor"
                     android:onClick="setLabel5"
                     app:layout_constraintStart_toEndOf="@+id/label"
                     app:layout_constraintTop_toBottomOf="@+id/label4" />
@@ -1067,7 +1090,7 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -1110,7 +1133,8 @@
                     android:shadowColor="@color/colorAccent"
                     android:textColor="@color/textColor"
                     android:textColorHighlight="@color/colorAccent"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColorHint="@color/textColor"
+                    android:textColorLink="#FFFFFF"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -1158,7 +1182,7 @@
             <CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="0dp"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:background="@drawable/calendarback"
                 android:unfocusedMonthDateColor="@color/textColor"
                 android:weekNumberColor="@color/textColor"
@@ -1172,6 +1196,7 @@
             android:id="@+id/deletepopup"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="44dp"
             android:background="@color/colorShadow"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"

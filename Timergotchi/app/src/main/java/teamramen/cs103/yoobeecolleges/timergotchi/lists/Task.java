@@ -31,7 +31,7 @@ public class Task implements Comparable<Task>{
 
     //TODO
 
-    public float dueDate, dueTime, timeCreated,status;
+    public float dueDate, dueTime, timeCreated,status, timeSpent;
 
 
     public Task(String name,int order,DatabaseHelper db)
@@ -46,11 +46,11 @@ public class Task implements Comparable<Task>{
         id = db.addTask(name,order);
         this.db = db;
 
-        timeCreated = (long)(System.currentTimeMillis()+5.99582088e13);
+        timeCreated = (long)(System.currentTimeMillis());
     }
     //id name status created dueTime dueDate smtwtfs 0123456
     //Database task handle
-    public Task(int id, String name, float status, float timeCreated, float dueTime,float dueDate,int[] repeat,int[] labels, int order, DatabaseHelper db){
+    public Task(int id, String name, float status, float timeCreated, float dueTime,float dueDate,int[] repeat,int[] labels, int order, float timeSpent, DatabaseHelper db){
         this.id = id;
         this.name = name;
         this.status = status;
@@ -60,12 +60,13 @@ public class Task implements Comparable<Task>{
         this.repeat = repeat;
         this.labels = labels;
         this.order = order;
+        this.timeSpent = timeSpent;
         this.db = db;
 
-        Date today = new Date((long)(System.currentTimeMillis()+5.99582088e13) );
+        Date today = new Date((long)(System.currentTimeMillis()) );
         Date due = new Date((long)dueDate);
         int dayOfTheWeek = today.getDay();
-
+System.out.println(today.getDay()+"repeat day");
         //if repeat day allow to be redone
         for(int i =0 ; i < 7; i++){
             if(repeat[i] == 1){
@@ -85,7 +86,7 @@ public class Task implements Comparable<Task>{
 
 
         //check date      todo checktime
-        if((dueDate)<(System.currentTimeMillis()+5.99582088e13) && dueDate > 0){
+        if((dueDate-5.99582088e13)<(System.currentTimeMillis()) && dueDate > 0){
             //showoverdue
             nameView.setTextColor(Color.RED);
         }
@@ -103,14 +104,25 @@ public class Task implements Comparable<Task>{
 
     public void done(){
         status=System.currentTimeMillis();
-        showFinished();
+
 
 
         System.out.println(status + " currentdate");
 
         update();
-        db.setFinished(name,(float)(System.currentTimeMillis()+5.99582088e13),0);
 
+        Date due = new Date((long)(System.currentTimeMillis()));
+
+        int dayFin = due.getDate();
+        int monthFin = due.getMonth();;
+        int yearFin = due.getYear()+1900;
+
+        int dayOfWeek = due.getDay();
+
+        System.out.println(dayFin + " /" + monthFin + " /" + yearFin + " week " + dayOfWeek);
+        db.setFinished(name,(float)(System.currentTimeMillis()),timeSpent);
+        showFinished();
+        showTask();
     }
 
 
@@ -137,7 +149,7 @@ public class Task implements Comparable<Task>{
     public void setId(int id){ this.id = id; }
 
     void update(){
-        db.updateData(id, name, status, dueTime, dueDate, repeat, labels,order);
+        db.updateData(id, name, status, dueTime, dueDate, repeat, labels,order,timeSpent);
     }
 
 
@@ -189,7 +201,7 @@ public class Task implements Comparable<Task>{
 
 
 
-        if(isLabelled() || dueDate > 0){
+        if(isLabelled() || dueDate > 0 || (isRepeating()&&status>0)){
             expandTask();
 
         }

@@ -5,24 +5,55 @@ import java.util.Date;
 public class FinishedTask {
     public String name;
     public int dayFin, monthFin, yearFin, dayOfWeek;
-    public float timeSpent, dateFinished;
+    public float timeSpent, timeFinished, dateTimeFinished;
+    public Date dateFinished;
     public boolean past7Days;
 
-    public FinishedTask(String name,float dateFinished, float timeSpent){
-        this.dateFinished = dateFinished;
+    public FinishedTask(String name,float timeFinished, float timeSpent){
+        this.timeFinished = (float)(timeFinished);
+
         this.name = name;
 
 
-        Date due = new Date((long)dateFinished);
+        Date due = new Date((long)timeFinished);
 
-        this.dayFin = due.getDate()-1;
-        this.monthFin = due.getMonth()+1;;
-        this.yearFin = yearFin;
-        this.timeSpent =  due.getYear();
+        this.dayFin = due.getDate();
+        this.monthFin = due.getMonth();;
+        this.yearFin = due.getYear();
+        this.timeSpent =  timeSpent;
         this.dayOfWeek = due.getDay();
 
-        System.out.println(dayFin + " /" + monthFin + " /" + yearFin + " week " + dayOfWeek);
+        this.dateFinished = new Date();
+        dateFinished.setDate(dayFin);
+        dateFinished.setMonth(monthFin);
+        dateFinished.setYear(yearFin);
+        dateTimeFinished = dateFinished.getTime();
+    }
 
-        past7Days = (dateFinished-System.currentTimeMillis()+5.99582088e13) < 8.64e+7;
+    public String toString(){
+        return(dayFin + " /" + (monthFin+1) + " /" + (yearFin+1900) + " day of the week " + getDay(dayOfWeek));
+    }
+
+    public String getDay(int i){
+        switch (i){
+            case 0: return "Sunday";
+            case 1: return "Monday";
+            case 2: return "Tuesday";
+            case 3: return "Wednesday";
+            case 4: return "Thursday";
+            case 5: return "Friday";
+            case 6: return "Saturday";
+
+        }
+        return "noday";
+    }
+
+    public boolean dateEquals(FinishedTask t){
+        return (t.dayFin == dayFin & t.monthFin == monthFin & t.yearFin == yearFin);
+
+    }
+    public boolean dateEquals(Date d){
+        return (d.getDate() == dayFin & d.getMonth() == monthFin & d.getYear() == yearFin);
+
     }
 }

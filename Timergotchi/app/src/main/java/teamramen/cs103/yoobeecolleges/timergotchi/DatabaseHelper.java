@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.Task;
 import teamramen.cs103.yoobeecolleges.timergotchi.record.FinishedTask;
@@ -31,14 +32,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "dueTime float, " +
                 "dueDate float, " +
                 "sun int, mon int, tue int, wed int, thu int, fri int, sat int, " +
-                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int, i int)";
+                "label0 int, label1 int, label2 int, label3 int, label4 int, label5 int, label6 int, i int, timeSpent float)";
 
 
 
-        String query1 = "create table Points(id integer primary key, points integer)";
+        String query1 = "create table Points(id integer primary key, points integer, affection float, health float, doing int)";
         String query2 = "create table Labels (id integer primary key, l text, l0 text,l1 text,l2 text,l3 text,l4 text,l5 text)";
         String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
-        String query4 = "create table FinishedTasks(id integer primary key, name text, dayFin int, date float , timeSpent float)";
+        String query4 = "create table FinishedTasks(id integer primary key, name text, date float, dd int, mm int , yyyy int, timeSpent float)";
 
         db.execSQL(query);
         db.execSQL(query1);
@@ -106,8 +107,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    //name status created dueTime dueDate smtwtfs 0123456
-    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels, int order)
+    //name status created dueTime dueDate smtwtfs 0123456 timespent
+    public boolean updateData(long id, String newTaskName, float newStatus, float newDueTime, float newDueDate, int[] repeat, int[]labels, int order, float timeSpent)
     {
         ContentValues value = new ContentValues();
 
@@ -133,6 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("label6", labels[6]);
 
         value.put("i", order);
+       // value.put("timeSpent", timeSpent);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -208,8 +210,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int[] labels = new int[]{c.getInt(13),c.getInt(14),c.getInt(15),c.getInt(16),c.getInt(17),c.getInt(18),c.getInt(19)};
 
                 int order = c.getInt(20);
+                float timeSpent = c.getFloat(21);
 
-                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels, order, this));
+                tasks.add(new Task(id,name, status,created,dueTime,dueDate,repeat,labels, order, timeSpent, this));
 
 
                 i++;
@@ -256,11 +259,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
+    //id integer primary key, name text, date float, d int, m int , y int, timeSpent float
     public void setFinished(String name, float date, float time){
+        Date finishedDate = new Date((long)date);
+
         ContentValues value = new ContentValues();
         value.put("name", name);
         value.put("date", date);
+        value.put("dd", finishedDate.getDate());
+        value.put("mm", finishedDate.getMonth()+1);
+        value.put("yyyy", finishedDate.getYear()+1900);
         value.put("timeSpent", time);
 
 
@@ -270,17 +278,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<FinishedTask> getFinished(){
+    public ArrayList<FinishedTask> getFinished(float minDate, float maxDate){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'FinishedTasks' ",null);
-
+        Cursor c = db.rawQuery("select * from 'FinishedTasks'",null);
+        System.out.println(minDate + " " + maxDate + "dates");
         ArrayList<FinishedTask> finishedTasks = new ArrayList<FinishedTask>();
         while (c.moveToNext()) {
             String name = c.getString(1);
-            float date = c.getInt(2);
-            float time = c.getFloat(3);
+            float date = c.getFloat(2);
 
-            finishedTasks.add(new FinishedTask(name,date,time));
+
+            float time = c.getFloat(6);
+
+            if(date >= minDate && date <= maxDate+8.64e7) {
+                finishedTasks.add(new FinishedTask(name, date, time));
+            }
         }
         db.close();
         return  finishedTasks;
@@ -317,6 +329,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //////system.out.println("no entries");
             ContentValues value = new ContentValues();
             value.put("points", 0);
+
             db.insert("Points", null, value);
         }
 
@@ -330,6 +343,88 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update("Points", value, "id=?", new String[]{"" + 1});
         db.close();
     }
+
+    public int getHealth(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'Points' ",null);
+
+        int health =0;
+        while (c.moveToNext()) {
+            health = c.getInt(3);
+        }
+        ////system.out.println(c.getCount()+"cursor");
+        if(c.getCount()<1){
+            //////system.out.println("no entries");
+            ContentValues value = new ContentValues();
+            value.put("health", 100);
+            db.insert("Points", null, value);
+        }
+
+        db.close();
+        return  health;
+    }
+    public void setHealth(int health){
+        ContentValues value = new ContentValues();
+        value.put("health", health);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    public int getAffection(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'Points' ",null);
+
+        int affection =0;
+        while (c.moveToNext()) {
+            affection = c.getInt(2);
+        }
+        ////system.out.println(c.getCount()+"cursor");
+        if(c.getCount()<1){
+            //////system.out.println("no entries");
+            ContentValues value = new ContentValues();
+            value.put("affection", 50);
+            db.insert("Points", null, value);
+        }
+
+        db.close();
+        return  affection;
+    }
+    public void setAffection(int affection){
+        ContentValues value = new ContentValues();
+        value.put("affection", affection);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    public int getDoing(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'Points' ",null);
+
+        int doing =0;
+        while (c.moveToNext()) {
+            doing = c.getInt(4);
+        }
+        ////system.out.println(c.getCount()+"cursor");
+        if(c.getCount()<1){
+            //////system.out.println("no entries");
+            ContentValues value = new ContentValues();
+            value.put("doing", 0);
+            db.insert("Points", null, value);
+        }
+
+        db.close();
+        return  doing;
+    }
+    public void setDoing(int doing){
+        ContentValues value = new ContentValues();
+        value.put("doing", doing);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.close();
+    }
+
 
     public ArrayList<Petitem> fetchBackpack() {
         String query = "";

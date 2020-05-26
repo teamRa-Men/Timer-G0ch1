@@ -8,11 +8,45 @@
     android:background="@color/colorPrimaryLight"
     tools:context=".pet.PetActivity">
 
+    <ImageView
+        android:id="@+id/pointsbackground2"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pointsview3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:text="Points"
+        android:textColor="@color/design_default_color_background"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pointsicon5"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:tint="@color/colorLabel2"
+        app:layout_constraintBottom_toBottomOf="@+id/pointsview3"
+        app:layout_constraintStart_toEndOf="@+id/pointsview3"
+        app:layout_constraintTop_toTopOf="@+id/pointsview3"
+        app:srcCompat="@drawable/rewards" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inventory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
+        android:layout_marginEnd="30dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/Backpack"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +96,8 @@
 
     <ImageView
         android:id="@+id/Backpack"
-        android:layout_width="124dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/gradient"
         android:backgroundTint="@color/colorPrimaryLight"
         android:onClick="Openinv"
@@ -117,10 +151,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toList"
-                android:paddingLeft="10dp"
-                android:paddingTop="2dp"
-                android:paddingRight="2dp"
-                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/lists" />
 
@@ -131,10 +161,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toTimer"
-                android:paddingLeft="10dp"
-                android:paddingTop="2dp"
-                android:paddingRight="2dp"
-                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/timer" />
 
@@ -154,10 +180,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toShop"
-                android:paddingLeft="10dp"
-                android:paddingTop="2dp"
-                android:paddingRight="2dp"
-                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/rewards" />
 
@@ -168,10 +190,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:onClick="toRecord"
-                android:paddingLeft="10dp"
-                android:paddingTop="2dp"
-                android:paddingRight="2dp"
-                android:paddingBottom="2dp"
                 android:tint="@color/colorPrimaryMedium"
                 app:srcCompat="@drawable/record" />
         </LinearLayout>

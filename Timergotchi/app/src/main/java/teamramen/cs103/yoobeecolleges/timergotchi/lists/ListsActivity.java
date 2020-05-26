@@ -102,7 +102,7 @@ public class ListsActivity extends AppCompatActivity {
         pointsView = findViewById(R.id.pointsview);
 
         points = db.getPoints();
-        pointsView.setText(points+" g");
+        pointsView.setText(points+" ");
 
 
 
@@ -221,11 +221,13 @@ public class ListsActivity extends AppCompatActivity {
         setupCalendar();
         if(taskEditing.dueDate>0) {
             Date d = new Date((long) taskEditing.dueDate);
-            dueDate.setText(d.getDate() + "/" + (d.getMonth()+1)+"/"+(d.getYear()));
             dueDay = d.getDate();
             dueMonth = d.getMonth();
             dueYear = d.getYear();
-            calendar.setDate((long)(d.getTime()-5.99582088e13));
+
+            dueDate.setText(dueDay +" "+ getMonth(dueMonth)+ " "  + dueYear);
+
+            calendar.setDate((long)(d.getTime()-5.99582088e13+8.64e7));
         }
         else{
             dueDate.setText("");
@@ -389,7 +391,7 @@ public class ListsActivity extends AppCompatActivity {
     //TODO streaks, time used, deadline met
     public void awardPoints(){
         points += 100 + (int)(Math.random()*50);
-        pointsView.setText(points+" g");
+        pointsView.setText(points+" ");
         db.setPoints(points);
     }
 
@@ -408,28 +410,54 @@ public class ListsActivity extends AppCompatActivity {
                 dueMonth = month;
                 dueYear = year;
 
-                String s = ""+dayOfMonth;
-                switch (month){
-                    case 0: s+= " Jan";break;
-                    case 1: s+= " Feb";break;
-                    case 2: s+= " Mar";break;
-                    case 3: s+= " Apr";break;
-                    case 4: s+= " May";break;
-                    case 5: s+= " Jun";break;
-                    case 6: s+= " Jul";break;
-                    case 7: s+= " Aug";break;
-                    case 8: s+= " Sep";break;
-                    case 9: s+= " Oct";break;
-                    case 10: s+= " Nov";break;
-                    case 11: s+= " Dec";break;
-
-                }
-                s+=" "  + dueYear;
-
+                String s = " "+dayOfMonth+ " " + getMonth(month)+ " "  + dueYear;
                 dueDate.setText(s);
 
             }
         });
+    }
+
+    String getMonth(int i){
+        String s = "";
+        switch (i) {
+            case 0:
+                s += "Jan";
+                break;
+            case 1:
+                s += "Feb";
+                break;
+            case 2:
+                s += "Mar";
+                break;
+            case 3:
+                s += "Apr";
+                break;
+            case 4:
+                s += "May";
+                break;
+            case 5:
+                s += "Jun";
+                break;
+            case 6:
+                s += "Jul";
+                break;
+            case 7:
+                s += "Aug";
+                break;
+            case 8:
+                s += "Sep";
+                break;
+            case 9:
+                s += "Oct";
+                break;
+            case 10:
+                s += "Nov";
+                break;
+            case 11:
+                s += "Dec";
+                break;
+        }
+        return  s;
     }
 
     public void clearDueDate(View view){

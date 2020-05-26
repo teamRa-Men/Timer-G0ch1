@@ -53,8 +53,8 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/donedone"
-        android:backgroundTint="@color/colorAccent"
-        android:tint="@color/colorAccent"
+        android:backgroundTint="@color/textColor"
+        android:tint="@color/textColor"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
         app:layout_constraintTop_toTopOf="@+id/donebutton" />
 
@@ -63,7 +63,7 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/done"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/textColor"
         android:onClick="onTaskDone"
         android:tint="@color/colorAccent"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
@@ -74,9 +74,9 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/do_button"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/textColor"
         android:onClick="onDo"
-        android:tint="@color/colorAccent"
+        android:tint="@color/textColor"
         app:layout_constraintStart_toEndOf="@+id/taskname"
         app:layout_constraintTop_toTopOf="@+id/taskname" />
 
@@ -85,8 +85,8 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:background="@drawable/repeat"
-        android:backgroundTint="@color/colorAccent"
-        android:tint="@color/colorAccent"
+        android:backgroundTint="@color/textColor"
+        android:tint="@color/textColor"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/taskname"
         app:layout_constraintTop_toTopOf="@+id/taskname" />
@@ -109,7 +109,7 @@
         android:layout_height="10dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/buttonback"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/taskname"
         app:layout_constraintEnd_toStartOf="@+id/taskname"
