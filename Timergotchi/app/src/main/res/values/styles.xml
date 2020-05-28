@@ -1,14 +1,21 @@
 <resources>
+    <style name="Fade">
+        <item name="android:windowEnterAnimation">@anim/fade_transition_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_transition_out</item>
+    </style>
+
+
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- Customize your theme here. -->
 
-        <item name="android:windowAnimationStyle">@null</item>
+
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/Fade</item>
     </style>
 
 </resources>

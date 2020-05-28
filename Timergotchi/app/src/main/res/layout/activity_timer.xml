@@ -45,19 +45,23 @@
         android:id="@+id/text_view_countdown"
         android:layout_width="0dp"
         android:layout_height="113dp"
+        android:background="@mipmap/logoback"
+        android:backgroundTint="@color/colorAccent"
         android:gravity="center"
         android:inputType="number"
-        android:textColor="@color/colorPrimaryDark"
+        android:text="30:00"
+        android:textColor="@color/design_default_color_background"
         android:textColorHighlight="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryDark"
         android:textColorLink="@color/colorPrimaryDark"
         android:textSize="60sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskDoing"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintTop_toTopOf="@+id/pointsbackground5"
+        app:layout_constraintVertical_bias="0.45" />
 
     <Button
         android:id="@+id/button_start_pause"
@@ -141,21 +145,24 @@
     <TextView
         android:id="@+id/taskDoing"
         android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_height="88dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="44dp"
         android:background="@drawable/task"
         android:ems="10"
         android:focusable="auto"
+        android:gravity="center_horizontal|top"
+
         android:imeOptions="actionDone"
 
         android:inputType="text"
-
+        android:onClick="toList"
+        android:paddingTop="10dp"
         android:selectAllOnFocus="false"
         android:textColor="@color/textColor"
         android:textColorLink="@color/design_default_color_background"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -164,8 +171,9 @@
     <ImageView
         android:id="@+id/end4"
         android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_height="0dp"
         android:background="@drawable/task_bar_end_left"
+        app:layout_constraintBottom_toBottomOf="@+id/taskDoing"
         app:layout_constraintEnd_toStartOf="@+id/taskDoing"
         app:layout_constraintTop_toTopOf="@+id/taskDoing" />
 
@@ -217,7 +225,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="1dp"
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorPrimaryDark"
             android:orientation="horizontal">
 
             <ImageView
@@ -236,7 +244,7 @@
                 android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/cardview_light_background"
                 app:srcCompat="@drawable/timer" />
 
             <ImageView
@@ -274,9 +282,32 @@
     <ImageView
         android:id="@+id/endrightlist2"
         android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_height="0dp"
         android:background="@drawable/task_bar_end_right"
+        app:layout_constraintBottom_toBottomOf="@+id/taskDoing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/taskDoing"
         app:layout_constraintTop_toTopOf="@+id/taskDoing" />
+
+    <TextView
+        android:id="@+id/showTimeSpent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="left"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/taskDoing"
+        app:layout_constraintStart_toStartOf="@+id/end4" />
+
+    <TextView
+        android:id="@+id/showDueTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="right"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/taskDoing"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

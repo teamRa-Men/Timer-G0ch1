@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import java.util.Timer;
+
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.ListsActivity;
+import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class SplashScreen extends AppCompatActivity {
     private static int SPLASH_TIME = 3000;
@@ -20,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent toApp = new Intent(SplashScreen.this, ListsActivity.class);
+                Intent toApp = new Intent(SplashScreen.this, TimerActivity.class);
                 startActivity(toApp);
                 finish();
             }

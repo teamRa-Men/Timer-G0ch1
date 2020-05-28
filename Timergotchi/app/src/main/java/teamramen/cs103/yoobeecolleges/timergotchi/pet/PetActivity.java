@@ -55,7 +55,7 @@ can't find amounth of money/points
 
 
     public ImageView Pet_def, Backpack;
-    TextView display, healthbar;
+    ImageView display, healthbar;
     public RecyclerView inventory;
     ArrayList<Petitem> petitems = new ArrayList<Petitem>();
 
@@ -68,13 +68,14 @@ can't find amounth of money/points
     BackpackAdapter adapter;
     public TextView pointsView;
     public int points;
+    int maxHealthbarWidth;
     DatabaseHelper db;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet);
         Pet_def = findViewById(R.id.Pet_default);
-        display = findViewById(R.id.display);
+        //display = findViewById(R.id.display);
         healthbar = findViewById(R.id.healthbar);
 
         Backpack = findViewById(R.id.Backpack);
@@ -113,9 +114,22 @@ can't find amounth of money/points
         db = new DatabaseHelper(this);
         points = db.getPoints();
         pointsView.setText(points+" ");
+
+
+        maxHealthbarWidth = (int)(screenwidth*0.58f);
+        health = 100;
+
+        showHealth();
+
     }
 
+    void showHealth(){
+        ViewGroup.LayoutParams params = healthbar.getLayoutParams();
+        params.width = (int)(maxHealthbarWidth*(float)health/100f);
+        healthbar.setLayoutParams(params);
+        System.out.println(health + " hp "+ params.width);
 
+    }
 
 
     @Override
@@ -163,8 +177,11 @@ can't find amounth of money/points
                         eating(v);
                         affection += petitems.get(itemDragged).affection;
                         health += petitems.get(itemDragged).health;
+                        health=Math.min(health,100);
 
                         petitems.remove(itemDragged);
+
+
                     }
                     v.setVisibility(View.VISIBLE);//finally set Visibility to VISIBLE
 
@@ -174,11 +191,7 @@ can't find amounth of money/points
             case DragEvent.ACTION_DRAG_ENDED:
                 view.invalidate();
 
-                if (event.getResult())
-                    Toast.makeText(this, "The drop was handled.", Toast.LENGTH_SHORT).show();
-
-                else
-                    Toast.makeText(this, "The drop didn't work.", Toast.LENGTH_SHORT).show();
+                //animation show change
 
                 return true;
 
@@ -221,7 +234,7 @@ can't find amounth of money/points
 
             }.start();
         }
-        display.setText(Integer.toString(affection));
+        //display.setText(Integer.toString(affection));
     }
 
     //===========================================================//
@@ -283,13 +296,19 @@ can't find amounth of money/points
                             Pet_def.setImageResource(R.drawable.pet_eat4);
                             Happy = true;
                         }
+
                     }
                     public void onFinish(){
                         Pet_def.setImageResource(R.drawable.pet_default);
-                        AnimationPlaying = false; }
+                        AnimationPlaying = false;
+                        showHealth();
+                    }
                 }.start();
-                display.setText(Integer.toString(affection));
-                healthbar.setText(Integer.toString(health));
+                //display.setText(Integer.toString(affection));
+
+
+
+
             }
 
         }.start();

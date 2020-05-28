@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-        String query1 = "create table Points(id integer primary key, points integer, affection float, health float, doing int)";
+        String query1 = "create table States(id integer primary key, points integer, affection float, health float, doingID int)";
         String query2 = "create table Labels (id integer primary key, l text, l0 text,l1 text,l2 text,l3 text,l4 text,l5 text)";
         String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
         String query4 = "create table FinishedTasks(id integer primary key, name text, date float, dd int, mm int , yyyy int, timeSpent float)";
@@ -52,7 +52,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(oldVersion!=newVersion){
             db.execSQL("DROP TABLE IF EXISTS Tasks");
-            db.execSQL("DROP TABLE IF EXISTS Points");
+            db.execSQL("DROP TABLE IF EXISTS States");
+            db.execSQL("DROP TABLE IF EXISTS Labels");
+            db.execSQL("DROP TABLE IF EXISTS Backpack");
+            db.execSQL("DROP TABLE IF EXISTS FinishedTasks");
 
             onCreate(db);
         }
@@ -62,13 +65,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void clearAll(){
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS Tasks");
-        db.execSQL("DROP TABLE IF EXISTS Points");
+        db.execSQL("DROP TABLE IF EXISTS States");
+        db.execSQL("DROP TABLE IF EXISTS Labels");
+        db.execSQL("DROP TABLE IF EXISTS Backpack");
+        db.execSQL("DROP TABLE IF EXISTS FinishedTasks");
 
         onCreate(db);
     }
     //user defined functions
 
-
+    //*********************************************************************************************//
+    //Task data
+    //*********************************************************************************************//
     //name status created dueTime dueDate smtwtfs 0123456
     public long addTask( String taskName, float timeCreated)
     {
@@ -134,7 +142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         value.put("label6", labels[6]);
 
         value.put("i", order);
-       // value.put("timeSpent", timeSpent);
+        value.put("timeSpent", timeSpent);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -224,6 +232,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return tasks;
     }
 
+    //*********************************************************************************************//
+    //Label data
+    //*********************************************************************************************//
+
     public String[] getLabels(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("select * from 'Labels' ",null);
@@ -258,6 +270,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    //*********************************************************************************************//
+    //Finished tasks data
+    //*********************************************************************************************//
 
     //id integer primary key, name text, date float, d int, m int , y int, timeSpent float
     public void setFinished(String name, float date, float time){
@@ -314,11 +330,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
+    //*********************************************************************************************//
+    //State data
+    //*********************************************************************************************//
 
     public int getPoints(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Points' ",null);
+        Cursor c = db.rawQuery("select * from 'States' ",null);
 
         int pts =0;
         while (c.moveToNext()) {
@@ -330,23 +348,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues value = new ContentValues();
             value.put("points", 0);
 
-            db.insert("Points", null, value);
+            db.insert("States", null, value);
         }
 
         db.close();
         return  pts;
     }
+
     public void setPoints(int points){
         ContentValues value = new ContentValues();
         value.put("points", points);
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.update("States", value, "id=?", new String[]{"" + 1});
         db.close();
     }
 
     public int getHealth(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Points' ",null);
+        Cursor c = db.rawQuery("select * from 'States' ",null);
 
         int health =0;
         while (c.moveToNext()) {
@@ -357,7 +376,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //////system.out.println("no entries");
             ContentValues value = new ContentValues();
             value.put("health", 100);
-            db.insert("Points", null, value);
+            db.insert("States", null, value);
         }
 
         db.close();
@@ -367,13 +386,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues value = new ContentValues();
         value.put("health", health);
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.update("States", value, "id=?", new String[]{"" + 1});
         db.close();
     }
 
     public int getAffection(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Points' ",null);
+        Cursor c = db.rawQuery("select * from 'States' ",null);
 
         int affection =0;
         while (c.moveToNext()) {
@@ -384,7 +403,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //////system.out.println("no entries");
             ContentValues value = new ContentValues();
             value.put("affection", 50);
-            db.insert("Points", null, value);
+            db.insert("States", null, value);
         }
 
         db.close();
@@ -394,13 +413,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues value = new ContentValues();
         value.put("affection", affection);
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.update("States", value, "id=?", new String[]{"" + 1});
         db.close();
     }
 
-    public int getDoing(){
+    public Task getDoing(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("select * from 'Points' ",null);
+        Cursor c = db.rawQuery("select * from 'States' ",null);
 
         int doing =0;
         while (c.moveToNext()) {
@@ -410,21 +429,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(c.getCount()<1){
             //////system.out.println("no entries");
             ContentValues value = new ContentValues();
-            value.put("doing", 0);
-            db.insert("Points", null, value);
-        }
+            value.put("doingID", 0);
+            db.insert("States", null, value);
 
+            System.out.println("none found");
+        }
+        System.out.println(doing + " found");
+
+        Task doingTask = null;
+
+        String query = "select * from 'Tasks' where id=?"; // where 'id' =" + doing; //bug commas
+        c = db.rawQuery(query, new String[]{doing+""});
+
+
+        //id name status created dueTime dueDate smtwtfs 0123456
+        while (c.moveToNext()) {
+            int id = c.getInt(0);
+            System.out.println(id +" id");
+
+            String name = c.getString(1);
+            float status = c.getFloat(2);
+            float created = c.getFloat(3);
+            int dueTime = c.getInt(4);
+            float dueDate = c.getFloat(5);
+
+
+            int[] repeat = new int[]{c.getInt(6),c.getInt(7),c.getInt(8),c.getInt(9),c.getInt(10),c.getInt(11),c.getInt(12)};
+
+            int[] labels = new int[]{c.getInt(13),c.getInt(14),c.getInt(15),c.getInt(16),c.getInt(17),c.getInt(18),c.getInt(19)};
+
+            int order = c.getInt(20);
+            float timeSpent = c.getFloat(21);
+
+            doingTask = new Task(id,name, status,created,dueTime,dueDate,repeat,labels, order, timeSpent, this);
+        }
         db.close();
-        return  doing;
+        return  doingTask;
     }
+
     public void setDoing(int doing){
         ContentValues value = new ContentValues();
-        value.put("doing", doing);
+        value.put("doingID", doing);
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("Points", value, "id=?", new String[]{"" + 1});
+        db.update("States", value, "id=?", new String[]{"" + 1});
         db.close();
+        System.out.println(doing + "doing");
     }
 
+    //*********************************************************************************************//
+    //Item data
+    //*********************************************************************************************//
 
     public ArrayList<Petitem> fetchBackpack() {
         String query = "";

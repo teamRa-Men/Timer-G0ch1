@@ -12,10 +12,12 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.Locale;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
+import teamramen.cs103.yoobeecolleges.timergotchi.lists.Task;
 import teamramen.cs103.yoobeecolleges.timergotchi.pet.PetActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.record.RecordActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.shop.ShopActivity;
@@ -28,6 +30,8 @@ public class TimerActivity extends AppCompatActivity {
     private TextView mTextViewCountDown;
     private TextView mTimeLap;
     private TextView mTimeStatus;
+    private TextView taskName, showTime, showDue;
+    private Task taskDoing;
     private Button mButtonStartPause;
     private Button mButtonReset;
     private Button mButtonSkip;
@@ -56,7 +60,7 @@ public class TimerActivity extends AppCompatActivity {
         mTimeStatus.setText("Work Time");
 
 
-        mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorPrimary));
+        //mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorPrimary));
 
 
 
@@ -107,18 +111,60 @@ public class TimerActivity extends AppCompatActivity {
 
 
         pointsView = findViewById(R.id.pointsview2);
+        showTime = findViewById(R.id.showTimeSpent);
+        showDue = findViewById(R.id.showDueTimer);
         db = new DatabaseHelper(this);
         points = db.getPoints();
         pointsView.setText(points+" ");
 
+
+        taskName = findViewById(R.id.taskDoing);
+        taskDoing = db.getDoing();
+
+
+
+
+        if(taskDoing != null){
+            taskName.setText(taskDoing.name);
+            updateTimeSpent();
+
+            if(taskDoing.dueDate == 0){
+                showDue.setText("due someday");
+            }
+            else {
+                showDue.setText("due " + dateToString((long) taskDoing.dueDate));
+            }
+        }
+        else{
+            taskName.setText("Add Task");
+        }
+
     }
+
+    private void updateTimeSpent(){
+        if(taskDoing!=null) {
+            int minutes = (int) (taskDoing.timeSpent / 1000) / 60;
+            int seconds = (int) (taskDoing.timeSpent / 1000) % 60;
+
+            String timeSpentString = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+            showTime.setText(timeSpentString);
+        }
+    }
+
     private void startTimer() {
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
+                if(taskDoing != null && !mBreakRunning){
+                    taskDoing.timeSpent+=mTimeLeftInMillis-millisUntilFinished+1;
+                    System.out.println(taskDoing.timeSpent+"");
+                    taskDoing.update();
+                }
                 mTimeLeftInMillis = millisUntilFinished;
                 updateCountDownText();
                 seekBar1.setProgress((int)(mTimeLeftInMillis/36000));
+
+                updateTimeSpent();
             }
             @Override
             public void onFinish() {
@@ -130,7 +176,7 @@ public class TimerActivity extends AppCompatActivity {
                         mTimerRunning = false;
                         mButtonStartPause.setText("Start Long Break");
                         mTimeStatus.setText("Long Break");
-                        mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorAccent)); // red
+                        //mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorAccent)); // red
                         mButtonSkip.setVisibility(View.VISIBLE);
                         mTimeLeftInMillis = 1000 * 60 * 25;
                         updateCountDownText();
@@ -141,7 +187,7 @@ public class TimerActivity extends AppCompatActivity {
                         mTimerRunning = false;
                         mButtonStartPause.setText("Start Break");
                         mTimeStatus.setText("Short Break " + breakcount);
-                        mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorAccent)); // red
+                        //mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorAccent)); // red
                         mButtonSkip.setVisibility(View.VISIBLE);
                         mTimeLeftInMillis = 1000 * 60 * 5;
                         updateCountDownText();
@@ -191,7 +237,7 @@ public class TimerActivity extends AppCompatActivity {
         START_TIME_IN_MILLIS = 1000* 60 * 30;
         breakcount = 1;
         mTimeStatus.setText("Work Time");
-        mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorPrimary)); // black
+        //mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorPrimary)); // black
         //System.out.println(START_TIME_IN_MILLIS);
     }
     private void updateCountDownText() {
@@ -213,8 +259,10 @@ public class TimerActivity extends AppCompatActivity {
         mTimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
         mTimeStatus.setText("Work Time");
-        mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorPrimary)); // black
+        //mTextViewCountDown.setTextColor(getResources().getColor(R.color.colorPrimary)); // black
     }
+
+
 
     public void playAlarm() {
         MediaPlayer alarmSound = MediaPlayer.create(this, R.raw.bell);
@@ -244,5 +292,54 @@ public class TimerActivity extends AppCompatActivity {
     public void toRecord(View view) {
         Intent i = new Intent(this, RecordActivity.class);
         startActivity(i);
+    }
+
+    String dateToString(long date){
+        Date d = new Date(date);
+        String s = d.getDate() + " " + getMonth(d.getMonth()) + " " + (d.getYear());
+        return  s;
+    }
+
+    String getMonth(int i){
+        String s = "";
+        switch (i) {
+            case 0:
+                s += "Jan";
+                break;
+            case 1:
+                s += "Feb";
+                break;
+            case 2:
+                s += "Mar";
+                break;
+            case 3:
+                s += "Apr";
+                break;
+            case 4:
+                s += "May";
+                break;
+            case 5:
+                s += "Jun";
+                break;
+            case 6:
+                s += "Jul";
+                break;
+            case 7:
+                s += "Aug";
+                break;
+            case 8:
+                s += "Sep";
+                break;
+            case 9:
+                s += "Oct";
+                break;
+            case 10:
+                s += "Nov";
+                break;
+            case 11:
+                s += "Dec";
+                break;
+        }
+        return  s;
     }
 }

@@ -172,9 +172,8 @@ public class TasksFragment extends Fragment {
             System.out.println(old[i].order);
             System.out.println(old[i].id);
             old[i].update();
-                tasks.add(old[i]);
-                adapter.notifyItemInserted(i);
-
+            tasks.add(old[i]);
+            adapter.notifyItemInserted(i);
         }
 
     }

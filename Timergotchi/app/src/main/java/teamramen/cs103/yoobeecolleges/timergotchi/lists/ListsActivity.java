@@ -104,9 +104,6 @@ public class ListsActivity extends AppCompatActivity {
         points = db.getPoints();
         pointsView.setText(points+" ");
 
-
-
-
         days = new View[]{
                 findViewById(R.id.editsun),
                 findViewById(R.id.editmon),
@@ -171,6 +168,8 @@ public class ListsActivity extends AppCompatActivity {
         if(!editing) {
             todoList.onDoTask(view);
         }
+        Intent intent = new Intent(this, TimerActivity.class);
+        startActivity(intent);
     }
 
     /*****************************************************************************************

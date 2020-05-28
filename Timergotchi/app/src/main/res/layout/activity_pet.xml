@@ -6,7 +6,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".pet.PetActivity">
+
+    <ImageView
+        android:id="@+id/end5"
+        android:layout_width="44dp"
+        android:layout_height="0dp"
+        android:background="@drawable/task_bar_end_left"
+        app:layout_constraintBottom_toBottomOf="@+id/showpet"
+        app:layout_constraintEnd_toStartOf="@+id/taskDoing"
+        app:layout_constraintTop_toTopOf="@+id/showpet" />
+
+    <TextView
+        android:id="@+id/showpet"
+        android:layout_width="0dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/task"
+        android:ems="10"
+        android:focusable="auto"
+        android:gravity="center_horizontal|top"
+
+        android:imeOptions="actionDone"
+
+        android:inputType="text"
+        android:onClick="toList"
+        android:paddingTop="10dp"
+        android:selectAllOnFocus="false"
+        android:textColor="@color/textColor"
+        android:textColorLink="@color/design_default_color_background"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/endrightlist3"
+        android:layout_width="44dp"
+        android:layout_height="0dp"
+        android:background="@drawable/task_bar_end_right"
+        app:layout_constraintBottom_toBottomOf="@+id/showpet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/taskDoing"
+        app:layout_constraintTop_toTopOf="@+id/showpet" />
 
     <ImageView
         android:id="@+id/pointsbackground2"
@@ -75,24 +122,12 @@
         android:id="@+id/Text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Healthbar"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/Pet_default"
-        app:layout_constraintHorizontal_bias="0.442"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Pet_default" />
-
-    <TextView
-        android:id="@+id/display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/Text"
-        app:layout_constraintTop_toBottomOf="@+id/healthbar" />
+        android:layout_marginBottom="15dp"
+        android:text="HP"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/showpet"
+        app:layout_constraintStart_toEndOf="@+id/end5" />
 
     <ImageView
         android:id="@+id/Backpack"
@@ -104,26 +139,29 @@
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Pet_default"
         app:srcCompat="@drawable/backpack_closed" />
 
 
-    <TextView
-        android:id="@+id/Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Affection"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/Text1"
-        app:layout_constraintTop_toBottomOf="@+id/Text1" />
+    <ImageView
+        android:id="@+id/healthbarBack"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimaryMedium"
+        app:layout_constraintBottom_toBottomOf="@+id/Text1"
+        app:layout_constraintEnd_toEndOf="@+id/showpet"
+        app:layout_constraintStart_toEndOf="@+id/Text1"
+        app:layout_constraintTop_toTopOf="@+id/Text1" />
 
-    <TextView
+    <ImageView
         android:id="@+id/healthbar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="100"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/colorLabel4"
+        app:layout_constraintBottom_toBottomOf="@+id/Text1"
         app:layout_constraintStart_toEndOf="@+id/Text1"
         app:layout_constraintTop_toTopOf="@+id/Text1" />
 
@@ -131,7 +169,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -141,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="1dp"
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorPrimaryDark"
             android:orientation="horizontal">
 
             <ImageView
@@ -170,7 +208,7 @@
                 android:layout_height="44dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/cardview_light_background"
                 app:srcCompat="@drawable/pet" />
 
             <ImageView
@@ -194,5 +232,21 @@
                 app:srcCompat="@drawable/record" />
         </LinearLayout>
     </FrameLayout>
+
+    <EditText
+        android:id="@+id/petname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorEmpty"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:paddingTop="10dp"
+        android:text="Pet Name"
+        android:textColor="@color/textColor"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/showpet"
+        app:layout_constraintStart_toEndOf="@+id/end5"
+        app:layout_constraintTop_toTopOf="@+id/showpet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

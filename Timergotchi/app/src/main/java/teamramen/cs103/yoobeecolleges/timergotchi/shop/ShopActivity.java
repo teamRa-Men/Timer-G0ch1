@@ -5,6 +5,7 @@ import androidx.appcompat.view.menu.MenuView;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -26,6 +27,7 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 public class ShopActivity extends AppCompatActivity {
     ListView shoplist;
     TextView shoppoints;
+
 
     String namelist[] = {"Mushroom", "Backpack"};
     int affection[] = {-2,2} ;
@@ -93,6 +95,7 @@ public class ShopActivity extends AppCompatActivity {
             db.addPetitem(currentitem);
             point = point - currentitem.price;
             db.setPoints(point);
+            playBuySound();
             shoppoints.setText(point + " ");
         }
     }
@@ -147,7 +150,24 @@ public class ShopActivity extends AppCompatActivity {
 
             currentitem = new Petitem(namelist[i], shop_images[i],type[i],i,health[i],affection[i],price[i]);
             Button buybutton =  findViewById(R.id.buybutton);
+            View buyButtonOff = findViewById(R.id.buyshadow);
+            TextView showPrice = findViewById(R.id.priceDetail);
+            TextView showName = findViewById(R.id.nameDetail);
+            showPrice.setText(currentitem.price+" ");
+            showName.setText(currentitem.name+"");
+
+            if(currentitem.price <= point) {
+                buyButtonOff.setVisibility(View.INVISIBLE);
+            }
+            else{
+                buyButtonOff.setVisibility(View.VISIBLE);
+            }
 
         }
+    }
+
+    public void playBuySound() {
+        MediaPlayer buySound = MediaPlayer.create(this, R.raw.cha_ching);
+        buySound.start();
     }
 }

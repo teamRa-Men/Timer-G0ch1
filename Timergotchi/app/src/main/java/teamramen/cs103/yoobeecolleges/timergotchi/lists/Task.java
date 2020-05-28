@@ -1,6 +1,7 @@
 package teamramen.cs103.yoobeecolleges.timergotchi.lists;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,6 +15,7 @@ import java.util.Comparator;
 import java.util.Date;
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
+import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class Task implements Comparable<Task>{
     public static int CURRENT=0;
@@ -125,6 +127,24 @@ System.out.println(today.getDay()+"repeat day");
         showTask();
     }
 
+    public void timerDone(){
+        status=System.currentTimeMillis();
+        System.out.println(status + " currentdate");
+
+        update();
+
+        Date due = new Date((long)(System.currentTimeMillis()));
+
+        int dayFin = due.getDate();
+        int monthFin = due.getMonth();;
+        int yearFin = due.getYear()+1900;
+
+        int dayOfWeek = due.getDay();
+
+        System.out.println(dayFin + " /" + monthFin + " /" + yearFin + " week " + dayOfWeek);
+        db.setFinished(name,(float)(System.currentTimeMillis()),timeSpent);
+    }
+
 
 
     public void delete(){
@@ -148,7 +168,7 @@ System.out.println(today.getDay()+"repeat day");
     //id name status created dueTime dueDate smtwtfs 0123456
     public void setId(int id){ this.id = id; }
 
-    void update(){
+    public void update(){
         db.updateData(id, name, status, dueTime, dueDate, repeat, labels,order,timeSpent);
     }
 
@@ -209,15 +229,16 @@ System.out.println(today.getDay()+"repeat day");
             contractTask();
         }
         for(int i = 0; i < 7; i++){
-            if(labels[i] == 1){
+            if(labelViews!=null) {
+                if (labels[i] == 1) {
 
-                labelViews[i].setVisibility(View.VISIBLE);
+                    labelViews[i].setVisibility(View.VISIBLE);
 
-            }
-            else{
+                } else {
 
-                labelViews[i].setVisibility(View.INVISIBLE);
-                //turn off label
+                    labelViews[i].setVisibility(View.INVISIBLE);
+                    //turn off label
+                }
             }
 
         }
@@ -312,7 +333,9 @@ System.out.println(today.getDay()+"repeat day");
 
     public void doTask(){
         //pass to timer
-        System.out.println("DOOOOOOOOOOOOOOOOOOOOOO");
+        db.setDoing((int)id);
+
+
     }
 
 public void setLabels(int[] labels){

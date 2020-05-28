@@ -17,6 +17,7 @@
     <color name="textColor">#9A7249</color>
     <color name="colorShadow">#46000000</color>
     <color name="colorPoints">#FFF493</color>
+    <color name="colorEmpty">#00FFFFFF</color>
 
     <array name = "myColors">
         <item>@color/colorAccent</item>
