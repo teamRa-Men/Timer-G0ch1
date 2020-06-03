@@ -10,6 +10,7 @@ import android.os.Handler;
 import java.util.Timer;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.ListsActivity;
+import teamramen.cs103.yoobeecolleges.timergotchi.pet.PetActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class SplashScreen extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent toApp = new Intent(SplashScreen.this, TimerActivity.class);
+                Intent toApp = new Intent(SplashScreen.this, PetActivity.class);
                 startActivity(toApp);
                 finish();
             }

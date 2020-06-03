@@ -27,15 +27,17 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 public class ShopActivity extends AppCompatActivity {
     ListView shoplist;
     TextView shoppoints;
+    ImageView shopModBack,shopModFront,shopWear;
 
 
-    String namelist[] = {"Mushroom", "Backpack"};
-    int affection[] = {-2,2} ;
-    int health[] = {2,0} ;
-    int price[] = {24, 1250};
-    int shop_images[] ={R.drawable.food_mushroom, R.drawable.backpack_closed};
-    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Happiness \n +5 Food ","Back pack, stores items "};
-    int type[] = {0,1};
+    String namelist[] = {"Mushroom", "Wings", "Horn","Elixer","Collar","Flower"};
+    int affection[] = {0,0,0,0,0,0};
+    int health[] = {10,0,0,100,0,0};
+    int price[] = {0, 0,0,0,0,0};
+    int shop_images[] ={R.drawable.food_mushroom, R.drawable.pet_wings,R.drawable.pet_horn,R.drawable.elixer, R.drawable.pet_collar,R.drawable.pet_flower};
+    String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Happiness \n +10 Food ","Grow wings","Grow a horn","Restores full health for demo", "Wear a collar", "Wear a flower"};
+    int type[] = {0,1,2,0,3,3};
+
 
     int point;
 
@@ -49,13 +51,16 @@ public class ShopActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_shop);
 
-
+        shopModBack = findViewById(R.id.shopModBack);
+        shopModFront = findViewById(R.id.shopModFront);
+        shopWear = findViewById(R.id.shopWear);
         shoplist = findViewById(R.id.Shoplist);
 
         db = new DatabaseHelper(this);
         shoppoints = findViewById(R.id.textView3);
         point = db.getPoints();
         shoppoints.setText(db.getPoints() + " ");
+
 
 
         adapter adapter = new adapter();
@@ -144,6 +149,27 @@ public class ShopActivity extends AppCompatActivity {
         if (i < shop_images.length) {
             TextView itemdescription = findViewById(R.id.itemdescription);
             ImageView itemimage = findViewById(R.id.itemimage);
+
+            if(type[i]==1){
+                shopModBack.setBackgroundResource(shop_images[i]);
+                shopModFront.setBackgroundResource(R.color.colorEmpty);
+                shopWear.setBackgroundResource(R.color.colorEmpty);
+            }
+            else if(type[i]==2){
+                shopModBack.setBackgroundResource(R.color.colorEmpty);
+                shopModFront.setBackgroundResource(shop_images[i]);
+                shopWear.setBackgroundResource(R.color.colorEmpty);
+            }
+            else if(type[i]==3){
+                shopModBack.setBackgroundResource(R.color.colorEmpty);
+                shopModFront.setBackgroundResource(R.color.colorEmpty);
+                shopWear.setBackgroundResource(shop_images[i]);
+            }
+            else{
+                shopModBack.setBackgroundResource(R.color.colorEmpty);
+                shopModFront.setBackgroundResource(R.color.colorEmpty);
+                shopWear.setBackgroundResource(R.color.colorEmpty);
+            }
 
             itemimage.setImageResource(shop_images[i]);
             itemdescription.setText(description[i]);

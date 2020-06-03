@@ -22,9 +22,9 @@
     <TextView
         android:id="@+id/showpet"
         android:layout_width="0dp"
-        android:layout_height="88dp"
+        android:layout_height="100dp"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="42dp"
         android:layout_marginEnd="44dp"
         android:background="@drawable/task"
         android:ems="10"
@@ -100,34 +100,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/Backpack" />
 
-    <ImageView
-        android:id="@+id/Pet_default"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:onClick="Petting"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431"
-        app:srcCompat="@drawable/pet_default" />
-
     <TextView
         android:id="@+id/Text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:text="HP"
+        android:text="Hunger"
         android:textColor="@color/textColor"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/showpet"
         app:layout_constraintStart_toEndOf="@+id/end5" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Happiness"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/Text1"
+        app:layout_constraintEnd_toEndOf="@+id/Text1" />
 
     <ImageView
         android:id="@+id/Backpack"
@@ -139,7 +131,6 @@
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Pet_default"
         app:srcCompat="@drawable/backpack_closed" />
 
 
@@ -150,20 +141,44 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
         android:background="@color/colorPrimaryMedium"
-        app:layout_constraintBottom_toBottomOf="@+id/Text1"
+        app:layout_constraintBottom_toBottomOf="@+id/hungerbar"
         app:layout_constraintEnd_toEndOf="@+id/showpet"
         app:layout_constraintStart_toEndOf="@+id/Text1"
-        app:layout_constraintTop_toTopOf="@+id/Text1" />
+        app:layout_constraintTop_toTopOf="@+id/hungerbar" />
 
     <ImageView
-        android:id="@+id/healthbar"
+        android:id="@+id/healthbarBack2"
+        android:layout_width="0dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimaryMedium"
+        app:layout_constraintBottom_toTopOf="@+id/Text1"
+        app:layout_constraintEnd_toEndOf="@+id/showpet"
+        app:layout_constraintStart_toEndOf="@+id/Text1"
+        app:layout_constraintTop_toTopOf="@+id/text3" />
+
+    <ImageView
+        android:id="@+id/hungerbar"
         android:layout_width="wrap_content"
         android:layout_height="10dp"
         android:layout_marginStart="10dp"
         android:background="@color/colorLabel4"
         app:layout_constraintBottom_toBottomOf="@+id/Text1"
         app:layout_constraintStart_toEndOf="@+id/Text1"
-        app:layout_constraintTop_toTopOf="@+id/Text1" />
+        app:layout_constraintTop_toTopOf="@+id/Text1"
+        app:layout_constraintVertical_bias="0.52" />
+
+    <ImageView
+        android:id="@+id/happybar"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/colorLabel5"
+        app:layout_constraintBottom_toTopOf="@+id/Text1"
+        app:layout_constraintStart_toEndOf="@+id/Text1"
+        app:layout_constraintTop_toTopOf="@+id/text3"
+        app:layout_constraintVertical_bias="0.52" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -240,13 +255,95 @@
         android:background="@color/colorEmpty"
         android:ems="10"
         android:gravity="center"
+        android:hint="Pet Name"
         android:inputType="textPersonName"
         android:paddingTop="10dp"
-        android:text="Pet Name"
         android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/showpet"
         app:layout_constraintStart_toEndOf="@+id/end5"
         app:layout_constraintTop_toTopOf="@+id/showpet" />
+
+    <TextView
+        android:id="@+id/showhappy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="100"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/healthbarBack2"
+        app:layout_constraintStart_toEndOf="@+id/healthbarBack2"
+        app:layout_constraintTop_toTopOf="@+id/healthbarBack2" />
+
+    <TextView
+        android:id="@+id/showhunger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="100"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/healthbarBack"
+        app:layout_constraintStart_toEndOf="@+id/healthbarBack2"
+        app:layout_constraintTop_toTopOf="@+id/healthbarBack" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pet_base"
+        android:layout_width="213dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/inventory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/pet_modify_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pet_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/pet_body"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/pet_modify_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pet_expression"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/pet_default"
+            android:onClick="Petting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pet_modify_front"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/pet_wear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

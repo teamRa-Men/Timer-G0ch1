@@ -2,7 +2,6 @@ package teamramen.cs103.yoobeecolleges.timergotchi.pet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,32 +9,24 @@ import android.animation.ObjectAnimator;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import teamramen.cs103.yoobeecolleges.timergotchi.DatabaseHelper;
 import teamramen.cs103.yoobeecolleges.timergotchi.Petitem;
 import teamramen.cs103.yoobeecolleges.timergotchi.R;
-import teamramen.cs103.yoobeecolleges.timergotchi.lists.SwipeDragHelper;
-import teamramen.cs103.yoobeecolleges.timergotchi.lists.TasksAdapter;
 import teamramen.cs103.yoobeecolleges.timergotchi.record.RecordActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.shop.ShopActivity;
 import teamramen.cs103.yoobeecolleges.timergotchi.lists.ListsActivity;
@@ -50,33 +41,50 @@ can't find amounth of money/points
 * petdesigns
 * * adding hunger over Time and stored hunger*/
 
-/* DONE
-* * adding stats to the food (health and affection) done, consumables works pretty fine */
+    /* DONE
+     * * adding stats to the food (happiness and affection) done, consumables works pretty fine */
 
 
-    public ImageView Pet_def, Backpack;
-    ImageView display, healthbar;
+    public ImageView  petExpression, petModFront, petModBack, petWear, Backpack;
+    int petHeight;
+    public View petBase;
+    ImageView display, hungerbar, happybar;
     public RecyclerView inventory;
     ArrayList<Petitem> petitems = new ArrayList<Petitem>();
+    TextView showHunger, showHappy;
 
     boolean Inv = false;
     boolean AnimationPlaying = false;
 
-    int affection = 50; int health = 100;
+    float affection = 50, hunger = 100;
     int screenwidth = 0;
     int itemDragged;
     BackpackAdapter adapter;
     public TextView pointsView;
     public int points;
-    int maxHealthbarWidth;
+    int maxhungerbarWidth;
     DatabaseHelper db;
+    EditText petName;
+    int defaultSpriteId;
+    int[] mods;
+    boolean waiting = false;
+    public static PetActivity instance;
+
+    float last;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet);
-        Pet_def = findViewById(R.id.Pet_default);
+        petBase = findViewById(R.id.pet_base);
+        petExpression = findViewById(R.id.pet_expression);
+        petModFront = findViewById(R.id.pet_modify_front);
+        petModBack = findViewById(R.id.pet_modify_back);
+        petWear = findViewById(R.id.pet_wear);
         //display = findViewById(R.id.display);
-        healthbar = findViewById(R.id.healthbar);
+        hungerbar = findViewById(R.id.hungerbar);
+        happybar = findViewById(R.id.happybar);
+        showHappy = findViewById(R.id.showhappy);
+        showHunger = findViewById(R.id.showhunger);
 
         Backpack = findViewById(R.id.Backpack);
         inventory = findViewById(R.id.inventory);
@@ -84,7 +92,7 @@ can't find amounth of money/points
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenwidth = displayMetrics.widthPixels;
 
-       db = new DatabaseHelper(this);
+        db = new DatabaseHelper(this);
 
         System.out.println(petitems.size());
 
@@ -105,7 +113,7 @@ can't find amounth of money/points
         //Mushroom.setOnTouchListener(this);
         //Mushroom.setTag("Mushroom");
 
-        Pet_def.setOnDragListener(this);
+        petExpression.setOnDragListener(this);
 
         //adapter adapter = new adapter();
         //Foodinventory.setAdapter(adapter);
@@ -114,31 +122,222 @@ can't find amounth of money/points
         db = new DatabaseHelper(this);
         points = db.getPoints();
         pointsView.setText(points+" ");
+        mods = db.getPetMod();
+        if(mods[0]!=0) {
+            petModBack.setBackgroundResource(mods[0]);
+
+        }
+        if(mods[1]!=0) {
+            petModFront.setBackgroundResource(mods[1]);
+
+        }
+
+        if(mods[2]!=0) {
+            petWear.setBackgroundResource(mods[2]);
+
+        }
 
 
-        maxHealthbarWidth = (int)(screenwidth*0.58f);
-        health = 100;
 
-        showHealth();
+        maxhungerbarWidth = (int)(screenwidth*0.49f);
+        hunger = 100;
+
+
+
+        petName = findViewById(R.id.petname);
+        petName.setText(db.getPetName());
+
+
+        affection=db.getAffection();
+        hunger = db.getHealth();
+
+
+        update();
+        ViewGroup.LayoutParams params = petBase.getLayoutParams();
+        petHeight = params.height;
+        idle();
+
+        instance = this;
 
     }
 
-    void showHealth(){
-        ViewGroup.LayoutParams params = healthbar.getLayoutParams();
-        params.width = (int)(maxHealthbarWidth*(float)health/100f);
-        healthbar.setLayoutParams(params);
-        System.out.println(health + " hp "+ params.width);
+    void idle(){
+        new CountDownTimer(30001, 100) {
+            int time = 0;
+            int height = petHeight;
 
+            public void onTick(long millisUntilFinished) {
+                //System.out.println("tick");
+                time+=100;
+                if(!AnimationPlaying){
+                    height = (int)(petHeight+3*(1+Math.sin(6*Math.PI*time/3000+Math.PI)));
+                    ViewGroup.LayoutParams params = petBase.getLayoutParams();
+
+                    params.height = height;
+                    petBase.setLayoutParams(params);
+                }
+            }
+
+            public void onFinish() {
+                idle();
+            }
+
+        }.start();
+    }
+    void update(){
+
+        float lastUpdateTime = db.getLastUpdate();
+
+        //hp 100-> 0 after 1 day for timespeed = 1
+        float hungerRate = 2;
+
+        if(lastUpdateTime>0) {
+
+            hunger -= (System.currentTimeMillis() - lastUpdateTime) / 8.64e7  * 100 * hungerRate;
+            hunger = Math.max(hunger,0);
+
+        }
+        else {
+            System.out.println("wtf");
+            hunger = 100;
+        }
+
+        db.setHealth(hunger);
+
+        float happyRate = (100-hunger)/100;
+
+
+        if(lastUpdateTime>0) {
+
+            affection -= (System.currentTimeMillis() - lastUpdateTime) / 8.64e7  * 100 * happyRate;
+            affection = Math.max(affection,0);
+
+        }
+        else {
+            System.out.println("wtf");
+            affection = 50;
+        }
+        db.setAffection((int)affection);
+
+        showHappy();
+        showhunger();
+
+
+        System.out.println(happyRate + " happy rate " + affection + " affection " + hunger + " hunger " + System.currentTimeMillis());
+
+        db.setLastUpdate(System.currentTimeMillis());
+
+        new CountDownTimer(2000, 100) {
+
+
+            public void onTick(long millisUntilFinished) {
+                if(!AnimationPlaying && waiting) {
+
+                    petExpression.setBackgroundResource(R.drawable.pet_yawn);
+                    AnimationPlaying = true;
+                }
+
+            }
+
+            public void onFinish() {
+                waiting = true;
+                AnimationPlaying = false;
+                petExpression.setBackgroundResource(defaultSpriteId);
+                System.out.println((System.currentTimeMillis()-last) + "sdfdsf");
+                last = System.currentTimeMillis();
+                new CountDownTimer(3*60*1000, 100) {
+
+
+                    public void onTick(long millisUntilFinished) {
+                        //System.out.println("tick");
+                    }
+
+                    public void onFinish() {
+                        update();
+                    }
+
+                }.start();
+            }
+
+        }.start();
+
+
+
+    }
+
+    void showhunger(){
+        showHunger.setText((int)(100-hunger)+"");
+        ViewGroup.LayoutParams params = hungerbar.getLayoutParams();
+        params.width = (int)(maxhungerbarWidth*(float)(hunger/100f));
+        hungerbar.setLayoutParams(params);
+        if(hunger < 15) {
+            hungerbar.setBackgroundColor(getResources().getColor(R.color.colorLabel0));
+            //show starving sprite
+        }
+        else if(hunger < 40){
+            hungerbar.setBackgroundColor(getResources().getColor(R.color.colorLabel1));
+        }
+        else if(hunger < 50){
+            hungerbar.setBackgroundColor(getResources().getColor(R.color.colorLabel2));
+        }
+        else{
+            hungerbar.setBackgroundColor(getResources().getColor(R.color.colorLabel4));
+        }
+        //System.out.println(hunger + " hp "+ params.width + " " + lastUpdateTime);
+
+
+        //play hungry animation? show thinking of food
+    }
+
+    void showHappy(){
+        showHappy.setText((int)affection+"");
+        ViewGroup.LayoutParams params = happybar.getLayoutParams();
+        params.width = (int)(maxhungerbarWidth*(float)affection/100f);
+        happybar.setLayoutParams(params);
+        if(affection < 25) {
+            defaultSpriteId = R.drawable.pet_sad;//sad sprite
+        }
+        else if(affection < 50){
+            defaultSpriteId = R.drawable.pet_meh;//meh sprite
+        }
+        else{
+            defaultSpriteId = R.drawable.pet_default;//happy sprite
+        }
+        //System.out.println(hunger + " hp "+ params.width + " " + lastUpdateTime);
+        petExpression.setBackgroundResource(defaultSpriteId);
     }
 
 
     @Override
     public boolean onDrag(View view, DragEvent event) {
+
         int action = event.getAction();
 
         switch (action) {
 
             case DragEvent.ACTION_DRAG_STARTED:
+                if(petitems.get(itemDragged).type==1){
+                    System.out.println("remove");
+                    petModBack.setBackgroundResource(R.color.colorEmpty);
+                    mods[0] = 0;
+                    db.setPetMod(mods);
+                }
+                else if(petitems.get(itemDragged).type==2){
+                    System.out.println("remove");
+                    petModFront.setBackgroundResource(R.color.colorEmpty);
+                    mods[1] = 0;
+                    db.setPetMod(mods);
+
+                }
+                else if(petitems.get(itemDragged).type==3){
+                    System.out.println("remove");
+                    petWear.setBackgroundResource(R.color.colorEmpty);
+                    mods[2] = 0;
+                    db.setPetMod(mods);
+
+                }
+                waiting = false;
+
 
                 if (event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                     return true; }
@@ -158,7 +357,7 @@ can't find amounth of money/points
                 return true;
 
 
-                //============================//
+            //============================//
             case DragEvent.ACTION_DROP:
                 if(AnimationPlaying == false) {
                     ClipData.Item item = event.getClipData().getItemAt(0);
@@ -176,13 +375,35 @@ can't find amounth of money/points
 
                         eating(v);
                         affection += petitems.get(itemDragged).affection;
-                        health += petitems.get(itemDragged).health;
-                        health=Math.min(health,100);
+                        hunger += petitems.get(itemDragged).health;
+                        affection=Math.min(affection,100);
+                        hunger=Math.min(hunger,100);
 
                         petitems.remove(itemDragged);
 
 
                     }
+                    else if (petitems.get(itemDragged).type == 1) {
+                        System.out.println("add back mod");
+                        mods[0] = petitems.get(itemDragged).image;
+                        db.setPetMod(mods);
+                        petModBack.setBackgroundResource(petitems.get(itemDragged).image);
+
+
+                    }
+                    else if (petitems.get(itemDragged).type == 2) {
+                        System.out.println("add front");
+                        mods[1] = petitems.get(itemDragged).image;
+                        db.setPetMod(mods);
+                        petModFront.setBackgroundResource(petitems.get(itemDragged).image);
+                    }
+                    else if (petitems.get(itemDragged).type == 3) {
+                        System.out.println("add wearing");
+                        mods[2] = petitems.get(itemDragged).image;
+                        db.setPetMod(mods);
+                        petWear.setBackgroundResource(petitems.get(itemDragged).image);
+                    }
+                    waiting = false;
                     v.setVisibility(View.VISIBLE);//finally set Visibility to VISIBLE
 
                 }
@@ -196,6 +417,7 @@ can't find amounth of money/points
                 return true;
 
             default:
+
                 Log.e("DragDrop Example", "Unknown action type received by OnDragListener.");
                 break;
         }
@@ -207,10 +429,9 @@ can't find amounth of money/points
         if(AnimationPlaying == false) {
 
             //if() { if petting is < 3 in less then 10 minutes affection does'nt rise
-            affection++;
-            //}
 
-            Pet_def.setImageResource(R.drawable.pet_happy);
+
+            petExpression.setBackgroundResource(R.drawable.pet_petting);
 
             AnimationPlaying = true;
             new CountDownTimer(2000, 250) {
@@ -218,18 +439,26 @@ can't find amounth of money/points
 
                 public void onTick(long millisUntilFinished) {
                     if (Happy) {
-                        Pet_def.setImageResource(R.drawable.pet_happy);
+                        petExpression.setBackgroundResource(R.drawable.pet_petting1);
 
                         Happy = false;
                     } else {
-                        Pet_def.setImageResource(R.drawable.pet_happy2);
+                        petExpression.setBackgroundResource(R.drawable.pet_petting);
                         Happy = true;
                     }
                 }
 
                 public void onFinish() {
-                    Pet_def.setImageResource(R.drawable.pet_default);
+                    petExpression.setBackgroundResource(defaultSpriteId);
                     AnimationPlaying = false;
+
+                    affection += hunger/10;
+
+                    affection=Math.min(100,affection);
+                    db.setAffection((int)affection);
+                    waiting = false;
+
+
                 }
 
             }.start();
@@ -248,7 +477,7 @@ can't find amounth of money/points
             animation.setDuration(200);
             animation.start();
 
-            Backpack.setImageResource(R.drawable.backpack_open);
+            Backpack.setBackgroundResource(R.drawable.backpack_open);
             inventory.setVisibility(View.VISIBLE);
             Inv = true;
         }
@@ -258,7 +487,7 @@ can't find amounth of money/points
             animation.setDuration(200);
             animation.start();
 
-            Backpack.setImageResource(R.drawable.backpack_closed);
+            Backpack.setBackgroundResource(R.drawable.backpack_closed);
             inventory.setVisibility(View.INVISIBLE);
             Inv = false;}
     }
@@ -269,53 +498,46 @@ can't find amounth of money/points
 
         if(AnimationPlaying == false){
 
-        AnimationPlaying = true;
-        new CountDownTimer(1000, 250) {
+            AnimationPlaying = true;
+            new CountDownTimer(2000, 400) {
 
-            boolean Happy = true;
+                int frame = 0;
 
-            public void onTick(long millisUntilFinished) {
-                if (Happy) {
-                    Pet_def.setImageResource(R.drawable.pet_eat);
-                    Happy = false;
-                } else {
-                    Pet_def.setImageResource(R.drawable.pet_eat2);
-                    Happy = true;
+                public void onTick(long millisUntilFinished) {
+                    if (frame ==0) {
+                        petExpression.setBackgroundResource(R.drawable.pet_eat);
+                        frame++;
+                    } else if(frame==1) {
+                        petExpression.setBackgroundResource(R.drawable.pet_eat2);
+                        frame++;
+
+                    } else if(frame==2) {
+                        petExpression.setBackgroundResource(R.drawable.pet_eat3);
+                        frame++;
+
+                    } else if(frame==3) {
+                        petExpression.setBackgroundResource(R.drawable.pet_eat4);
+                        frame++;
+                    }
                 }
-            }
 
-            public void onFinish() {
-                new CountDownTimer(1000, 250) {
-                    boolean Happy = true;
-                    public void onTick(long millisUntilFinished) {
-
-                        if (Happy) {
-                            Pet_def.setImageResource(R.drawable.pet_eat3);
-                            Happy = false;
-                        } else {
-                            Pet_def.setImageResource(R.drawable.pet_eat4);
-                            Happy = true;
-                        }
-
-                    }
-                    public void onFinish(){
-                        Pet_def.setImageResource(R.drawable.pet_default);
-                        AnimationPlaying = false;
-                        showHealth();
-                    }
-                }.start();
-                //display.setText(Integer.toString(affection));
+                public void onFinish() {
 
 
+                    petExpression.setBackgroundResource(defaultSpriteId);
+                    AnimationPlaying = false;
+                    db.setHealth(hunger);
+                    waiting = false;
 
+                }
 
-            }
+            }.start();
 
-        }.start();
-
+        }
     }
-    }
-    //==============end of temporary test facility===============//
+
+
+
 
 
     public class BackpackAdapter extends RecyclerView.Adapter<BackpackAdapter.ItemViewHolder>{
@@ -336,9 +558,10 @@ can't find amounth of money/points
             System.out.println(petitem+"item");
             //System.out.println(petitem.name);
             //holder.nameHolder.setText(petitem.name);
-            holder.imageHolder.setImageResource(petitem.image);
+            holder.imageHolder.setBackgroundResource(petitem.image);
 
             holder.imageHolder.setTag(petitem.name + ""+ position);
+            holder.item = petitem;
             holder.imageHolder.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -363,14 +586,19 @@ can't find amounth of money/points
             return petitems.size();
         }
 
-        public class ItemViewHolder extends RecyclerView.ViewHolder{
+        public class ItemViewHolder extends RecyclerView.ViewHolder {
             ImageView imageHolder;
+            public Petitem item;
+
             //TextView nameHolder;
             public ItemViewHolder(View view) {
                 super(view);
                 imageHolder = view.findViewById(R.id.Picture);
+                this.item = item;
                 //nameHolder = view.findViewById(R.id.Name);
             }
+
+
         }
     }
 
@@ -382,11 +610,13 @@ can't find amounth of money/points
 
     public void toList(View view) {
         Intent i = new Intent(this, ListsActivity.class);
+        db.setPetName(petName.getText().toString());
         startActivity(i);
     }
 
     public void toTimer(View view) {
         Intent i = new Intent(this, TimerActivity.class);
+        db.setPetName(petName.getText().toString());
         startActivity(i);
     }
 /*
@@ -397,11 +627,13 @@ can't find amounth of money/points
 
     public void toShop(View view) {
         Intent i = new Intent(this, ShopActivity.class);
+        db.setPetName(petName.getText().toString());
         startActivity(i);
     }
 
     public void toRecord(View view) {
         Intent i = new Intent(this, RecordActivity.class);
+        db.setPetName(petName.getText().toString());
         startActivity(i);
     }
 

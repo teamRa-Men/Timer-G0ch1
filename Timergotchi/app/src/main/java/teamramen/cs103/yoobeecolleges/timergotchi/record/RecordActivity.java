@@ -4,13 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -20,8 +16,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 
@@ -38,13 +32,21 @@ import teamramen.cs103.yoobeecolleges.timergotchi.timer.TimerActivity;
 
 public class RecordActivity extends AppCompatActivity {
     TextView finCount, points,showMin,showMax;
-    TextView tasksLeft, timeSpent;
+    TextView tasksLeft, timeSpent, recordTasksDone;
     ArrayList<FinishedTask> finishedTasks;
     DatabaseHelper db;
     CalendarView minCalendar, maxCalendar;
     View minCalendarPopup, maxCalendarPopup;
     long minDate, maxDate;
     BarChart taskPlot;
+
+    int chartType = 0; //0=tasks done, 1= timespent
+    int[] taskCount = new int[0];
+    int[] timeData = new int[0];
+    double[] dateCount;
+    int maximumTask;
+    int maximumTime;
+    int totalTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class RecordActivity extends AppCompatActivity {
         finCount = findViewById(R.id.fincount);
         points = findViewById(R.id.recordpoints);
         tasksLeft = findViewById(R.id.leftcount);
+        recordTasksDone = findViewById(R.id.showmax);
+        timeSpent = findViewById(R.id.totaltime);
         //timeSpent = findViewById(R.id.timespent);
 
         db = new DatabaseHelper(this);
@@ -93,10 +97,12 @@ public class RecordActivity extends AppCompatActivity {
         Description description = new Description();
         description.setText("");
         taskPlot.setDescription(description);
-        taskPlot.setDrawValueAboveBar(false);
+        taskPlot.setDrawValueAboveBar(true);
+
 
         taskPlot.getLegend().setEnabled(false);
 
+        SetData();
         setCharts();
     }
 
@@ -112,6 +118,17 @@ public class RecordActivity extends AppCompatActivity {
     }
     public void onMaxOk(View view){
         maxCalendarPopup.setVisibility(View.INVISIBLE);
+        setCharts();
+    }
+
+    public void onSwitchChart(View view){
+        if(chartType == 0){
+            chartType = 1;
+        }
+        else {
+            chartType = 0;
+        }
+
         setCharts();
     }
 
@@ -137,18 +154,17 @@ public class RecordActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    void setCharts(){
-        taskPlot.setVisibility(View.VISIBLE);
+    void SetData(){
         finishedTasks = db.getFinished(minDate,maxDate);
 
         if(finishedTasks.size()>0) {
             int finished = 0;
             for (int i = 0; i < finishedTasks.size(); i++) {
-                //System.out.println(finishedTasks.get(i).name);
+                System.out.println(finishedTasks.get(i).name);
                 finished++;
             }
 
-
+            //show tasks left and tasks done
             String s = finished + "";
             if (finished == 1) {
                 s += " task done";
@@ -169,14 +185,19 @@ public class RecordActivity extends AppCompatActivity {
             points.setText(db.getPoints() + " ");
 
 
+            //tally task and time data
             double current = finishedTasks.get(0).dateTimeFinished;
             double last = finishedTasks.get(finishedTasks.size() - 1).timeFinished;
 
 
-            int timePeriod = (int) Math.round((last - current) / 8.64e7);
-            int[] taskCount = new int[timePeriod];
-            double[] dateCount = new double[timePeriod];
+            int timePeriod = (int) Math.round((last - current) / 8.64e7 + 1);
 
+            taskCount = new int[timePeriod];
+            timeData = new int[timePeriod];
+
+            dateCount = new double[timePeriod];
+
+            //get dates
             for (int i = 0; i < timePeriod; i++) {
                 dateCount[i] = current + i * 8.64e7;
             }
@@ -187,23 +208,50 @@ public class RecordActivity extends AppCompatActivity {
 
                     if (finishedTasks.get(j).dateEquals(new Date((long) dateCount[i]))) {
                         taskCount[i]++;
+                        timeData[i] += (int)(finishedTasks.get(j).timeSpent/1000); //tally time spent in minutes
                     }
                 }
             }
 
-            int maximum = 0;
+            maximumTask = 0;
+            maximumTime=0;
+            totalTime = 0;
 
             for (int i = 0; i < timePeriod; i++) {
-                if (taskCount[i] > maximum) {
-                    maximum = taskCount[i];
+                if (taskCount[i] > maximumTask) {
+                    maximumTask = taskCount[i];
                 }
+                if (timeData[i] > maximumTime) {
+                    maximumTime = timeData[i];
+                }
+                totalTime += timeData[i];
             }
+            recordTasksDone.setText("record: " +maximumTask+" done");
+            timeSpent.setText((totalTime/60) + " mins used");
+        }
+    }
 
+    void setCharts(){
+        TextView title = findViewById(R.id.charttitle);
+        if(chartType == 0){
+            title.setText("Tasks Done per Day");
+        }
+        else{
+            title.setText("Time Spent (min) per Day");
+        }
 
+        if(taskCount.length>0) {
+            taskPlot.setVisibility(View.VISIBLE);
             List<BarEntry> entries = new ArrayList<BarEntry>();
-            for (int i = 0; i < timePeriod; i++) {
+
+
+            for (int i = 0; i < taskCount.length; i++) {
                 Date d = new Date((long) dateCount[i]);
-                entries.add(new BarEntry(i, taskCount[i]));
+                if (chartType == 0) {
+                    entries.add(new BarEntry(i, taskCount[i]));
+                } else {
+                    entries.add(new BarEntry(i, (float)(timeData[i])/60));
+                }
             }
             //System.out.println(maximum + "max");
             BarDataSet set = new BarDataSet(entries, "BarDataSet");
@@ -217,22 +265,18 @@ public class RecordActivity extends AppCompatActivity {
             taskPlot.setFitBars(true);
 
 
-
-            final String[] labelString = new String[timePeriod];
-            for (int i = 0; i < timePeriod; i++) {
+            final String[] labelString = new String[taskCount.length];
+            for (int i = 0; i < taskCount.length; i++) {
                 Date d = new Date((long) dateCount[i]);
                 labelString[i] = d.getDate() + "/" + (d.getMonth() + 1);
             }
-
-
-
 
             ValueFormatter formatter = new ValueFormatter() {
 
                 public String getAxisLabel(float value, AxisBase axis) {
                     try {
                         return labelString[(int) value];
-                    }catch(Exception e){
+                    } catch (Exception e) {
                         return "";
                     }
                 }
@@ -242,13 +286,14 @@ public class RecordActivity extends AppCompatActivity {
             xAxis.setGranularity(1f);
             xAxis.setValueFormatter(formatter);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-            xAxis.setDrawGridLines(false);
+            xAxis.setDrawGridLines(true);
             xAxis.setDrawAxisLine(false);
 
+            taskPlot.getAxisLeft().setAxisMinimum(0);
             taskPlot.getAxisLeft().setGranularity(1);
-            taskPlot.getAxisLeft().setDrawGridLines(false);
+            taskPlot.getAxisLeft().setDrawGridLines(true);
             taskPlot.getAxisLeft().setDrawZeroLine(false);
-            taskPlot.getAxisLeft().setDrawAxisLine(false);
+            taskPlot.getAxisLeft().setDrawAxisLine(true);
 
             taskPlot.invalidate();
         }
@@ -256,6 +301,7 @@ public class RecordActivity extends AppCompatActivity {
             taskPlot.setVisibility(View.INVISIBLE);
         }
     }
+
 
 
     void setupMinCalendar() {

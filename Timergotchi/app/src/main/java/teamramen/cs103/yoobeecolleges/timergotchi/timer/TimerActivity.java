@@ -157,7 +157,7 @@ public class TimerActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 if(taskDoing != null && !mBreakRunning){
                     taskDoing.timeSpent+=mTimeLeftInMillis-millisUntilFinished+1;
-                    System.out.println(taskDoing.timeSpent+"");
+
                     taskDoing.update();
                 }
                 mTimeLeftInMillis = millisUntilFinished;

@@ -7,6 +7,7 @@ public class Petitem {
     public int health;
     public int affection;
     public int price;
+    public boolean using;
 
     //0 is food, 1 is accessory
     public int type;
@@ -19,5 +20,6 @@ public class Petitem {
         this.health = health;
         this.affection = affection;
         this.price = price;
+        using = false;
     }
 }

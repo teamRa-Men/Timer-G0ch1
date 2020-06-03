@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-        String query1 = "create table States(id integer primary key, points integer, affection float, health float, doingID int)";
+        String query1 = "create table States(id integer primary key, points integer, affection float, health float, doingID int, petName text,lastUpdate float,backMod int, frontMod int, wearing int)";
         String query2 = "create table Labels (id integer primary key, l text, l0 text,l1 text,l2 text,l3 text,l4 text,l5 text)";
         String query3 ="create table Backpack(id integer primary key, name text, image integer,type integer, health integer, affection integer)";
         String query4 = "create table FinishedTasks(id integer primary key, name text, date float, dd int, mm int , yyyy int, timeSpent float)";
@@ -363,26 +363,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int getHealth(){
+    public float getHealth(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("select * from 'States' ",null);
 
-        int health =0;
+        float health =0;
         while (c.moveToNext()) {
-            health = c.getInt(3);
+            health = c.getFloat(3);
         }
+        System.out.println(health + " health database");
         ////system.out.println(c.getCount()+"cursor");
         if(c.getCount()<1){
-            //////system.out.println("no entries");
+            System.out.println("no entries");
             ContentValues value = new ContentValues();
-            value.put("health", 100);
+            value.put("health", 100f);
             db.insert("States", null, value);
         }
 
         db.close();
         return  health;
     }
-    public void setHealth(int health){
+    public void setHealth(float health){
         ContentValues value = new ContentValues();
         value.put("health", health);
         SQLiteDatabase db = this.getWritableDatabase();
@@ -474,6 +475,98 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update("States", value, "id=?", new String[]{"" + 1});
         db.close();
         System.out.println(doing + "doing");
+    }
+
+    public String getPetName(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'States' ",null);
+
+        String name = "";
+        while (c.moveToNext()) {
+            name = c.getString(5);
+        }
+        ////system.out.println(c.getCount()+"cursor");
+        if(c.getCount()<1){
+            //////system.out.println("no entries");
+            ContentValues value = new ContentValues();
+            value.put("petName", 5);
+
+            db.insert("States", null, value);
+        }
+
+        db.close();
+        return  name;
+    }
+
+    public void setPetName(String name){
+        ContentValues value = new ContentValues();
+        value.put("petName", name);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("States", value, "id=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    public float getLastUpdate(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'States' ",null);
+
+        float lastUpdate = 0;
+        while (c.moveToNext()) {
+            lastUpdate = c.getFloat(6);
+        }
+        ////system.out.println(c.getCount()+"cursor");
+        if(c.getCount()<1){
+            System.out.println("no time update entries");
+            ContentValues value = new ContentValues();
+            value.put("lastUpdate",0);
+
+            db.insert("States", null, value);
+        }
+
+        db.close();
+        return  lastUpdate;
+    }
+
+    public void setLastUpdate(float updateTime){
+        ContentValues value = new ContentValues();
+        value.put("lastUpdate", updateTime);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("States", value, "id=?", new String[]{"" + 1});
+        db.close();
+    }
+
+    public int[] getPetMod(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("select * from 'States' ",null);
+
+        int[] mods = new int[]{0,0,0};
+        while (c.moveToNext()) {
+            mods[0] = c.getInt(7);
+            mods[1] = c.getInt(8);
+            mods[2] = c.getInt(9);
+        }
+        ////system.out.println(c.getCount()+"cursor");
+        if(c.getCount()<1){
+            ContentValues value = new ContentValues();
+            value.put("backMod",0);
+            value.put("frontMod",0);
+            value.put("wearing",0);
+
+            db.insert("States", null, value);
+        }
+
+        db.close();
+        return  mods;
+    }
+
+    public void setPetMod(int[] mods){
+        ContentValues value = new ContentValues();
+        value.put("backMod", mods[0]);
+        value.put("frontMod", mods[1]);
+        value.put("wearing", mods[2]);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("States", value, "id=?", new String[]{"" + 1});
+        db.close();
     }
 
     //*********************************************************************************************//

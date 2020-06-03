@@ -80,14 +80,11 @@
     <ListView
         android:id="@+id/Shoplist"
         android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="657dp"
+        android:layout_height="0dp"
         android:background="@color/colorPrimaryLight"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pointsbackground6"
         app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout
@@ -159,15 +156,52 @@
     </FrameLayout>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/shopModBack"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/shopPetBody"
+        app:layout_constraintEnd_toEndOf="@+id/shopPetBody"
+        app:layout_constraintStart_toStartOf="@+id/shopPetBody"
+        app:layout_constraintTop_toTopOf="@+id/shopPetBody" />
+
+    <ImageView
+        android:id="@+id/shopPetBody"
+        android:layout_width="213dp"
+        android:layout_height="200dp"
+        android:background="@drawable/pet_body"
         app:layout_constraintBottom_toTopOf="@+id/itemdescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toEndOf="@+id/Shoplist"
-        app:layout_constraintTop_toBottomOf="@+id/pointsbackground6"
-        app:srcCompat="@drawable/pet_default" />
+        app:layout_constraintTop_toBottomOf="@+id/pointsbackground6" />
+
+    <ImageView
+        android:id="@+id/shopPetExpression"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/pet_default"
+        app:layout_constraintBottom_toBottomOf="@+id/shopPetBody"
+        app:layout_constraintEnd_toEndOf="@+id/shopPetBody"
+        app:layout_constraintStart_toStartOf="@+id/shopPetBody"
+        app:layout_constraintTop_toTopOf="@+id/shopPetBody" />
+
+    <ImageView
+        android:id="@+id/shopModFront"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/shopPetBody"
+        app:layout_constraintEnd_toEndOf="@+id/shopPetBody"
+        app:layout_constraintStart_toStartOf="@+id/shopPetBody"
+        app:layout_constraintTop_toTopOf="@+id/shopPetBody" />
+
+    <ImageView
+        android:id="@+id/shopWear"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/shopPetBody"
+        app:layout_constraintEnd_toEndOf="@+id/shopPetBody"
+        app:layout_constraintStart_toStartOf="@+id/shopPetBody"
+        app:layout_constraintTop_toTopOf="@+id/shopPetBody" />
 
     <TextView
         android:id="@+id/textView3"
