@@ -170,7 +170,7 @@ can't find amounth of money/points
                 //System.out.println("tick");
                 time+=100;
                 if(!AnimationPlaying){
-                    height = (int)(petHeight+3*(1+Math.sin(6*Math.PI*time/3000+Math.PI)));
+                    height = (int)(petHeight+3*(1+Math.sin(4*Math.PI*time/3000+Math.PI)));
                     ViewGroup.LayoutParams params = petBase.getLayoutParams();
 
                     params.height = height;

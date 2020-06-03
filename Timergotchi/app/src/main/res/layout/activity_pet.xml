@@ -292,7 +292,7 @@
         android:layout_width="213dp"
         android:layout_height="200dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/inventory"
+        app:layout_constraintBottom_toTopOf="@+id/Backpack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
