@@ -31,9 +31,9 @@ public class ShopActivity extends AppCompatActivity {
 
 
     String namelist[] = {"Mushroom", "Wings", "Horn","Elixer","Collar","Flower"};
-    int affection[] = {0,0,0,0,0,0};
-    int health[] = {10,0,0,100,0,0};
-    int price[] = {0, 0,0,0,0,0};
+    int affection[] = {2,0,0,100,0,0};
+    int health[] = {5,0,0,100,0,0};
+    int price[] = {10,100,200,200,100,10};
     int shop_images[] ={R.drawable.food_mushroom, R.drawable.pet_wings,R.drawable.pet_horn,R.drawable.potion, R.drawable.pet_collar,R.drawable.pet_flower};
     String description[] = new String[]{"A common red Mushroom, tastes kinda icky. \n\n +0 Happiness \n +10 Food ","Grow wings","Grow a horn","Restores full health for demo", "Wear a collar", "Wear a flower"};
     int type[] = {0,1,2,0,3,3};

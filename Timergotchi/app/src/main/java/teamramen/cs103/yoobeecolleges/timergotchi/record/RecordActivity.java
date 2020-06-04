@@ -397,4 +397,7 @@ public class RecordActivity extends AppCompatActivity {
         }
         return  s;
     }
+    public void clearData(View view){
+        db.clearAll();
+    }
 }

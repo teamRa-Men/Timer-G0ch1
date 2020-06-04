@@ -376,7 +376,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(c.getCount()<1){
             System.out.println("no entries");
             ContentValues value = new ContentValues();
-            value.put("health", 100f);
+            value.put("health", 60f);
             db.insert("States", null, value);
         }
 
@@ -403,7 +403,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(c.getCount()<1){
             //////system.out.println("no entries");
             ContentValues value = new ContentValues();
-            value.put("affection", 50);
+            value.put("affection", 10);
             db.insert("States", null, value);
         }
 
@@ -592,7 +592,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int health = c.getInt(4);
             int affection = c.getInt(5);
 
-            backpack.add(new Petitem(name,image,type,id,health,affection,0));
+            backpack.add (0,new Petitem(name,image,type,id,health,affection,0));
 
             i++;
 

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,6 +75,10 @@ can't find amounth of money/points
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
         setContentView(R.layout.activity_pet);
         petBase = findViewById(R.id.pet_base);
         petExpression = findViewById(R.id.pet_expression);
@@ -140,9 +145,6 @@ can't find amounth of money/points
 
 
         maxhungerbarWidth = (int)(screenwidth*0.49f);
-        hunger = 100;
-
-
 
         petName = findViewById(R.id.petname);
         petName.setText(db.getPetName());
@@ -199,12 +201,12 @@ can't find amounth of money/points
         }
         else {
             System.out.println("wtf");
-            hunger = 100;
+            hunger = 10;
         }
 
         db.setHealth(hunger);
 
-        float happyRate = (100-hunger)/100;
+        float happyRate = (100-hunger)/10;
 
 
         if(lastUpdateTime>0) {
@@ -215,7 +217,7 @@ can't find amounth of money/points
         }
         else {
             System.out.println("wtf");
-            affection = 50;
+            affection = 10;
         }
         db.setAffection((int)affection);
 
@@ -434,7 +436,7 @@ can't find amounth of money/points
             petExpression.setBackgroundResource(R.drawable.pet_petting);
 
             AnimationPlaying = true;
-            new CountDownTimer(2000, 250) {
+            new CountDownTimer(2000, 400) {
                 boolean Happy = true;
 
                 public void onTick(long millisUntilFinished) {
@@ -452,9 +454,13 @@ can't find amounth of money/points
                     petExpression.setBackgroundResource(defaultSpriteId);
                     AnimationPlaying = false;
 
-                    affection += hunger/10;
-
+                    //affection += hunger/10;
+                    affection+=10;
                     affection=Math.min(100,affection);
+                    waiting = false;
+                    update();
+
+
                     db.setAffection((int)affection);
                     waiting = false;
 
@@ -528,7 +534,7 @@ can't find amounth of money/points
                     AnimationPlaying = false;
                     db.setHealth(hunger);
                     waiting = false;
-
+                    update();
                 }
 
             }.start();
