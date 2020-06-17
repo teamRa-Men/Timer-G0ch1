@@ -217,9 +217,9 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
+
                     app:layout_constraintEnd_toStartOf="@+id/editname"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
                     app:layout_constraintTop_toTopOf="@+id/editname" />
 
                 <ImageView
@@ -228,7 +228,7 @@
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
                     app:layout_constraintEnd_toStartOf="@+id/editname"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
                     app:layout_constraintTop_toTopOf="@+id/repeatbar" />
 
                 <ImageView
@@ -286,7 +286,7 @@
                     android:visibility="invisible"
                     app:layout_constraintBottom_toTopOf="@+id/dueDate"
                     app:layout_constraintEnd_toStartOf="@+id/dueDate"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
                     app:layout_constraintTop_toTopOf="@+id/dueTime" />
 
                 <ImageView
@@ -346,7 +346,7 @@
                     android:background="@drawable/task_bar_end_left"
                     app:layout_constraintBottom_toBottomOf="@+id/dueDate"
                     app:layout_constraintEnd_toStartOf="@+id/dueDate"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
                     app:layout_constraintTop_toTopOf="@+id/dueDate" />
 
                 <ImageView
@@ -679,8 +679,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label"
                     app:layout_constraintTop_toTopOf="@+id/label" />
 
                 <EditText
@@ -752,8 +752,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label0"
                     app:layout_constraintTop_toTopOf="@+id/label0" />
 
                 <EditText
@@ -824,8 +824,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label1"
                     app:layout_constraintTop_toTopOf="@+id/label1" />
 
                 <EditText
@@ -896,8 +896,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label2"
                     app:layout_constraintTop_toTopOf="@+id/label2" />
 
                 <EditText
@@ -967,8 +967,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label3"
                     app:layout_constraintTop_toTopOf="@+id/label3" />
 
                 <EditText
@@ -1068,8 +1068,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label4"
                     app:layout_constraintTop_toTopOf="@+id/label4" />
 
                 <EditText
@@ -1111,8 +1111,8 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/task_bar_end_left"
-                    app:layout_constraintBottom_toBottomOf="@+id/donebutton"
-                    app:layout_constraintStart_toStartOf="@+id/donebutton"
+
+                    app:layout_constraintEnd_toStartOf="@+id/label5"
                     app:layout_constraintTop_toTopOf="@+id/label5" />
 
                 <EditText

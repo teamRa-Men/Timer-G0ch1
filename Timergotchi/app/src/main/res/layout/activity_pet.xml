@@ -16,7 +16,8 @@
         android:layout_height="0dp"
         android:background="@drawable/task_bar_end_left"
         app:layout_constraintBottom_toBottomOf="@+id/showpet"
-        app:layout_constraintEnd_toStartOf="@+id/taskDoing"
+
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/showpet" />
 
     <TextView
@@ -52,7 +53,7 @@
         android:background="@drawable/task_bar_end_right"
         app:layout_constraintBottom_toBottomOf="@+id/showpet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/taskDoing"
+
         app:layout_constraintTop_toTopOf="@+id/showpet" />
 
     <ImageView
